@@ -180,7 +180,7 @@
             "id": "0e25f079-25dc-4baf-8e9c-42cfb6177613",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Move",
                     "type": "Button",
                     "id": "9fe6c4d8-5b92-4118-9aaa-e4366761329a",
                     "expectedControlType": "Button",
@@ -197,7 +197,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

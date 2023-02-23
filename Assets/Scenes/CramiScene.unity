@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 1639891337}
   - component: {fileID: 1639891342}
   - component: {fileID: 1639891341}
+  - component: {fileID: 1639891343}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -468,6 +469,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc16a7d2960dc8a47b7b2c81fb1663d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1639891343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639891336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be963ea3adceef4c924e22ef3d4ed28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1745666350
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,9 +526,9 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 478391e6-9194-4886-9d65-48f3c927fd2b
+  m_DefaultActionMap: IngameMap
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 99728591}
 --- !u!4 &1745666352
 Transform:
   m_ObjectHideFlags: 0
@@ -543,6 +556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5c318d8f6519b4dab27a7d99e77764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingameMovementAction: {fileID: 0}
-  ingameJumpAction: {fileID: 0}
-  menuMoveAction: {fileID: 0}
+  ingameMovementAction: {fileID: -6896390049997968043, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
+  ingameJumpAction: {fileID: -2411879173573349129, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
+  menuMoveAction: {fileID: 4565061864446369632, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
