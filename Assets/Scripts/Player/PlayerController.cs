@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,11 +10,12 @@ public class PlayerController : MonoBehaviour
 
 
     //Aqui crearemos las variables de todos los scritps del player
-    [HideInInspector]
-    public PlayerInput playerInput;
-    [HideInInspector]
-    public PlayerMovementController movementController;
+    private PlayerInput playerInput;
+    private PlayerMovementController movementController;
 
+    //Variable para acceder a los demas scripts
+    public PlayerInput _playerInput => playerInput;
+    public PlayerMovementController _movementController => movementController;
     
 
     // Start is called before the first frame update
@@ -36,13 +38,20 @@ public class PlayerController : MonoBehaviour
 
     private void StatesFunctions() 
     {
+        //Aqui segun el estado que este el player haremos una cosa u otra
         switch (playerState)
         {
             case PlayerStates.NONE:
-                break;
             case PlayerStates.MOVING:
+                movementController.CheckGrounded();
+                CheckMovementStates();
+                movementController.MovePlayer();
                 break;
             case PlayerStates.AIR:
+                movementController.CheckGrounded();
+                CheckMovementStates();
+
+
                 break;
             case PlayerStates.HOOK:
                 break;
@@ -55,5 +64,26 @@ public class PlayerController : MonoBehaviour
         
     }
 
+
+    private void CheckMovementStates()
+    {
+        if (movementController._isGrounded)
+        {
+            //Si esta en el suelo
+            if (playerInput._playerMovement != 0)
+            {
+                playerState = PlayerStates.MOVING;
+            }
+            else
+            {
+                playerState = PlayerStates.NONE;
+            }
+        }
+        else
+        {
+            //Si esta en el aire
+            playerState = PlayerStates.AIR;
+        }
+    }
 
 }
