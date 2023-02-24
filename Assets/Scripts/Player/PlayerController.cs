@@ -9,7 +9,10 @@ public class PlayerController : MonoBehaviour
 
 
     //Aqui crearemos las variables de todos los scritps del player
-    private PlayerInput playerInput;
+    [HideInInspector]
+    public PlayerInput playerInput;
+    [HideInInspector]
+    public PlayerMovementController movementController;
 
     
 
@@ -22,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private void AllGetComponents() 
     {
         playerInput = GetComponent<PlayerInput>();
-
+        movementController = GetComponent<PlayerMovementController>();
     }
 
     // Update is called once per frame
