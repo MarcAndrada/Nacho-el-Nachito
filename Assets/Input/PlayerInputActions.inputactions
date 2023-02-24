@@ -120,8 +120,8 @@
                 },
                 {
                     "name": "",
-                    "id": "19a97e70-8354-4bca-8b69-413b0ae15eb8",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "af995625-7bc3-413d-9c7a-30a73ddf5fed",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -131,8 +131,8 @@
                 },
                 {
                     "name": "",
-                    "id": "af995625-7bc3-413d-9c7a-30a73ddf5fed",
-                    "path": "<Keyboard>/space",
+                    "id": "19a97e70-8354-4bca-8b69-413b0ae15eb8",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -180,7 +180,7 @@
             "id": "0e25f079-25dc-4baf-8e9c-42cfb6177613",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Move",
                     "type": "Button",
                     "id": "9fe6c4d8-5b92-4118-9aaa-e4366761329a",
                     "expectedControlType": "Button",
@@ -197,7 +197,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
