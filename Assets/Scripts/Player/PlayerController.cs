@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public enum PlayerStates {NONE, MOVING, AIR, HOOK, DEAD };
     public PlayerStates playerState;
 
+    
+
 
     //Aqui crearemos las variables de todos los scritps del player
     private PlayerInput playerInput;
@@ -85,5 +87,5 @@ public class PlayerController : MonoBehaviour
             playerState = PlayerStates.AIR;
         }
     }
-
+    
 }

@@ -25,16 +25,21 @@ public class PlayerMovementController : MonoBehaviour
     private float checkFloorDistance;
     private LayerMask floorLayer;
 
+    [SerializeField]
+    private float jumpSpeed;
+    private float jumpAcceleration;
 
 
     private PlayerController playerController;
     private Rigidbody2D rb2d;
     private CapsuleCollider2D capsuleCollider;
+    private SpriteRenderer spriteRenderer;
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
         rb2d = GetComponent<Rigidbody2D>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         floorLayer = LayerMask.GetMask("Floor");
     }
@@ -45,6 +50,7 @@ public class PlayerMovementController : MonoBehaviour
         CheckOnRamp();
         CheckAcceleration();
         rb2d.velocity = moveDir * moveSpeed * acceleration;
+        FlipCharacter();
     }
 
     private void CheckOnRamp() 
@@ -133,12 +139,17 @@ public class PlayerMovementController : MonoBehaviour
             hit = DoRaycast(transform.position - new Vector3(-capsuleCollider.size.x / 2, capsuleCollider.size.y / 2), Vector2.down, 0.25f, floorLayer);
             if (hit)
             {
-                _actuallyGrounded |= true;
+                _actuallyGrounded = true;
             }
             else
             {
                 //Y para acabar si no ha detectado suelo en la izquierda lo lanzaremos a la derecha
                 hit = DoRaycast(transform.position - new Vector3(capsuleCollider.size.x / 2, capsuleCollider.size.y / 2), Vector2.down, 0.25f, floorLayer);
+                
+                if (hit)
+                {
+                    _actuallyGrounded = true;
+                }
 
             }
         }
@@ -149,6 +160,17 @@ public class PlayerMovementController : MonoBehaviour
         isGrounded = _actuallyGrounded;
     }
 
+    private void FlipCharacter()
+    {
+        if (playerController._playerInput._playerMovement > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (playerController._playerInput._playerMovement < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+    }
 
     private RaycastHit2D DoRaycast(Vector2 _pos, Vector2 _dir, float _distance, LayerMask _layer)
     {
@@ -162,6 +184,12 @@ public class PlayerMovementController : MonoBehaviour
 
 
         return _hit[0];
+    }
+
+
+    public void Jump() 
+    {
+        rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y);
     }
 
 }
