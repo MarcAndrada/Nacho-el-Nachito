@@ -46,12 +46,19 @@ public class PlayerController : MonoBehaviour
             case PlayerStates.NONE:
             case PlayerStates.MOVING:
                 movementController.CheckGrounded();
-                CheckMovementStates();
-                movementController.MovePlayer();
+                //CheckMovementStates();
+                movementController.FloorMovement();
+                movementController.CheckJumping();
+                movementController.ApplyForces();
                 break;
             case PlayerStates.AIR:
-                movementController.CheckGrounded();
-                CheckMovementStates();
+                //movementController.RestMovementValues();
+                //movementController.CheckGrounded();
+                ////CheckMovementStates();
+                //movementController.CheckJumping();
+                //movementController.FloorMovement();
+                movementController.CheckIfStuckInAir();
+                //movementController.ApplyForces();
 
 
                 break;
