@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Start()
     {
-        InputManager._instance.ingameJumpAction.action.started += JumpAction; //Asignamos la funcion que se llamara al ser mantenido el boton de salto
+        InputManager._instance.ingameJumpAction.action.started += JumpAction; //Asignamos la funcion que se llamara pulsar el boton de salto
         InputManager._instance.ingameJumpAction.action.canceled += StopJump; //Al dejar de apretar el boton de saltar dejara de saltar
         InputManager._instance.ingameMovementAction.action.performed += MoveAction; //Mientras el input de ataque este activo se llamara a la funcion para guardarse el valor
         InputManager._instance.ingameMovementAction.action.canceled += MoveAction; 

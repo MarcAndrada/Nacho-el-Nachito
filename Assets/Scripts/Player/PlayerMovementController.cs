@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour
 {
     [Header("Movement Var")]
-    [SerializeField]
-    private float moveSpeed;
-    [SerializeField]
-    private float accelSpeed;
-    [SerializeField]
-    private float dragSpeed;
+    [SerializeField, Tooltip("Velocidad en la que se mueve el player")]
+    private float moveSpeed; 
+    [SerializeField, Tooltip("Acceleracion del player en el suelo")]
+    private float floorAccelSpeed;
+    [SerializeField, Tooltip("Friccion del player en el suelo")]
+    private float floorDragSpeed;
 
     private Vector2 moveDir;
     private float acceleration;
@@ -18,29 +18,38 @@ public class PlayerMovementController : MonoBehaviour
     private float lastDir; //Aqui guardaremos la direccion donde nos indica el ultimo input al que le hemos dado para que cuando este a 0 tener la direccion
 
     [Header("Grounded Var")]
-    [SerializeField]
+    [SerializeField, Tooltip("Nos dice si estamos o no en el suelo")]
     private bool isGrounded;
     public bool _isGrounded => isGrounded;
-    [SerializeField]
+    [SerializeField, Tooltip("El Rango de los rayos que se usan para comprobar el suelo")]
     private float checkFloorRange;
-    [SerializeField]
+    [SerializeField, Tooltip("Layer del suelo donde chocaran los rayos del movimiento")]
     private LayerMask floorLayer;
-    [SerializeField]
+    [SerializeField, Tooltip("Nos dice si podemos hacer el coyote time o no")]
     private bool canCoyote;
-    [SerializeField]
+    [SerializeField, Tooltip("Tiempo de margen que tendremos para usar el coyote time")]
     private float coyoteTime;
     private float coyoteWaited;
 
-    [Header("Air Movement Var")]
+    [Header("Air Movement Var"), SerializeField]
+    private float airAccelSpeed;
     [SerializeField]
+    private float airDragSpeed;
+    private float minAirSpeed = 0.05f;
+
+
+    [Header("Jump Var"), SerializeField, Tooltip("Velocidad del salto")]
     private float jumpSpeed;
     private bool canJump = true;
-    [SerializeField]
+    [SerializeField, Tooltip("Tiempo maximo de duracion del salto (cuanto mas alto mas durara el salto y mas alto saltara)")]
     private float timeJumping;
     private float timeWaitedJumping = 0;
     private bool jumpInputPerformed = false;
-    [SerializeField]
+    
+    [Header("Slope Var"), SerializeField, Tooltip("Esto comprueba si encontramos un escalon que el personaje pueda llegar a pasar por encima sin que tenga que saltar")]
     private float slopeOffset;
+    [SerializeField, Tooltip("La cantidad de divisiones que hara de la colision para sacar los puntos donde comprueba posicion de los rayos para el Slope")]
+    private float slopeCapsuleDiv;
 
     private Vector2 movementForces;
 
@@ -73,6 +82,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         CheckOnRamp();
         CheckAcceleration();
+        ApplyFloorAcceleration();
         FlipCharacter();
         movementForces = moveDir * moveSpeed * acceleration;
 
@@ -127,20 +137,20 @@ public class PlayerMovementController : MonoBehaviour
             accelerating = true;
         }
 
-        ApplyAcceleration();
 
     }
-    private void ApplyAcceleration()
+    private void ApplyFloorAcceleration()
     {
+
         if (accelerating)
         {
             //En caso de estar acelerando iremos sumando a la aceleracion la accelSpeed para que acelere poco a poco
-            acceleration += Time.deltaTime * accelSpeed;
+            acceleration += Time.deltaTime * floorAccelSpeed;
         }
         else
         {
             //En caso de no estar dandole a ningun input de movimiento le restaremos a variable de dragSpeed para frenar poco a poco el player
-            acceleration -= Time.deltaTime * dragSpeed;
+            acceleration -= Time.deltaTime * floorDragSpeed;
         }
         //Hacemos un clamp para que no pase de 0 o 1 
         acceleration = Mathf.Clamp01(acceleration);
@@ -226,6 +236,44 @@ public class PlayerMovementController : MonoBehaviour
 
 
     #region Air Movement Functions
+
+    public void AirMovement()
+    {
+        CheckAcceleration();
+        ApplyAirAcceleration();
+        FlipCharacter();
+        movementForces = moveDir * moveSpeed * acceleration;
+
+    }
+
+    private void ApplyAirAcceleration()
+    {
+        //Decimos que la direccion a la que va a moverse sea la direccion en la que estamos moviendonos
+        if (playerController._playerInput._playerMovement != 0)
+        {
+            moveDir = Vector2.right * playerController._playerInput._playerMovement;
+            lastDir = playerController._playerInput._playerMovement;
+
+        }
+        else
+        {
+            moveDir = Vector2.right * lastDir;
+        }
+
+        if (accelerating)
+        {
+            //En caso de estar acelerando iremos sumando a la aceleracion la accelSpeed para que acelere poco a poco
+            acceleration += airAccelSpeed * Time.deltaTime;
+
+        }
+        else
+        {
+            acceleration -= airDragSpeed * Time.deltaTime;
+        }
+        acceleration = Mathf.Clamp01(acceleration);
+
+    }
+
     public void JumpInputPressed() 
     {
         jumpInputPerformed = true;
@@ -261,16 +309,20 @@ public class PlayerMovementController : MonoBehaviour
 
     }
 
-    public void CheckIfStuckInAir() 
+
+    #endregion
+
+    public void CheckSlope()
     {
         //En esta funcion comprobamos si esta atascado en medio del aire
-        Vector3 posRay = transform.position + new Vector3(capsuleCollider.size.x / 2, (-capsuleCollider.size.y / 6) * 2);
+        Vector3 posOffset = Vector2.right * checkFloorRange / 2 * playerController._playerInput._playerMovement;
+        Vector3 posRay = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, (-capsuleCollider.size.y / slopeCapsuleDiv) * 2) - posOffset;
         Vector2 rayDir = Vector2.right * playerController._playerInput._playerMovement;
         RaycastHit2D hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
 
         if (hit)
         {
-            posRay = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, -capsuleCollider.size.y / 6);
+            posRay = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, -capsuleCollider.size.y / slopeCapsuleDiv) - posOffset;
             hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
             if (!hit)
             {
@@ -280,9 +332,6 @@ public class PlayerMovementController : MonoBehaviour
         }
 
     }
-
-    #endregion
-
 
     private RaycastHit2D DoRaycast(Vector2 _pos, Vector2 _dir, float _distance, LayerMask _layer)
     {
@@ -299,9 +348,9 @@ public class PlayerMovementController : MonoBehaviour
     private void OnDrawGizmos()
     {
         //Dibujamos los rayos con unos gizmos para comprobar cual es la variable mas optima para que quede un buen resultado
-        Gizmos.color = Color.magenta;
         if (capsuleCollider != null)
         {
+            Gizmos.color = Color.magenta;
             Vector2 spawnPos;
             Vector3 posOffset = Vector3.up * checkFloorRange / 2;
             spawnPos = transform.position - new Vector3(0, capsuleCollider.size.y / 2) + posOffset;
@@ -310,6 +359,16 @@ public class PlayerMovementController : MonoBehaviour
             Gizmos.DrawLine(spawnPos, spawnPos + Vector2.down * checkFloorRange);
             spawnPos = transform.position - new Vector3(capsuleCollider.size.x / 2, capsuleCollider.size.y / 2) + posOffset;
             Gizmos.DrawLine(spawnPos, spawnPos + Vector2.down * checkFloorRange);
+
+
+            Gizmos.color = Color.blue;
+            Vector2 endDir = Vector2.right * playerController._playerInput._playerMovement;
+            posOffset = Vector2.right * checkFloorRange / 2 * playerController._playerInput._playerMovement;
+            spawnPos = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, (-capsuleCollider.size.y / slopeCapsuleDiv) * 2) - posOffset;
+            Gizmos.DrawLine(spawnPos, spawnPos + endDir * checkFloorRange);
+            spawnPos = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, -capsuleCollider.size.y / slopeCapsuleDiv) - posOffset;
+            Gizmos.DrawLine(spawnPos, spawnPos + endDir * checkFloorRange);
+
         }
         
     }
