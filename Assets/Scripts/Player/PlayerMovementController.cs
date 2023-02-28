@@ -32,11 +32,13 @@ public class PlayerMovementController : MonoBehaviour
     private float coyoteWaited;
 
     [Header("Air Movement Var"), SerializeField]
+    private float airMoveSpeed; 
+    private float airAcceleration;
+    [SerializeField]
     private float airAccelSpeed;
     [SerializeField]
     private float airDragSpeed;
-    private float minAirSpeed = 0.05f;
-
+    private float minAirSpeed = 0.15f;
 
     [Header("Jump Var"), SerializeField, Tooltip("Velocidad del salto")]
     private float jumpSpeed;
@@ -195,6 +197,22 @@ public class PlayerMovementController : MonoBehaviour
             }
         }
 
+
+        if (isGrounded != _actuallyGrounded)
+        {
+            if (_actuallyGrounded)
+            {
+                FirstTimeOnFloor();
+            }
+            else
+            {
+                FirstTimeOnAir();
+            }
+        }
+
+
+
+
         isGrounded = _actuallyGrounded;
 
         if (_actuallyGrounded)
@@ -232,6 +250,12 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
+    private void FirstTimeOnFloor()
+    {
+        //Cuando estemos por primera vez en el suelo adaptamos la variable de aceleracion para que no haga cambios bruscos de velocidad al cambiar de estado
+        acceleration = Mathf.Abs(airAcceleration);
+        airAcceleration = 0;
+    }
     #endregion
 
 
@@ -242,43 +266,98 @@ public class PlayerMovementController : MonoBehaviour
         CheckAcceleration();
         ApplyAirAcceleration();
         FlipCharacter();
-        movementForces = moveDir * moveSpeed * acceleration;
+        movementForces = new Vector2(airAcceleration * airMoveSpeed, 0);
 
     }
 
     private void ApplyAirAcceleration()
     {
         //Decimos que la direccion a la que va a moverse sea la direccion en la que estamos moviendonos
-        if (playerController._playerInput._playerMovement != 0)
+        if (accelerating)
         {
+            if (playerController._playerInput._playerMovement > 0)
+            {
+                //En caso de estar moviendonos hacia la derecha, sumaremos a la variale air Acceleration
+                airAcceleration += airAccelSpeed * Time.deltaTime;
+            }
+            else if (playerController._playerInput._playerMovement < 0)
+            {
+                //En caso de estar moviendonos hacia la derecha, restaremos a la variale air Acceleration
+                airAcceleration -= airAccelSpeed * Time.deltaTime;
+            }
+
+            //Miramos la direccion en la que nos movemos
             moveDir = Vector2.right * playerController._playerInput._playerMovement;
             lastDir = playerController._playerInput._playerMovement;
-
+            
         }
         else
         {
             moveDir = Vector2.right * lastDir;
+            if (airAcceleration > minAirSpeed)
+            {
+                airAcceleration -= airDragSpeed * Time.deltaTime;
+            }
+            else if(airAcceleration < -minAirSpeed)
+            {
+                airAcceleration += airDragSpeed * Time.deltaTime;
+            }
+            else
+            {
+                airAcceleration = 0;
+            }
         }
 
-        if (accelerating)
-        {
-            //En caso de estar acelerando iremos sumando a la aceleracion la accelSpeed para que acelere poco a poco
-            acceleration += airAccelSpeed * Time.deltaTime;
-
-        }
-        else
-        {
-            acceleration -= airDragSpeed * Time.deltaTime;
-        }
-        acceleration = Mathf.Clamp01(acceleration);
+        airAcceleration = Mathf.Clamp(airAcceleration, -1, 1);
 
     }
 
     public void JumpInputPressed() 
     {
+        
+        if (isGrounded || canCoyote)
+        {
+            StartJump();
+        }
+        else
+        {
+            Vector3 spawnPosRay;
+            Vector3 spawnPosOfset = Vector3.up * checkFloorRange / 2;
+            RaycastHit2D hit;
+            spawnPosRay = transform.position - new Vector3(0, capsuleCollider.size.y / 2) + spawnPosOfset;
+            hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange * 2, floorLayer);
+            if (hit)
+            {
+                StartJump();
+            }
+            else
+            {
+                spawnPosRay = transform.position - new Vector3(-capsuleCollider.size.x / 2, capsuleCollider.size.y / 2) + spawnPosOfset;
+                hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange * 2, floorLayer);
+
+                if (hit)
+                {
+                    StartJump();
+                }
+                else
+                {
+                    spawnPosRay = transform.position - new Vector3(capsuleCollider.size.x / 2, capsuleCollider.size.y / 2) + spawnPosOfset;
+                    hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange * 2, floorLayer);
+                    if (hit)
+                    {
+                        StartJump();
+                    }
+                }
+            }
+        }
+    }
+
+    private void StartJump()
+    {
         jumpInputPerformed = true;
         canCoyote = false;
     }
+
     public void CheckJumping() 
     {
         if (jumpInputPerformed && canJump)
@@ -309,6 +388,12 @@ public class PlayerMovementController : MonoBehaviour
 
     }
 
+    private void FirstTimeOnAir()
+    {
+        //Cuando estemos por primera vez en el aire adaptamos la variable de aceleracion en el aire para que no haga cambios bruscos de velocidad al cambiar de estado
+        airAcceleration = acceleration * playerController._playerInput._playerMovement;
+        acceleration = 0;
+    }
 
     #endregion
 

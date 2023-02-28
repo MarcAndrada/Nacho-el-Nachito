@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         AllGetComponents();
+
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void AllGetComponents() 
