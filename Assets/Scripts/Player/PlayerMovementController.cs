@@ -351,6 +351,10 @@ public class PlayerMovementController : MonoBehaviour
             }
         }
     }
+    public void JumpInputUnPressed()
+    {
+        StopJump();
+    }
 
     private void StartJump()
     {

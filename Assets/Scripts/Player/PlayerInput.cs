@@ -40,6 +40,6 @@ public class PlayerInput : MonoBehaviour
 
     private void StopJump(InputAction.CallbackContext obj)
     {
-        playerController._movementController.StopJump();
+        playerController._movementController.JumpInputUnPressed();
     }
 }
