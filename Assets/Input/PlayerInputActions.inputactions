@@ -36,7 +36,7 @@
                     "name": "AimHook",
                     "type": "Value",
                     "id": "0bce6c0c-fad2-4d02-9515-12a8ac60dbe9",
-                    "expectedControlType": "Stick",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 18
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -1832,7 +1832,7 @@ TextureImporter:
     nameFileIdTable:
       rock_packed_59: 1316062234
       rock_packed_76: 756945886
-      rock_packed_70: 1785732840
+      rock_packed_30: 1900227464
       rock_packed_22: -1019833245
       rock_packed_12: -365908724
       rock_packed_61: -1680525093
@@ -1902,14 +1902,14 @@ TextureImporter:
       rock_packed_10: 284653567
       rock_packed_45: -1020126658
       rock_packed_72: 1598710573
-      rock_packed_51: -732937359
-      rock_packed_31: -84980026
-      rock_packed_30: 1900227464
-      rock_packed_8: -850136826
-      rock_packed_60: -131116583
-      rock_packed_55: -298069410
       rock_packed_65: 573738676
       rock_packed_71: -326676887
+      rock_packed_31: -84980026
+      rock_packed_55: -298069410
+      rock_packed_60: -131116583
+      rock_packed_70: 1785732840
+      rock_packed_8: -850136826
+      rock_packed_51: -732937359
       rock_packed_42: -515650151
   spritePackingTag: 
   pSDRemoveMatte: 0
