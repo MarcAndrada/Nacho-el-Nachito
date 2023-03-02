@@ -325,7 +325,7 @@ public class PlayerMovementController : MonoBehaviour
             Vector3 spawnPosOfset = Vector3.up * checkFloorRange / 2;
             RaycastHit2D hit;
             spawnPosRay = transform.position - new Vector3(0, capsuleCollider.size.y / 2) + spawnPosOfset;
-            hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange * 2, floorLayer);
+            hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange * 3, floorLayer);
             if (hit)
             {
                 StartJump();
@@ -333,7 +333,7 @@ public class PlayerMovementController : MonoBehaviour
             else
             {
                 spawnPosRay = transform.position - new Vector3(-capsuleCollider.size.x / 2, capsuleCollider.size.y / 2) + spawnPosOfset;
-                hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange * 2, floorLayer);
+                hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange * 3, floorLayer);
 
                 if (hit)
                 {
@@ -342,7 +342,7 @@ public class PlayerMovementController : MonoBehaviour
                 else
                 {
                     spawnPosRay = transform.position - new Vector3(capsuleCollider.size.x / 2, capsuleCollider.size.y / 2) + spawnPosOfset;
-                    hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange * 2, floorLayer);
+                    hit = DoRaycast(spawnPosRay, Vector2.down, checkFloorRange * 3, floorLayer);
                     if (hit)
                     {
                         StartJump();
@@ -384,7 +384,7 @@ public class PlayerMovementController : MonoBehaviour
         coyoteWaited = 0;
         canJump = false;
         jumpInputPerformed = false;
-
+        canCoyote = false;
         if (rb2d.velocity.y > 0)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y / 3);
