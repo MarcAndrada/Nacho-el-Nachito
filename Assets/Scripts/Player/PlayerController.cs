@@ -5,7 +5,7 @@ using UnityEngine.Assertions.Must;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerStates {NONE, MOVING, AIR, HOOK, DEAD };
+    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, DEAD };
     public PlayerStates playerState;
 
     
@@ -65,6 +65,10 @@ public class PlayerController : MonoBehaviour
 
                 break;
             case PlayerStates.HOOK:
+                break;
+            case PlayerStates.WALL_SLIDE:
+                //Bajar la Y
+                //Comporbar el salto
                 break;
             case PlayerStates.DEAD:
                 break;
