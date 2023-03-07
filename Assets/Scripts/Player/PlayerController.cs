@@ -14,24 +14,25 @@ public class PlayerController : MonoBehaviour
     //Aqui crearemos las variables de todos los scritps del player
     private PlayerInput playerInput;
     private PlayerMovementController movementController;
+    private PlayerHookController hookController;
 
     //Variable para acceder a los demas scripts
     public PlayerInput _playerInput => playerInput;
     public PlayerMovementController _movementController => movementController;
-    
+    public PlayerHookController _hookController => hookController;
 
     // Start is called before the first frame update
     void Awake()
     {
         AllGetComponents();
 
-        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void AllGetComponents() 
     {
         playerInput = GetComponent<PlayerInput>();
         movementController = GetComponent<PlayerMovementController>();
+        hookController = GetComponent<PlayerHookController>();
     }
 
     // Update is called once per frame
