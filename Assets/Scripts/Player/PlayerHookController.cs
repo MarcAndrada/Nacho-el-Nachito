@@ -11,36 +11,76 @@ public class PlayerHookController : MonoBehaviour
     private GameObject hookObj;
     private HookController hookController;
     [SerializeField]
+    private Transform hookStarterPos;
+    [SerializeField]
     private float checkRadius;
+    [SerializeField]
+    private float speed;
+    public bool canHook = true;
+    [SerializeField]
+    private float minDistanceFromPoint;
 
+    private Vector2 posToReach;
 
     private PlayerController playerController;
+    private Rigidbody2D rb2d;
 
     [SerializeField]
-    LayerMask hookLayer;
-  
+    private LayerMask hookLayer;
+    [SerializeField]
+    private LayerMask floorLayer;
+
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
         hookController = hookObj.GetComponent<HookController>();
+        rb2d = GetComponent<Rigidbody2D>(); 
+    }
+
+    private void Start()
+    {
+        canHook = true;
     }
 
     public void HookInputPressed()
     {
-        //Comprobar si hay algun punto de enganche alrededor del cursor
-        RaycastHit2D hit = CheckHookPointAround();
-        if (hit.collider != null)
+        if (canHook)
         {
-            //Si lo hay lanzar el gancho al que este mas cerca y bloquear el movimiento
-            Debug.Log("Engancha en el " + hit.collider.transform.position);
-            ThrowHook(hit.collider.transform.position, true);
-        }
-        else
-        {
-            //Si no simplemente lanzarlo para que choque contra la pared sin bloquear el movimiento ni nada
-            Debug.Log("No engancha");
-        }
+            canHook = false;
+            //Comprobar si hay algun punto de enganche alrededor del cursor
+            RaycastHit2D hit = CheckHookPointAround();
+            if (hit.collider != null)
+            {
 
+                RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position , (hit.collider.transform.position - hookStarterPos.position).normalized);
+                //Si lo hay comprobar que no haya ninguna pared en medio 
+                float distanceOffset = 1;
+                Debug.Log(Vector2.Distance(hit.point, hookStarterPos.position));
+                if (Vector2.Distance(hit.point, hookStarterPos.position) <= Vector2.Distance(hit2.point, hookStarterPos.position))
+                {
+                    //Si no hay nada lanzar el gancho al que este mas cerca y bloquear el movimiento
+                    Debug.Log("Engancha en el " + hit.collider.transform.position);
+                    ThrowHook(hit.collider.transform.position, true);
+                }
+                else
+                {
+                    //Si hay algo lanzar el gancho hacia la pared
+                    ThrowHook(hit2.point, false);
+                    Debug.Log("Hay un hueco al que pegarme pero al chocar contra la pared lanzo el gancho a la pos " + hit2.point);
+                    Debug.DrawLine(hookStarterPos.position, hit2.point, Color.red);
+                }
+
+
+            }
+            else
+            {
+                //Si no simplemente lanzarlo para que choque contra la pared sin bloquear el movimiento ni nada
+                //Para ello comprobamos cual es la pared que estamos apuntando con la mira
+                RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, (CrosshairController._instance.transform.position - hookStarterPos.position).normalized);
+                ThrowHook(hit2.point, false);
+                Debug.Log("No engancha");
+            }
+        }
     }
 
     RaycastHit2D CheckHookPointAround() 
@@ -73,6 +113,14 @@ public class PlayerHookController : MonoBehaviour
         }
     }
 
+    RaycastHit2D RaycastCheckFloor(Vector2 _startPos, Vector2  _dir)
+    {
+        RaycastHit2D hit = new RaycastHit2D();
+
+        hit = Physics2D.Raycast(_startPos, _dir, Mathf.Infinity, floorLayer);
+
+        return hit;
+    }
 
     #region Throw Hook Functions
     private void ThrowHook(Vector2 _target, bool _stickPoint)
@@ -80,31 +128,37 @@ public class PlayerHookController : MonoBehaviour
         if (_stickPoint)
         {
             playerController.playerState = PlayerController.PlayerStates.HOOK;
+            posToReach = _target;
         }
 
         hookObj.SetActive(true);
-        hookController.ThrowHook(_target);
+        hookController.ThrowHook(_target, _stickPoint);
 
     }
     #endregion
-    public void MovePlayer()
+    public void MoveHookedPlayer()
     {
-        playerController.playerState = PlayerController.PlayerStates.HOOK;
-    }
+        //Ponerle la velociad al player hacia el punto que tiene que llegar
+        rb2d.velocity = (posToReach - (Vector2)transform.position).normalized * speed;
 
-    private void CheckIfStopHooking() 
-    {
-        
-    }
-
-
-    public void SetHookBeforeThrow()
-    {
-
+        CheckIfPositionReached();
     }
 
 
+    private void CheckIfPositionReached()
+    {
+        if (Vector2.Distance(transform.position, posToReach) <= minDistanceFromPoint)
+        {
+            StopHook();
+        }
 
+    }
+
+    private void StopHook()
+    {
+        playerController.playerState = PlayerController.PlayerStates.AIR;
+        hookController.DisableHook();
+    }
 
     private void OnDrawGizmos()
     {

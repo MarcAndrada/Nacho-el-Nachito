@@ -13,13 +13,17 @@ public class HookController : MonoBehaviour
     private Vector2 throwDir;
     [SerializeField]
     private float minDistanceToPoint;
+    private bool stickAtPos;
+
 
     private LineRenderer lineRenderer;
     private Rigidbody2D rb2d;
+    private PlayerHookController playerHookController;
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         rb2d = GetComponent<Rigidbody2D>();
+        playerHookController = starterPos.GetComponentInParent<PlayerHookController>();
     }
 
     // Update is called once per frame
@@ -37,8 +41,9 @@ public class HookController : MonoBehaviour
     }
 
     
-    public void ThrowHook(Vector3 _posToReach) 
+    public void ThrowHook(Vector3 _posToReach, bool _stickAtPos) 
     {
+        stickAtPos = _stickAtPos;
         posToReach = _posToReach;
         throwDir = _posToReach - starterPos.position;
         throwDir = throwDir.normalized;
@@ -69,7 +74,20 @@ public class HookController : MonoBehaviour
         {
             rb2d.simulated = false;
             transform.position = posToReach;
+            if (!stickAtPos)
+            {
+                DisableHook();
+            }
         }
+    }
+
+    public void DisableHook() 
+    {
+        playerHookController.canHook = true;
+
+        //Spawnear particulas
+
+        gameObject.SetActive(false);
     }
 
 }
