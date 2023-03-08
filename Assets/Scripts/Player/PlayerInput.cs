@@ -19,12 +19,18 @@ public class PlayerInput : MonoBehaviour
 
     private void Start()
     {
-        InputManager._instance.ingameJumpAction.action.started += JumpAction; //Asignamos la funcion que se llamara al ser mantenido el boton de salto
+        InputManager._instance.ingameJumpAction.action.started += JumpAction; //Asignamos la funcion que se llamara pulsar el boton de salto
         InputManager._instance.ingameJumpAction.action.canceled += StopJump; //Al dejar de apretar el boton de saltar dejara de saltar
         InputManager._instance.ingameMovementAction.action.performed += MoveAction; //Mientras el input de ataque este activo se llamara a la funcion para guardarse el valor
-        InputManager._instance.ingameMovementAction.action.canceled += MoveAction; 
+        InputManager._instance.ingameMovementAction.action.canceled += MoveAction;
+        InputManager._instance.ingameAimAction.action.performed += AimAction;
+        InputManager._instance.ingameAimAction.action.canceled += AimAction;
+        InputManager._instance.ingameHookAction.action.started += HookAction;
+
 
     }
+
+  
 
     private void MoveAction(InputAction.CallbackContext obj)
     {
@@ -40,6 +46,18 @@ public class PlayerInput : MonoBehaviour
 
     private void StopJump(InputAction.CallbackContext obj)
     {
-        playerController._movementController.StopJump();
+        playerController._movementController.JumpInputUnPressed();
     }
+
+
+    private void AimAction(InputAction.CallbackContext obj)
+    {
+        CrosshairController._instance.OnAimUsed(InputManager._instance.ingameAimAction.action.ReadValue<Vector2>());
+    }
+
+    private void HookAction(InputAction.CallbackContext obj)
+    {
+        playerController._hookController.HookInputPressed();
+    }
+
 }
