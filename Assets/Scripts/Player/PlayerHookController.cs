@@ -13,8 +13,6 @@ public class PlayerHookController : MonoBehaviour
     [SerializeField]
     private float checkRadius;
 
-    private Vector2 hookDir;
-
 
     private PlayerController playerController;
 
@@ -35,7 +33,7 @@ public class PlayerHookController : MonoBehaviour
         {
             //Si lo hay lanzar el gancho al que este mas cerca y bloquear el movimiento
             Debug.Log("Engancha en el " + hit.collider.transform.position);
-            
+            ThrowHook(hit.collider.transform.position, true);
         }
         else
         {
@@ -77,8 +75,15 @@ public class PlayerHookController : MonoBehaviour
 
 
     #region Throw Hook Functions
-    private void ThrowHook(Vector2 _target)
+    private void ThrowHook(Vector2 _target, bool _stickPoint)
     {
+        if (_stickPoint)
+        {
+            playerController.playerState = PlayerController.PlayerStates.HOOK;
+        }
+
+        hookObj.SetActive(true);
+        hookController.ThrowHook(_target);
 
     }
     #endregion
