@@ -5,7 +5,7 @@ using UnityEngine.Assertions.Must;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerStates {NONE, MOVING, AIR, HOOK, DEAD };
+    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, DEAD };
     public PlayerStates playerState;
 
     
@@ -14,22 +14,25 @@ public class PlayerController : MonoBehaviour
     //Aqui crearemos las variables de todos los scritps del player
     private PlayerInput playerInput;
     private PlayerMovementController movementController;
+    private PlayerHookController hookController;
 
     //Variable para acceder a los demas scripts
     public PlayerInput _playerInput => playerInput;
     public PlayerMovementController _movementController => movementController;
-    
+    public PlayerHookController _hookController => hookController;
 
     // Start is called before the first frame update
     void Awake()
     {
         AllGetComponents();
+
     }
 
     private void AllGetComponents() 
     {
         playerInput = GetComponent<PlayerInput>();
         movementController = GetComponent<PlayerMovementController>();
+        hookController = GetComponent<PlayerHookController>();
     }
 
     // Update is called once per frame
@@ -46,23 +49,28 @@ public class PlayerController : MonoBehaviour
             case PlayerStates.NONE:
             case PlayerStates.MOVING:
                 movementController.CheckGrounded();
-                //CheckMovementStates();
+                CheckMovementStates();
                 movementController.FloorMovement();
                 movementController.CheckJumping();
+                movementController.CheckSlope();
                 movementController.ApplyForces();
                 break;
             case PlayerStates.AIR:
-                //movementController.RestMovementValues();
-                //movementController.CheckGrounded();
-                ////CheckMovementStates();
-                //movementController.CheckJumping();
-                //movementController.FloorMovement();
-                movementController.CheckIfStuckInAir();
-                //movementController.ApplyForces();
+                movementController.CheckGrounded();
+                CheckMovementStates();
+                movementController.AirMovement();
+                movementController.CheckJumping();
+                movementController.CheckSlope();
+                movementController.ApplyForces();
 
 
                 break;
             case PlayerStates.HOOK:
+                hookController.MoveHookedPlayer();
+                break;
+            case PlayerStates.WALL_SLIDE:
+                //Bajar la Y
+                //Comporbar el salto
                 break;
             case PlayerStates.DEAD:
                 break;

@@ -13,6 +13,9 @@ public class InputManager : MonoBehaviour
     [Header("Ingame Actions")]
     public InputActionReference ingameMovementAction;
     public InputActionReference ingameJumpAction;
+    public InputActionReference ingameAimAction;
+    public InputActionReference ingameHookAction;
+
     [Header("Menu Actions")]
     public InputActionReference menuMoveAction;
 
