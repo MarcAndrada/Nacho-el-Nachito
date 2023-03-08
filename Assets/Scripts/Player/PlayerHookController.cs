@@ -138,8 +138,12 @@ public class PlayerHookController : MonoBehaviour
     #endregion
     public void MoveHookedPlayer()
     {
-        //Ponerle la velociad al player hacia el punto que tiene que llegar
-        rb2d.velocity = (posToReach - (Vector2)transform.position).normalized * speed;
+        if (hookController.hooked)
+        {
+            //Ponerle la velociad al player hacia el punto que tiene que llegar
+            rb2d.velocity = (posToReach - (Vector2)transform.position).normalized * speed;
+        }
+        
 
         CheckIfPositionReached();
     }

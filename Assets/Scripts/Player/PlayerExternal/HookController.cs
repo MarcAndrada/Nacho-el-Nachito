@@ -14,7 +14,8 @@ public class HookController : MonoBehaviour
     [SerializeField]
     private float minDistanceToPoint;
     private bool stickAtPos;
-
+    [HideInInspector]
+    public bool hooked;
 
     private LineRenderer lineRenderer;
     private Rigidbody2D rb2d;
@@ -56,6 +57,7 @@ public class HookController : MonoBehaviour
     }
     private void ResetHookPos()
     {
+        hooked = false;
         transform.position = starterPos.position;
         rb2d.simulated = true; 
     }
@@ -63,6 +65,7 @@ public class HookController : MonoBehaviour
     {
         if (rb2d.simulated)
         {
+            throwDir = posToReach - (Vector2)starterPos.position;
             rb2d.velocity = throwDir * hookSpeed;
             CheckIfStopMoving();
         }
@@ -77,6 +80,10 @@ public class HookController : MonoBehaviour
             if (!stickAtPos)
             {
                 DisableHook();
+            }
+            else
+            {
+                hooked = true;
             }
         }
     }
