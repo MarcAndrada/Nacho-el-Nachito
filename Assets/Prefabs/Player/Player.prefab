@@ -263,6 +263,7 @@ MonoBehaviour:
   airMoveSpeed: 6.5
   airAccelSpeed: 8
   airDragSpeed: 9
+  maxAirSeed: 16
   jumpSpeed: 12
   timeJumping: 0.06
   slopeOffset: 0.02
@@ -283,9 +284,10 @@ MonoBehaviour:
   hookObj: {fileID: 0}
   hookStarterPos: {fileID: 3854213116712417619}
   checkRadius: 2
-  speed: 16
+  speed: 22
+  maxSpeedAtRelease: 8
   canHook: 1
-  minDistanceFromPoint: 0.4
+  minDistanceFromPoint: 0.5
   hookCD: 0.2
   hookLayer:
     serializedVersion: 2

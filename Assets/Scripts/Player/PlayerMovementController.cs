@@ -39,6 +39,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     private float airDragSpeed;
     private float minAirSpeed = 0.15f;
+    [SerializeField]
+    private float maxAirSeed;
 
     [Header("Jump Var"), SerializeField, Tooltip("Velocidad del salto")]
     private float jumpSpeed;
@@ -78,6 +80,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         
         rb2d.velocity = movementForces;
+        Debug.Log(rb2d.velocity);
     }
 
     #region Floor Movement Functions
@@ -269,7 +272,7 @@ public class PlayerMovementController : MonoBehaviour
         ApplyAirAcceleration();
         FlipCharacter();
         movementForces = new Vector2(airAcceleration * airMoveSpeed, 0) + externalForces;
-
+        ClampAirSpeed();
     }
 
     private void ApplyAirAcceleration()
@@ -401,17 +404,10 @@ public class PlayerMovementController : MonoBehaviour
         acceleration = 0;
     }
 
-    private void CheckExternalForces() 
+    private void ClampAirSpeed() 
     {
-        if (externalForces != Vector2.zero)
-        {
-            if (airAcceleration == 0)
-            {
-                airAcceleration = lastDir;
-            }
-            airAcceleration /= 1.5f;
-            
-        }
+        movementForces.x = Mathf.Clamp(movementForces.x, -maxAirSeed, maxAirSeed);
+        movementForces.y = Mathf.Clamp(movementForces.y, Mathf.NegativeInfinity, maxAirSeed);
     }
     #endregion
 

@@ -157,8 +157,7 @@ public class PlayerHookController : MonoBehaviour
     }
 
     private void StopHook()
-    {
-        
+    {        
         playerController._movementController.externalForces = rb2d.velocity;
         float xSpeed = Mathf.Clamp(rb2d.velocity.x, -maxSpeedAtRelease, maxSpeedAtRelease);
         float ySpeed = Mathf.Clamp(rb2d.velocity.y, -maxSpeedAtRelease, maxSpeedAtRelease);
@@ -166,12 +165,6 @@ public class PlayerHookController : MonoBehaviour
         playerController.playerState = PlayerController.PlayerStates.AIR;
         hookController.DisableHook();
     }
-    public IEnumerator WaitToHook() 
-    {
-        yield return new WaitForSeconds(hookCD);
-        canHook = true;
-    }
-
 
     private void OnDrawGizmos()
     {

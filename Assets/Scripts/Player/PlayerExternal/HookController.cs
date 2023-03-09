@@ -65,7 +65,7 @@ public class HookController : MonoBehaviour
     {
         if (rb2d.simulated)
         {
-            throwDir = posToReach - (Vector2)starterPos.position;
+            throwDir = (posToReach - (Vector2)transform.position).normalized;
             rb2d.velocity = throwDir * hookSpeed;
             CheckIfStopMoving();
         }
