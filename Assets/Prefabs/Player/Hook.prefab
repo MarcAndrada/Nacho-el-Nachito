@@ -224,5 +224,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starterPos: {fileID: 0}
-  hookSpeed: 50
+  hookSpeed: 60
   minDistanceToPoint: 0.2
+  hooked: 0

@@ -39,6 +39,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     private float airDragSpeed;
     private float minAirSpeed = 0.15f;
+    [SerializeField]
+    private float maxAirSeed;
 
     [Header("Jump Var"), SerializeField, Tooltip("Velocidad del salto")]
     private float jumpSpeed;
@@ -53,9 +55,10 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField, Tooltip("La cantidad de divisiones que hara de la colision para sacar los puntos donde comprueba posicion de los rayos para el Slope")]
     private float slopeCapsuleDiv;
 
+
     private Vector2 movementForces;
-
-
+    [HideInInspector]
+    public Vector2 externalForces;
 
     private PlayerController playerController;
     private Rigidbody2D rb2d;
@@ -77,6 +80,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         
         rb2d.velocity = movementForces;
+        Debug.Log(rb2d.velocity);
     }
 
     #region Floor Movement Functions
@@ -219,6 +223,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             canCoyote = true;
             canJump = true;
+            externalForces = Vector2.zero;
         }
         else if(canCoyote)
         {
@@ -266,8 +271,8 @@ public class PlayerMovementController : MonoBehaviour
         CheckAcceleration();
         ApplyAirAcceleration();
         FlipCharacter();
-        movementForces = new Vector2(airAcceleration * airMoveSpeed, 0);
-
+        movementForces = new Vector2(airAcceleration * airMoveSpeed, 0) + externalForces;
+        ClampAirSpeed();
     }
 
     private void ApplyAirAcceleration()
@@ -399,6 +404,11 @@ public class PlayerMovementController : MonoBehaviour
         acceleration = 0;
     }
 
+    private void ClampAirSpeed() 
+    {
+        movementForces.x = Mathf.Clamp(movementForces.x, -maxAirSeed, maxAirSeed);
+        movementForces.y = Mathf.Clamp(movementForces.y, Mathf.NegativeInfinity, maxAirSeed);
+    }
     #endregion
 
     public void CheckSlope()
