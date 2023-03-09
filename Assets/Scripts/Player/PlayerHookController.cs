@@ -16,10 +16,13 @@ public class PlayerHookController : MonoBehaviour
     private float checkRadius;
     [SerializeField]
     private float speed;
+    [SerializeField]
+    private float maxSpeedAtRelease;
     public bool canHook = true;
     [SerializeField]
     private float minDistanceFromPoint;
-
+    [SerializeField]
+    private float hookCD;
     private Vector2 posToReach;
 
     private PlayerController playerController;
@@ -54,19 +57,15 @@ public class PlayerHookController : MonoBehaviour
 
                 RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position , (hit.collider.transform.position - hookStarterPos.position).normalized);
                 //Si lo hay comprobar que no haya ninguna pared en medio 
-                float distanceOffset = 1;
-                Debug.Log(Vector2.Distance(hit.point, hookStarterPos.position));
                 if (Vector2.Distance(hit.point, hookStarterPos.position) <= Vector2.Distance(hit2.point, hookStarterPos.position))
                 {
                     //Si no hay nada lanzar el gancho al que este mas cerca y bloquear el movimiento
-                    Debug.Log("Engancha en el " + hit.collider.transform.position);
                     ThrowHook(hit.collider.transform.position, true);
                 }
                 else
                 {
                     //Si hay algo lanzar el gancho hacia la pared
                     ThrowHook(hit2.point, false);
-                    Debug.Log("Hay un hueco al que pegarme pero al chocar contra la pared lanzo el gancho a la pos " + hit2.point);
                     Debug.DrawLine(hookStarterPos.position, hit2.point, Color.red);
                 }
 
@@ -78,7 +77,6 @@ public class PlayerHookController : MonoBehaviour
                 //Para ello comprobamos cual es la pared que estamos apuntando con la mira
                 RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, (CrosshairController._instance.transform.position - hookStarterPos.position).normalized);
                 ThrowHook(hit2.point, false);
-                Debug.Log("No engancha");
             }
         }
     }
@@ -160,9 +158,20 @@ public class PlayerHookController : MonoBehaviour
 
     private void StopHook()
     {
+        
+        playerController._movementController.externalForces = rb2d.velocity;
+        float xSpeed = Mathf.Clamp(rb2d.velocity.x, -maxSpeedAtRelease, maxSpeedAtRelease);
+        float ySpeed = Mathf.Clamp(rb2d.velocity.y, -maxSpeedAtRelease, maxSpeedAtRelease);
+        rb2d.velocity = new Vector2(xSpeed, ySpeed);
         playerController.playerState = PlayerController.PlayerStates.AIR;
         hookController.DisableHook();
     }
+    public IEnumerator WaitToHook() 
+    {
+        yield return new WaitForSeconds(hookCD);
+        canHook = true;
+    }
+
 
     private void OnDrawGizmos()
     {

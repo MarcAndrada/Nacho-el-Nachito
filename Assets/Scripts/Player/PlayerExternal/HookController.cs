@@ -90,11 +90,12 @@ public class HookController : MonoBehaviour
 
     public void DisableHook() 
     {
+        //StartCoroutine(playerHookController.WaitToHook());
         playerHookController.canHook = true;
-
         //Spawnear particulas
 
         gameObject.SetActive(false);
     }
+
 
 }

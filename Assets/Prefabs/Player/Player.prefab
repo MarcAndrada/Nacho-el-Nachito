@@ -122,7 +122,7 @@ Transform:
   m_Children:
   - {fileID: 3854213116712417619}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3854213116837401504
 SpriteRenderer:
@@ -267,6 +267,7 @@ MonoBehaviour:
   timeJumping: 0.06
   slopeOffset: 0.02
   slopeCapsuleDiv: 6
+  externalForces: {x: 0, y: 0}
 --- !u!114 &3854213116837401530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,7 +285,8 @@ MonoBehaviour:
   checkRadius: 2
   speed: 16
   canHook: 1
-  minDistanceFromPoint: 0.2
+  minDistanceFromPoint: 0.4
+  hookCD: 0.2
   hookLayer:
     serializedVersion: 2
     m_Bits: 128

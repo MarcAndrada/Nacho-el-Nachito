@@ -53,9 +53,10 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField, Tooltip("La cantidad de divisiones que hara de la colision para sacar los puntos donde comprueba posicion de los rayos para el Slope")]
     private float slopeCapsuleDiv;
 
+
     private Vector2 movementForces;
-
-
+    [HideInInspector]
+    public Vector2 externalForces;
 
     private PlayerController playerController;
     private Rigidbody2D rb2d;
@@ -219,6 +220,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             canCoyote = true;
             canJump = true;
+            externalForces = Vector2.zero;
         }
         else if(canCoyote)
         {
@@ -266,7 +268,7 @@ public class PlayerMovementController : MonoBehaviour
         CheckAcceleration();
         ApplyAirAcceleration();
         FlipCharacter();
-        movementForces = new Vector2(airAcceleration * airMoveSpeed, 0);
+        movementForces = new Vector2(airAcceleration * airMoveSpeed, 0) + externalForces;
 
     }
 
@@ -399,6 +401,18 @@ public class PlayerMovementController : MonoBehaviour
         acceleration = 0;
     }
 
+    private void CheckExternalForces() 
+    {
+        if (externalForces != Vector2.zero)
+        {
+            if (airAcceleration == 0)
+            {
+                airAcceleration = lastDir;
+            }
+            airAcceleration /= 1.5f;
+            
+        }
+    }
     #endregion
 
     public void CheckSlope()
