@@ -13,7 +13,7 @@ public class PlayerWallJumpController : MonoBehaviour
 
     // WALL SLIDE VARIABLES
 
-    private bool isWallSliding;
+    public bool isWallSliding;
     public float wallSlidingSpeed = 0.2f;
 
     [SerializeField]
@@ -32,6 +32,8 @@ public class PlayerWallJumpController : MonoBehaviour
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
     private float wallJumpingDuration = 0.4f;
+
+    [SerializeField]
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
     // Start is called before the first frame update
@@ -43,14 +45,6 @@ public class PlayerWallJumpController : MonoBehaviour
 
         rb2d = GetComponent<Rigidbody2D>();
         sprt = GetComponent<SpriteRenderer>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        WallSlide();
-
-        WallJump();
     }
 
     private bool IsWalled() // NECESITO QUE SI IsWalled != null el input del player se cancele y no se pueda mover mientras esta en ese estado
@@ -69,7 +63,7 @@ public class PlayerWallJumpController : MonoBehaviour
         }
     }
 
-    private void WallSlide()
+    public void WallSlide()
     {
         if(IsWalled() && !_movementController._isGrounded) //&& _playerInput._playerMovement != 0
         {
@@ -82,51 +76,29 @@ public class PlayerWallJumpController : MonoBehaviour
         }
     }
 
-    private void WallJump()
+    public void WallJump()
     {
-        if(isWallSliding)
+        if (sprt.flipX == true)
         {
-            isWallJumping = false;
+            sprt.flipX = false;
+        }
+        else if (sprt.flipX == false)
+        {
+            sprt.flipX = true;
+        }
 
-            if(sprt.flipX == false)
-            {
-                wallJumpingDirection = 1;
-            }
-            else
-            {
-                wallJumpingDirection = -1;
-            }
-
-            wallJumpingCounter = wallJumpingTime;
-
-            CancelInvoke(nameof(StopWallJumping));
+        if (sprt.flipX == false)
+        {
+            wallJumpingDirection = 1;
         }
         else
         {
-            wallJumpingCounter -= Time.deltaTime;
+            wallJumpingDirection = -1;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && wallJumpingCounter > 0f)
-        {
-            isWallJumping = true;
-            rb2d.velocity = new Vector2(10000, wallJumpingPower.y);
-            wallJumpingCounter = 0f;
-
-            if(sprt.flipX == true)
-            {
-                sprt.flipX = false;
-            }
-            else if (sprt.flipX == false)
-            {
-                sprt.flipX = true;
-            }
-
-            Invoke(nameof(StopWallJumping), wallJumpingDuration);
-        }
-    }
-
-    private void StopWallJumping()
-    {
-        isWallJumping = false;
+        _playerController.playerState = PlayerController.PlayerStates.AIR;
+        isWallSliding = false;
+        rb2d.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x /* EL IMPULSO EL  */, wallJumpingPower.y);
+        _movementController.externalForces = new Vector2(wallJumpingDirection * wallJumpingPower.x /* EL IMPULSO EN X NO FUNCIONA CORRECTAMENTE */, wallJumpingPower.y);
     }
 }
