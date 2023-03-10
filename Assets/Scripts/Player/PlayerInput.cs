@@ -52,7 +52,7 @@ public class PlayerInput : MonoBehaviour
 
     private void AimAction(InputAction.CallbackContext obj)
     {
-        CrosshairController._instance.OnAimUsed(InputManager._instance.ingameAimAction.action.ReadValue<Vector2>());
+       
     }
 
     private void HookAction(InputAction.CallbackContext obj)

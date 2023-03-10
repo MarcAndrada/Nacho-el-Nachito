@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 public class CrosshairController : MonoBehaviour
 {
@@ -31,35 +33,18 @@ public class CrosshairController : MonoBehaviour
     }
 
 
-    public void OnAimUsed(Vector2 _inputValue) 
+    public void SMEGMA() 
     {
-        //Debug.Log("Input -> " + _inputValue + " Magnitud-> " + _inputValue.magnitude);
-
-        Vector2 newPos = transform.position;
-        newPos += _inputValue;
-        
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(newPos);
-        
-        if (screenPos.y > Screen.height )
-        { 
-            screenPos.y = Screen.height;
-        }
-        else if (screenPos.y < 0)
+        if (Gamepad.current == null)
         {
-            screenPos.y = 0;
+            Vector2 v3 = Input.mousePosition;
+            v3 = Camera.main.ScreenToWorldPoint(v3);
+            transform.position = v3;
+            Debug.Log("ESMEGMA");
         }
-
-        if (screenPos.x > Screen.width)
+        else
         {
-            screenPos.x = Screen.width;
+            Debug.Log("ESMEGMA MUY DURO");
         }
-        else if (screenPos.x < 0)
-        {
-            screenPos.x = 0;
-        }
-
-        newPos = Camera.main.ScreenToWorldPoint(screenPos);
-
-        transform.position = Vector2.MoveTowards(transform.position, newPos, cursorSpeed);
     }
 }
