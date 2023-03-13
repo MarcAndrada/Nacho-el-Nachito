@@ -35,6 +35,7 @@ public class PlayerAimController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        CheckSpriteRendEnabled();
         InputSystem.onDeviceChange += onDeviceChanged;
     }
 
@@ -64,15 +65,12 @@ public class PlayerAimController : MonoBehaviour
         transform.position = v3;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
-        Debug.Log("ESMEGMA");
 
     }
 
 
     private void UseControllerInput() 
     {
-        Debug.Log("ESMEGMA MUY DURO");
-
         Cursor.visible = false;
     }
 
@@ -86,6 +84,7 @@ public class PlayerAimController : MonoBehaviour
         else
         {
             spriteRenderer.enabled = false;
+            controllerType = ControllerType.GAMEPAD;
 
         }
     }

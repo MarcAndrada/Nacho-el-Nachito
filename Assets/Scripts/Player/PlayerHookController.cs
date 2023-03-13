@@ -9,6 +9,8 @@ public class PlayerHookController : MonoBehaviour
 {
     [Header("Hook"), SerializeField]
     private GameObject hookObj;
+    [SerializeField]
+    private SpriteRenderer hookPointIcon;
     private HookController hookController;
     [SerializeField]
     private Transform hookStarterPos;
@@ -24,6 +26,9 @@ public class PlayerHookController : MonoBehaviour
     [SerializeField]
     private float hookCD;
     private Vector2 posToReach;
+
+    private GameObject hookPointSelected;
+
 
     private PlayerController playerController;
     private Rigidbody2D rb2d;
@@ -45,6 +50,8 @@ public class PlayerHookController : MonoBehaviour
         canHook = true;
     }
 
+
+    #region Input Functions
     public void HookInputPressed()
     {
         if (canHook)
@@ -54,7 +61,7 @@ public class PlayerHookController : MonoBehaviour
             switch (PlayerAimController._instance.controllerType)
             {
                 case PlayerAimController.ControllerType.MOUSE:
-                    MouseHook();
+                    CheckHookWay();
                     break;
                 case PlayerAimController.ControllerType.GAMEPAD:
                     GamepadHook();
@@ -66,28 +73,23 @@ public class PlayerHookController : MonoBehaviour
         }
     }
 
-    private void MouseHook()
+    private void CheckHookWay()
     {
-        //Comprobar si hay algun punto de enganche alrededor del cursor
-        RaycastHit2D hit = CheckHookPointAround();
-        if (hit.collider != null)
+        if (hookPointSelected != null)
         {
-
-            RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, (hit.collider.transform.position - hookStarterPos.position).normalized);
+            RaycastHit2D hit = RaycastCheckFloor(hookStarterPos.position, (hookPointSelected.transform.position - hookStarterPos.position).normalized);
             //Si lo hay comprobar que no haya ninguna pared en medio 
-            if (Vector2.Distance(hit.point, hookStarterPos.position) <= Vector2.Distance(hit2.point, hookStarterPos.position))
+            if (Vector2.Distance(hookPointSelected.transform.position, hookStarterPos.position) <= Vector2.Distance(hit.point, hookStarterPos.position))
             {
                 //Si no hay nada lanzar el gancho al que este mas cerca y bloquear el movimiento
-                ThrowHook(hit.collider.transform.position, true);
+                ThrowHook(hookPointSelected.transform.position, true);
             }
             else
             {
                 //Si hay algo lanzar el gancho hacia la pared
-                ThrowHook(hit2.point, false);
-                Debug.DrawLine(hookStarterPos.position, hit2.point, Color.red);
+                ThrowHook(hit.point, false);
+                Debug.DrawLine(hookStarterPos.position, hit.point, Color.red);
             }
-
-
         }
         else
         {
@@ -98,61 +100,62 @@ public class PlayerHookController : MonoBehaviour
         }
     }
 
-   
-
-    RaycastHit2D CheckHookPointAround() 
+    private void GamepadHook()
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(PlayerAimController._instance.transform.position, checkRadius, Vector2.zero, 0, hookLayer);
-        
-        if (hits.Length < 2)
+        CheckHookGamepadDir();
+        CheckHookWay();
+    }
+
+    #endregion
+
+    #region Mouse Hook Functions
+    public void CheckHookPointNearToCursor() 
+    {
+        if (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE)
         {
-            if (hits.Length != 0)  
+            //Comprobar si hay algun punto de enganche alrededor del cursor
+            RaycastHit2D nearToCursorHit = CheckHookPointAround();
+            if (nearToCursorHit.collider != null)
             {
-                return hits[0];
+                hookPointIcon.enabled = true;
+                hookPointIcon.transform.position = nearToCursorHit.transform.position;
+
+                hookPointSelected = nearToCursorHit.transform.gameObject;
+
             }
             else
             {
-                return new RaycastHit2D();
+                hookPointIcon.enabled = false;
+                hookPointSelected = null;
             }
         }
-        else
-        {
-            RaycastHit2D closestHit = new RaycastHit2D();
-            foreach (var item in hits)
-            {
-                if (!closestHit || Vector2.Distance(item.transform.position, PlayerAimController._instance.transform.position) < Vector2.Distance(closestHit.transform.position, PlayerAimController._instance.transform.position))
-                {
-                    closestHit = item;
-                }
-            }
-
-            return closestHit;
-        }
-    }
-
-    RaycastHit2D RaycastCheckFloor(Vector2 _startPos, Vector2  _dir)
-    {
-        RaycastHit2D hit = new RaycastHit2D();
-
-        hit = Physics2D.Raycast(_startPos, _dir, Mathf.Infinity, floorLayer);
-
-        return hit;
-    }
-
-    #region Gamepad Throw Hook Functions
-    private void GamepadHook()
-    {
-
-    }
-
-
-    private void CheckHookGamepadDir()
-    {
-
 
     }
 
     #endregion
+
+    #region Gamepad Hook Functions
+
+    private void CheckHookGamepadDir()
+    {
+        //Aqui comprovar segun la direccion del joystick cual es el que esta mas cerca del otro
+        float hookPointDot = 0.3f;
+        GameObject lookingObject = null;
+        foreach (GameObject item in HookGamepadManager._instance.allHooks)
+        {
+            float provisionalDot = Vector2.Dot(PlayerAimController._instance.gamepadDir.normalized, (item.transform.position - transform.position).normalized);
+            if (provisionalDot >= hookPointDot)
+            {
+                hookPointDot = provisionalDot;
+                lookingObject = item;
+            }
+        }
+        Debug.Log("El mas cercano es el " + lookingObject + " con " + hookPointDot);
+        hookPointSelected = lookingObject;
+    }
+
+    #endregion
+
     #region Throw Hook Functions
     private void ThrowHook(Vector2 _target, bool _stickPoint)
     {
@@ -167,6 +170,8 @@ public class PlayerHookController : MonoBehaviour
 
     }
     #endregion
+
+    #region Hook Movement Functions
     public void MoveHookedPlayer()
     {
         if (hookController.hooked)
@@ -199,6 +204,47 @@ public class PlayerHookController : MonoBehaviour
         hookController.DisableHook();
     }
 
+    #endregion
+
+
+    RaycastHit2D CheckHookPointAround()
+    {
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(PlayerAimController._instance.transform.position, checkRadius, Vector2.zero, 0, hookLayer);
+
+        if (hits.Length < 2)
+        {
+            if (hits.Length != 0)
+            {
+                return hits[0];
+            }
+            else
+            {
+                return new RaycastHit2D();
+            }
+        }
+        else
+        {
+            RaycastHit2D closestHit = new RaycastHit2D();
+            foreach (var item in hits)
+            {
+                if (!closestHit || Vector2.Distance(item.transform.position, PlayerAimController._instance.transform.position) < Vector2.Distance(closestHit.transform.position, PlayerAimController._instance.transform.position))
+                {
+                    closestHit = item;
+                }
+            }
+
+            return closestHit;
+        }
+    }
+
+    RaycastHit2D RaycastCheckFloor(Vector2 _startPos, Vector2 _dir)
+    {
+        RaycastHit2D hit = new RaycastHit2D();
+
+        hit = Physics2D.Raycast(_startPos, _dir, Mathf.Infinity, floorLayer);
+
+        return hit;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

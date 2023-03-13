@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckJumping();
                 movementController.CheckSlope();
                 movementController.ApplyForces();
+                hookController.CheckHookPointNearToCursor();
                 break;
             case PlayerStates.AIR:
                 movementController.CheckGrounded();
@@ -63,7 +64,7 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckJumping();
                 movementController.CheckSlope();
                 movementController.ApplyForces();
-
+                hookController.CheckHookPointNearToCursor();
 
                 break;
             case PlayerStates.HOOK:
@@ -72,6 +73,9 @@ public class PlayerController : MonoBehaviour
             case PlayerStates.WALL_SLIDE:
                 //Bajar la Y
                 //Comporbar el salto
+
+                hookController.CheckHookPointNearToCursor();
+
                 break;
             case PlayerStates.DEAD:
                 break;
