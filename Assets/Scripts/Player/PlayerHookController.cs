@@ -50,40 +50,59 @@ public class PlayerHookController : MonoBehaviour
         if (canHook)
         {
             canHook = false;
-            //Comprobar si hay algun punto de enganche alrededor del cursor
-            RaycastHit2D hit = CheckHookPointAround();
-            if (hit.collider != null)
+
+            switch (PlayerAimController._instance.controllerType)
             {
-
-                RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position , (hit.collider.transform.position - hookStarterPos.position).normalized);
-                //Si lo hay comprobar que no haya ninguna pared en medio 
-                if (Vector2.Distance(hit.point, hookStarterPos.position) <= Vector2.Distance(hit2.point, hookStarterPos.position))
-                {
-                    //Si no hay nada lanzar el gancho al que este mas cerca y bloquear el movimiento
-                    ThrowHook(hit.collider.transform.position, true);
-                }
-                else
-                {
-                    //Si hay algo lanzar el gancho hacia la pared
-                    ThrowHook(hit2.point, false);
-                    Debug.DrawLine(hookStarterPos.position, hit2.point, Color.red);
-                }
-
-
+                case PlayerAimController.ControllerType.MOUSE:
+                    MouseHook();
+                    break;
+                case PlayerAimController.ControllerType.GAMEPAD:
+                    GamepadHook();
+                    break;
+                default:
+                    break;
             }
-            else
-            {
-                //Si no simplemente lanzarlo para que choque contra la pared sin bloquear el movimiento ni nada
-                //Para ello comprobamos cual es la pared que estamos apuntando con la mira
-                RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, (CrosshairController._instance.transform.position - hookStarterPos.position).normalized);
-                ThrowHook(hit2.point, false);
-            }
+
         }
     }
 
+    private void MouseHook()
+    {
+        //Comprobar si hay algun punto de enganche alrededor del cursor
+        RaycastHit2D hit = CheckHookPointAround();
+        if (hit.collider != null)
+        {
+
+            RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, (hit.collider.transform.position - hookStarterPos.position).normalized);
+            //Si lo hay comprobar que no haya ninguna pared en medio 
+            if (Vector2.Distance(hit.point, hookStarterPos.position) <= Vector2.Distance(hit2.point, hookStarterPos.position))
+            {
+                //Si no hay nada lanzar el gancho al que este mas cerca y bloquear el movimiento
+                ThrowHook(hit.collider.transform.position, true);
+            }
+            else
+            {
+                //Si hay algo lanzar el gancho hacia la pared
+                ThrowHook(hit2.point, false);
+                Debug.DrawLine(hookStarterPos.position, hit2.point, Color.red);
+            }
+
+
+        }
+        else
+        {
+            //Si no simplemente lanzarlo para que choque contra la pared sin bloquear el movimiento ni nada
+            //Para ello comprobamos cual es la pared que estamos apuntando con la mira
+            RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, (PlayerAimController._instance.transform.position - hookStarterPos.position).normalized);
+            ThrowHook(hit2.point, false);
+        }
+    }
+
+   
+
     RaycastHit2D CheckHookPointAround() 
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(CrosshairController._instance.transform.position, checkRadius, Vector2.zero, 0, hookLayer);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(PlayerAimController._instance.transform.position, checkRadius, Vector2.zero, 0, hookLayer);
         
         if (hits.Length < 2)
         {
@@ -101,7 +120,7 @@ public class PlayerHookController : MonoBehaviour
             RaycastHit2D closestHit = new RaycastHit2D();
             foreach (var item in hits)
             {
-                if (!closestHit || Vector2.Distance(item.transform.position, CrosshairController._instance.transform.position) < Vector2.Distance(closestHit.transform.position, CrosshairController._instance.transform.position))
+                if (!closestHit || Vector2.Distance(item.transform.position, PlayerAimController._instance.transform.position) < Vector2.Distance(closestHit.transform.position, PlayerAimController._instance.transform.position))
                 {
                     closestHit = item;
                 }
@@ -120,6 +139,20 @@ public class PlayerHookController : MonoBehaviour
         return hit;
     }
 
+    #region Gamepad Throw Hook Functions
+    private void GamepadHook()
+    {
+
+    }
+
+
+    private void CheckHookGamepadDir()
+    {
+
+
+    }
+
+    #endregion
     #region Throw Hook Functions
     private void ThrowHook(Vector2 _target, bool _stickPoint)
     {
@@ -169,9 +202,9 @@ public class PlayerHookController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        if (CrosshairController._instance)
+        if (PlayerAimController._instance)
         {
-            Gizmos.DrawWireSphere(CrosshairController._instance.transform.position, checkRadius);
+            Gizmos.DrawWireSphere(PlayerAimController._instance.transform.position, checkRadius);
         }
     }
 
