@@ -12,10 +12,12 @@ public class PlayerInput : MonoBehaviour
 
     private PlayerController playerController;
 
+    private PlayerWallJumpController wallJumpController;
+
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
-
+        wallJumpController = GetComponent<PlayerWallJumpController>();
     }
 
     private void Start()
@@ -56,7 +58,17 @@ public class PlayerInput : MonoBehaviour
 
     private void JumpAction(InputAction.CallbackContext obj)
     {
-        playerController._movementController.JumpInputPressed();
+        switch (playerController.playerState)
+        {
+            case PlayerController.PlayerStates.WALL_SLIDE:
+                wallJumpController.WallJump();
+                break;
+
+            case PlayerController.PlayerStates.NONE:
+            case PlayerController.PlayerStates.MOVING:
+                playerController._movementController.JumpInputPressed();
+                break;
+        }
     }
 
     private void StopJump(InputAction.CallbackContext obj)

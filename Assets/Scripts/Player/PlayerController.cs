@@ -15,11 +15,14 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerMovementController movementController;
     private PlayerHookController hookController;
+    private PlayerWallJumpController wallJumpController;
 
     //Variable para acceder a los demas scripts
     public PlayerInput _playerInput => playerInput;
     public PlayerMovementController _movementController => movementController;
     public PlayerHookController _hookController => hookController;
+
+    public PlayerWallJumpController _wallJumpController => wallJumpController;
 
     // Start is called before the first frame update
     void Awake()
@@ -33,6 +36,7 @@ public class PlayerController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         movementController = GetComponent<PlayerMovementController>();
         hookController = GetComponent<PlayerHookController>();
+        wallJumpController = GetComponent<PlayerWallJumpController>();
     }
 
     // Update is called once per frame
@@ -59,6 +63,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerStates.AIR:
                 movementController.CheckGrounded();
+                wallJumpController.WallSlide();
                 CheckMovementStates();
                 movementController.AirMovement();
                 movementController.CheckJumping();
@@ -74,6 +79,9 @@ public class PlayerController : MonoBehaviour
             case PlayerStates.WALL_SLIDE:
                 //Bajar la Y
                 //Comporbar el salto
+                wallJumpController.WallSlide();
+                movementController.CheckGrounded();
+                CheckMovementStates();
 
                 hookController.CheckHookPointNearToCursor();
 
@@ -104,8 +112,15 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            //Si esta en el aire
-            playerState = PlayerStates.AIR;
+            if(wallJumpController.isWallSliding)
+            {
+                playerState = PlayerStates.WALL_SLIDE;
+            }
+            else
+            {
+                //Si esta en el aire
+                playerState = PlayerStates.AIR;
+            }
         }
     }
     
