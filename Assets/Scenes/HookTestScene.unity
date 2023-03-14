@@ -202,14 +202,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -3.34
       objectReference: {fileID: 0}
-    - target: {fileID: 2936491849083777378, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
-      propertyPath: ThrowHook
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2936491849083777405, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2936491849604238484, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_Name
       value: AllPlayer
