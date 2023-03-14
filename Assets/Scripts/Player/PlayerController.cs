@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerStates.HOOK:
                 hookController.MoveHookedPlayer();
+                hookController.CheckHookPointNearToCursor();
                 break;
             case PlayerStates.WALL_SLIDE:
                 //Bajar la Y

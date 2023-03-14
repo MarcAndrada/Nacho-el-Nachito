@@ -136,22 +136,41 @@ public class PlayerHookController : MonoBehaviour
 
     #region Gamepad Hook Functions
 
-    private void CheckHookGamepadDir()
+    public void CheckHookGamepadDir()
     {
         //Aqui comprovar segun la direccion del joystick cual es el que esta mas cerca del otro
         float hookPointDot = 0.3f;
+        float hookPointDistance = 50;
+        float dotOffset = 0.2f;
+        float distanceOffset = 10;
         GameObject lookingObject = null;
         foreach (GameObject item in HookGamepadManager._instance.allHooks)
         {
             float provisionalDot = Vector2.Dot(PlayerAimController._instance.gamepadDir.normalized, (item.transform.position - transform.position).normalized);
-            if (provisionalDot >= hookPointDot)
+            float provisionalDist = Vector2.Distance(item.transform.position, transform.position);
+            if (provisionalDot >= hookPointDot - dotOffset)
             {
-                hookPointDot = provisionalDot;
-                lookingObject = item;
+                if (provisionalDot - hookPointDot > -dotOffset && provisionalDist - hookPointDistance < distanceOffset )
+                {
+                    hookPointDot = provisionalDot;
+                    lookingObject = item;
+                    hookPointDistance = provisionalDist;
+                }
+                
             }
         }
-        Debug.Log("El mas cercano es el " + lookingObject + " con " + hookPointDot);
         hookPointSelected = lookingObject;
+
+        if (hookPointSelected != null)
+        {
+            hookPointIcon.enabled = true;
+            hookPointIcon.transform.position = hookPointSelected.transform.position;
+        }
+        else
+        {
+            hookPointIcon.enabled = false;
+        }
+        
     }
 
     #endregion

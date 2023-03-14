@@ -74,6 +74,7 @@ public class PlayerInput : MonoBehaviour
     private void AimAction(InputAction.CallbackContext obj)
     {
        PlayerAimController._instance.gamepadDir = InputManager._instance.ingameAimAction.action.ReadValue<Vector2>();
+        playerController._hookController.CheckHookGamepadDir();
     }
 
     private void HookAction(InputAction.CallbackContext obj)
