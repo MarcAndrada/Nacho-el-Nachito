@@ -163,7 +163,7 @@
                 {
                     "name": "",
                     "id": "2ca760f1-5b1b-45e0-a68a-bba450075a7e",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -194,66 +194,11 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Mouse",
-                    "id": "20911121-7074-4e2e-86bb-945c6f03c950",
-                    "path": "2DVector(mode=2)",
-                    "interactions": "",
-                    "processors": "ScaleVector2(x=0.6,y=0.6)",
-                    "groups": "",
-                    "action": "AimHook",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Up",
-                    "id": "2d0ed058-f041-4660-ade5-ea71bb3e4a0d",
-                    "path": "<Mouse>/delta/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AimHook",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Down",
-                    "id": "fa056d90-9061-46d1-8dc6-d757e9e98dfc",
-                    "path": "<Mouse>/delta/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AimHook",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Left",
-                    "id": "1c56e7d0-05e5-42be-9ef2-4567bf55b230",
-                    "path": "<Mouse>/delta/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AimHook",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Right",
-                    "id": "366ae3f9-0203-4c3a-810a-3f75022df862",
-                    "path": "<Mouse>/delta/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AimHook",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "Controller",
                     "id": "62a0eae0-ec72-454e-9ba1-bb2c6b5a4079",
                     "path": "2DVector(mode=2)",
                     "interactions": "",
-                    "processors": "NormalizeVector2,ScaleVector2(x=0.2,y=0.2)",
+                    "processors": "NormalizeVector2",
                     "groups": "",
                     "action": "AimHook",
                     "isComposite": true,
