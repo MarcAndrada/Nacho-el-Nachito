@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerAimController._instance.UpdateAimMethod();
         StatesFunctions();
     }
 
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckJumping();
                 movementController.CheckSlope();
                 movementController.ApplyForces();
+                hookController.CheckHookPointNearToCursor();
                 break;
             case PlayerStates.AIR:
                 movementController.CheckGrounded();
@@ -67,10 +69,12 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckJumping();
                 movementController.CheckSlope();
                 movementController.ApplyForces();
+                hookController.CheckHookPointNearToCursor();
 
                 break;
             case PlayerStates.HOOK:
                 hookController.MoveHookedPlayer();
+                hookController.CheckHookPointNearToCursor();
                 break;
             case PlayerStates.WALL_SLIDE:
                 //Bajar la Y
@@ -78,6 +82,9 @@ public class PlayerController : MonoBehaviour
                 wallJumpController.WallSlide();
                 movementController.CheckGrounded();
                 CheckMovementStates();
+
+                hookController.CheckHookPointNearToCursor();
+
                 break;
             case PlayerStates.DEAD:
                 break;

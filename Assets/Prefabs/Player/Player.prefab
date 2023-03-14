@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc16a7d2960dc8a47b7b2c81fb1663d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ThrowHook: 0
 --- !u!114 &3854213116837401510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookObj: {fileID: 0}
+  hookPointIcon: {fileID: 0}
   hookStarterPos: {fileID: 3854213116712417619}
   checkRadius: 2
   speed: 22
@@ -308,10 +310,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c83c29f2cc4074eacc86627d640027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallcheck: {fileID: 0}
+  isWallSliding: 0
+  wallSlidingSpeed: 1
   wallLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
+  wallJumpingPower: {x: 12, y: 14}
 --- !u!95 &3854213116837401531
 Animator:
   serializedVersion: 5
