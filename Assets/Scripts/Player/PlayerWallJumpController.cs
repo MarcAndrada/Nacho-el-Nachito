@@ -10,17 +10,12 @@ public class PlayerWallJumpController : MonoBehaviour
 
     private Rigidbody2D rb2d;
     private SpriteRenderer sprt;
+    private CapsuleCollider2D coll;
 
     // WALL SLIDE VARIABLES
 
     public bool isWallSliding;
     public float wallSlidingSpeed = 0.2f;
-
-    [SerializeField]
-    private Transform RightWallcheck;
-
-    [SerializeField]
-    private Transform LeftWallCheck;
 
     [SerializeField]
     private LayerMask wallLayer;
@@ -45,17 +40,19 @@ public class PlayerWallJumpController : MonoBehaviour
 
         rb2d = GetComponent<Rigidbody2D>();
         sprt = GetComponent<SpriteRenderer>();
+        coll =  GetComponent<CapsuleCollider2D>();
+        
     }
 
     private bool IsWalled() // NECESITO QUE SI IsWalled != null el input del player se cancele y no se pueda mover mientras esta en ese estado
     {
-        if(Physics2D.OverlapCircle(RightWallcheck.position, 0.2f, wallLayer) != null)
+        if(Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null)
         {
-            return Physics2D.OverlapCircle(RightWallcheck.position, 0.2f, wallLayer);
+            return Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer);
         }
-        else if(Physics2D.OverlapCircle(LeftWallCheck.position, 0.2f, wallLayer) != null)
+        else if(Physics2D.OverlapCircle(transform.position - new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null)
         {
-            return Physics2D.OverlapCircle(LeftWallCheck.position, 0.2f, wallLayer);
+            return Physics2D.OverlapCircle(transform.position - new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer);
         }
         else
         {
