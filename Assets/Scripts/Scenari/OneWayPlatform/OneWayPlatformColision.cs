@@ -6,21 +6,36 @@ public class OneWayPlatformColision : MonoBehaviour
 {
     [SerializeField] private float timeNoColision;
 
-    private BoxCollider2D boxcollider; 
+    private float startValue;
 
-    public void Desactivarcolision()
+    private bool platformDes;
+
+    private BoxCollider2D boxcollider;
+    private void Start()
     {
         boxcollider = GetComponent<BoxCollider2D>();
+        startValue = timeNoColision;
     }
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-    //   private bool colision = true; 
-    //}
+  
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            boxcollider.enabled = false;
+            platformDes = true;
+        }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    if ()
-    //}
+        if(platformDes)
+        {
+            timeNoColision = timeNoColision - 1f * Time.deltaTime;
+        }
+
+        if(timeNoColision <= 0 )
+        {
+            platformDes = false;
+            boxcollider.enabled = true;
+            timeNoColision = startValue;
+        }
+    }
+   
 }
