@@ -270,6 +270,7 @@ public class PlayerMovementController : MonoBehaviour
         CheckAcceleration();
         ApplyAirAcceleration();
         FlipCharacter();
+        DragExternalForces();
         movementForces = new Vector2(airAcceleration * airMoveSpeed, 0) + externalForces;
         ClampAirSpeed();
     }
@@ -408,6 +409,25 @@ public class PlayerMovementController : MonoBehaviour
         movementForces.x = Mathf.Clamp(movementForces.x, -maxAirSeed, maxAirSeed);
         movementForces.y = Mathf.Clamp(movementForces.y, Mathf.NegativeInfinity, maxAirSeed);
     }
+
+    private void DragExternalForces()
+    {
+        float drag = 8f;
+        if (externalForces.x > 0.1)
+        {
+            externalForces.x -= Time.deltaTime * drag;
+        }
+        else if (externalForces.x < -0.1)
+        {
+            externalForces.x += Time.deltaTime * drag;
+        }
+        else
+        {
+            externalForces.x = 0;
+        }
+        
+    }
+
     #endregion
 
     public void CheckSlope()
