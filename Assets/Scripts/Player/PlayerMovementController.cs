@@ -80,7 +80,6 @@ public class PlayerMovementController : MonoBehaviour
     {
         
         rb2d.velocity = movementForces;
-        // Debug.Log(rb2d.velocity);
     }
 
     #region Floor Movement Functions
