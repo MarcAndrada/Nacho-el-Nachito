@@ -5,8 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
-    public enum ThrowHookType { INSTANT, BUTTON};
-    public ThrowHookType ThrowHook;
+
     private float playerMovement; //La variable donde guardamos el input de movimiento que recibamos 
     public float _playerMovement => playerMovement; //Variable que recibira el valor de player Movement y la haremos publica para que asi no pueda editarse desde fuera
 
@@ -27,22 +26,8 @@ public class PlayerInput : MonoBehaviour
         InputManager._instance.ingameMovementAction.action.performed += MoveAction; //Mientras el input de ataque este activo se llamara a la funcion para guardarse el valor
         InputManager._instance.ingameMovementAction.action.canceled += MoveAction;
 
-
-        switch (ThrowHook)
-        {
-            case ThrowHookType.INSTANT:
-                InputManager._instance.ingameAimAction.action.started += InstantHookAction; ;
-                break;
-            case ThrowHookType.BUTTON:
-                InputManager._instance.ingameAimAction.action.started += AimAction;
-                InputManager._instance.ingameAimAction.action.performed += AimAction;
-                InputManager._instance.ingameAimAction.action.canceled += AimAction;
-                InputManager._instance.ingameHookAction.action.started += HookAction;
-
-                break;
-            default:
-                break;
-        }
+        InputManager._instance.ingameAimAction.action.started += GamepadHookAction;
+        InputManager._instance.ingameHookAction.action.started += MouseHookAction;
 
 
     }
@@ -77,19 +62,13 @@ public class PlayerInput : MonoBehaviour
     }
 
 
-    private void InstantHookAction(InputAction.CallbackContext obj)
+    private void GamepadHookAction(InputAction.CallbackContext obj)
     {
         PlayerAimController._instance.gamepadDir = InputManager._instance.ingameAimAction.action.ReadValue<Vector2>();
         playerController._hookController.HookInputPressed();
     }
 
-    private void AimAction(InputAction.CallbackContext obj)
-    {
-       PlayerAimController._instance.gamepadDir = InputManager._instance.ingameAimAction.action.ReadValue<Vector2>();
-        playerController._hookController.CheckHookGamepadDir();
-    }
-
-    private void HookAction(InputAction.CallbackContext obj)
+    private void MouseHookAction(InputAction.CallbackContext obj)
     {
         playerController._hookController.HookInputPressed();
     }
