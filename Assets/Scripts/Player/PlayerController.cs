@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerAimController._instance.UpdateAimMethod();
+        PlayerAimController._instance.MoveCrosshair();
         StatesFunctions();
     }
 
