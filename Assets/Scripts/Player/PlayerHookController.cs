@@ -32,6 +32,7 @@ public class PlayerHookController : MonoBehaviour
 
     private PlayerController playerController;
     private Rigidbody2D rb2d;
+    private CapsuleCollider2D capsuleCollider;
 
     [SerializeField]
     private LayerMask hookLayer;
@@ -43,6 +44,7 @@ public class PlayerHookController : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         hookController = hookObj.GetComponent<HookController>();
         rb2d = GetComponent<Rigidbody2D>(); 
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
     private void Start()
@@ -77,7 +79,7 @@ public class PlayerHookController : MonoBehaviour
     {
         if (hookPointSelected != null)
         {
-            RaycastHit2D hit = RaycastCheckFloor(hookStarterPos.position, (hookPointSelected.transform.position - hookStarterPos.position).normalized);
+            RaycastHit2D hit = RaycastCheckFloor(hookStarterPos.position, (hookPointSelected.transform.position - hookStarterPos.position).normalized, Mathf.Infinity);
             //Si lo hay comprobar que no haya ninguna pared en medio 
             if (Vector2.Distance(hookPointSelected.transform.position, hookStarterPos.position) <= Vector2.Distance(hit.point, hookStarterPos.position))
             {
@@ -95,7 +97,7 @@ public class PlayerHookController : MonoBehaviour
         {
             //Si no simplemente lanzarlo para que choque contra la pared sin bloquear el movimiento ni nada
             //Para ello comprobamos cual es la pared que estamos apuntando con la mira
-            RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, (PlayerAimController._instance.transform.position - hookStarterPos.position).normalized);
+            RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, (PlayerAimController._instance.transform.position - hookStarterPos.position).normalized, Mathf.Infinity);
             ThrowHook(hit2.point, false);
         }
     }
@@ -203,7 +205,6 @@ public class PlayerHookController : MonoBehaviour
         CheckIfPositionReached();
     }
 
-
     private void CheckIfPositionReached()
     {
         if (Vector2.Distance(transform.position, posToReach) <= minDistanceFromPoint)
@@ -223,6 +224,39 @@ public class PlayerHookController : MonoBehaviour
         hookController.DisableHook();
     }
 
+    public void CheckPlayerNotStucked() 
+    {
+        float rayRange = 1;
+        Vector2 upperPos = transform.position + transform.up * capsuleCollider.size.y / 3;
+        Vector2 upperDir = posToReach - upperPos;
+        RaycastHit2D upperRay = RaycastCheckFloor(upperPos, upperDir, rayRange);
+        Vector2 lowerPos = transform.position - transform.up * capsuleCollider.size.y / 3;
+        Vector2 lowerDir = posToReach - lowerPos;
+        RaycastHit2D lowerRay = RaycastCheckFloor(lowerPos, lowerDir, rayRange);
+
+        float offsetSpeed = 3;
+
+        if (upperRay.collider != null && lowerRay.collider != null)
+        {
+            //Romper el gancho
+            StopHook();
+        }
+        else if (upperRay.collider != null)
+        {
+            //Hay que bajar
+            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y - offsetSpeed);
+            
+        }
+        else if (lowerRay.collider != null)
+        {
+            //Hay que subir
+            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y + offsetSpeed);
+
+
+        }
+
+
+    }
     #endregion
 
 
@@ -256,11 +290,11 @@ public class PlayerHookController : MonoBehaviour
         }
     }
 
-    RaycastHit2D RaycastCheckFloor(Vector2 _startPos, Vector2 _dir)
+    RaycastHit2D RaycastCheckFloor(Vector2 _startPos, Vector2 _dir, float _range)
     {
         RaycastHit2D hit = new RaycastHit2D();
 
-        hit = Physics2D.Raycast(_startPos, _dir, Mathf.Infinity, floorLayer);
+        hit = Physics2D.Raycast(_startPos, _dir, _range, floorLayer);
 
         return hit;
     }
