@@ -6,7 +6,6 @@ public class PlayerWallJumpController : MonoBehaviour
 {
     private PlayerMovementController _movementController;
     private PlayerController _playerController;
-    private PlayerInput _playerInput;
 
     private Rigidbody2D rb2d;
     private SpriteRenderer sprt;
@@ -21,12 +20,7 @@ public class PlayerWallJumpController : MonoBehaviour
     private LayerMask wallLayer;
 
     // WALL JUMP VARIABLES
-
-    private bool isWallJumping;
     private float wallJumpingDirection;
-    private float wallJumpingTime = 0.2f;
-    private float wallJumpingCounter;
-    private float wallJumpingDuration = 0.4f;
 
     [SerializeField]
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
@@ -36,7 +30,6 @@ public class PlayerWallJumpController : MonoBehaviour
     {
         _movementController = GetComponent<PlayerMovementController>();
         _playerController = GetComponent<PlayerController>();
-        _playerInput = GetComponent<PlayerInput>();
 
         rb2d = GetComponent<Rigidbody2D>();
         sprt = GetComponent<SpriteRenderer>();
