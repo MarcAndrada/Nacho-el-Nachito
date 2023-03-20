@@ -79,7 +79,7 @@ public class PlayerHookController : MonoBehaviour
         {
             RaycastHit2D hit = RaycastCheckFloor(hookStarterPos.position, (hookPointSelected.transform.position - hookStarterPos.position).normalized);
             //Si lo hay comprobar que no haya ninguna pared en medio 
-            if (Vector2.Distance(hookPointSelected.transform.position, hookStarterPos.position) <= Vector2.Distance(hit.point, hookStarterPos.position))
+            if (hit.collider == null || Vector2.Distance(hookPointSelected.transform.position, hookStarterPos.position) <= Vector2.Distance(hit.point, hookStarterPos.position))
             {
                 //Si no hay nada lanzar el gancho al que este mas cerca y bloquear el movimiento
                 ThrowHook(hookPointSelected.transform.position, true);
@@ -251,7 +251,6 @@ public class PlayerHookController : MonoBehaviour
                     closestHit = item;
                 }
             }
-
             return closestHit;
         }
     }
