@@ -12,7 +12,7 @@ public class PlayerDashController : MonoBehaviour
     
     // DASH VARIABLES
 
-    public bool isDashing;
+    private bool isDashing;
 
     [SerializeField] private float dashDistance;
     void Start()
@@ -25,13 +25,11 @@ public class PlayerDashController : MonoBehaviour
         coll =  GetComponent<CapsuleCollider2D>();
     }
 
-    private void Dash()
+    public void Dash()
     {
-        if (_playerController.playerState == PlayerController.PlayerStates.AIR ||
-            _playerController.playerState == PlayerController.PlayerStates.NONE ||
-            _playerController.playerState == PlayerController.PlayerStates.MOVING)
-        {
+        
+        
             //rb2d.velocity = new Vector2(3,rb2d.velocity.y));
-        }
+        
     }
 }

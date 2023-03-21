@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovementController movementController;
     private PlayerHookController hookController;
     private PlayerWallJumpController wallJumpController;
+    private PlayerDashController dashController;
 
     //Variable para acceder a los demas scripts
     public PlayerInput _playerInput => playerInput;
@@ -23,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public PlayerHookController _hookController => hookController;
 
     public PlayerWallJumpController _wallJumpController => wallJumpController;
+
+    public PlayerDashController _playerDashController => dashController;
 
     // Start is called before the first frame update
     void Awake()
@@ -60,6 +63,7 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckSlope();
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
+                dashController.Dash();
                 break;
             case PlayerStates.AIR:
                 movementController.CheckGrounded();
@@ -70,7 +74,7 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckSlope();
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
-
+                dashController.Dash();
                 break;
             case PlayerStates.HOOK:
                 hookController.MoveHookedPlayer();
@@ -84,7 +88,7 @@ public class PlayerController : MonoBehaviour
                 CheckMovementStates();
 
                 hookController.CheckHookPointNearToCursor();
-
+                dashController.Dash();
                 break;
             case PlayerStates.DEAD:
                 break;

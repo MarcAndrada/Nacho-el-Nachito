@@ -28,7 +28,7 @@ public class PlayerInput : MonoBehaviour
 
         InputManager._instance.ingameAimAction.action.started += GamepadHookAction;
         InputManager._instance.ingameHookAction.action.started += MouseHookAction;
-
+        InputManager._instance.ingameDashAction.action.started += DashAction;
 
     }
 
@@ -71,6 +71,25 @@ public class PlayerInput : MonoBehaviour
     private void MouseHookAction(InputAction.CallbackContext obj)
     {
         playerController._hookController.HookInputPressed();
+    }
+
+    private void DashAction(InputAction.CallbackContext obj)
+    {
+        switch (playerController.playerState)
+        {
+            case PlayerController.PlayerStates.WALL_SLIDE:
+                // Dash oposite wall
+                break;
+
+            case PlayerController.PlayerStates.NONE:
+                // Dash front player
+                break;
+                
+            case PlayerController.PlayerStates.MOVING:
+                playerController._movementController.JumpInputPressed();
+                break;
+        }
+        Debug.Log("Dash");
     }
 
 }
