@@ -75,21 +75,22 @@ public class PlayerInput : MonoBehaviour
 
     private void DashAction(InputAction.CallbackContext obj)
     {
-        switch (playerController.playerState)
+        if (playerController._playerDashController._canDash)
         {
-            case PlayerController.PlayerStates.WALL_SLIDE:
-                // Dash oposite wall
-                break;
-
-            case PlayerController.PlayerStates.NONE:
-                // Dash front player
-                break;
-                
-            case PlayerController.PlayerStates.MOVING:
-                playerController._movementController.JumpInputPressed();
-                break;
+            switch (playerController.playerState)
+            {
+                case PlayerController.PlayerStates.WALL_SLIDE:
+                case PlayerController.PlayerStates.NONE:
+                    // Direction = Player facing
+                    playerController.playerState = PlayerController.PlayerStates.DASH;
+                    break;
+                case PlayerController.PlayerStates.MOVING:
+                case PlayerController.PlayerStates.AIR:
+                    // Direction = Directional
+                    playerController.playerState = PlayerController.PlayerStates.DASH;
+                    break;
+            }
         }
-        Debug.Log("Dash");
     }
 
 }

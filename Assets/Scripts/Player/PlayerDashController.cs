@@ -12,7 +12,8 @@ public class PlayerDashController : MonoBehaviour
     
     // DASH VARIABLES
 
-    private bool isDashing;
+    public bool _canDash;
+    
 
     [SerializeField] private float dashDistance;
     void Start()
@@ -23,13 +24,11 @@ public class PlayerDashController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         sprt = GetComponent<SpriteRenderer>();
         coll =  GetComponent<CapsuleCollider2D>();
+        _canDash = true;
     }
 
     public void Dash()
     {
-        
-        
-            //rb2d.velocity = new Vector2(3,rb2d.velocity.y));
-        
+        //
     }
 }

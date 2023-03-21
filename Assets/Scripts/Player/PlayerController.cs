@@ -5,7 +5,7 @@ using UnityEngine.Assertions.Must;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, DEAD };
+    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, DASH, DEAD };
     public PlayerStates playerState;
 
     
@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckSlope();
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
-                dashController.Dash();
                 break;
             case PlayerStates.AIR:
                 movementController.CheckGrounded();
@@ -74,7 +73,6 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckSlope();
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
-                dashController.Dash();
                 break;
             case PlayerStates.HOOK:
                 hookController.MoveHookedPlayer();
@@ -88,6 +86,8 @@ public class PlayerController : MonoBehaviour
                 CheckMovementStates();
 
                 hookController.CheckHookPointNearToCursor();
+                break;
+            case PlayerStates.DASH:
                 dashController.Dash();
                 break;
             case PlayerStates.DEAD:
@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviour
             {
                 playerState = PlayerStates.NONE;
             }
+            
         }
         else
         {
