@@ -29,11 +29,7 @@ public class Player_Is_Dead : MonoBehaviour
 
         if (collision.CompareTag("Obstaculo"))
         {
-            dibujo.enabled = false;
-            while (timeSprite > 0)
-            {
-                timeSprite -= timeSprite - 1f * Time.deltaTime;
-            }
+            dibujo.enabled = false; 
         }
 
         if(timeSprite == 0)
