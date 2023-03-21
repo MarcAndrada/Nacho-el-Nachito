@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
 
     public PlayerWallJumpController _wallJumpController => wallJumpController;
 
+    private Animator anim;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
         movementController = GetComponent<PlayerMovementController>();
         hookController = GetComponent<PlayerHookController>();
         wallJumpController = GetComponent<PlayerWallJumpController>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerAimController._instance.UpdateAimMethod();
         StatesFunctions();
+        AnimateCharacter();
     }
 
     private void StatesFunctions() 
@@ -125,5 +129,22 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
+
+    private void AnimateCharacter()
+    {
+        if (playerState == PlayerStates.MOVING)
+        {
+            anim.SetBool("Moving", true);
+            anim.SetBool("OnAir", false);
+        }
+        if(playerState == PlayerStates.AIR)
+        {
+            anim.SetBool("OnAir", true);
+        }
+        if(playerState == PlayerStates.NONE || playerState == PlayerStates.INTERACTING)
+        {
+            anim.SetBool("Moving", false);
+            anim.SetBool("OnAir", false);
+        }
+    }
 }
