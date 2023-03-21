@@ -34,7 +34,6 @@ public class PlayerWallJumpController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         sprt = GetComponent<SpriteRenderer>();
         coll =  GetComponent<CapsuleCollider2D>();
-        
     }
 
     private bool IsWalled() // NECESITO QUE SI IsWalled != null el input del player se cancele y no se pueda mover mientras esta en ese estado
