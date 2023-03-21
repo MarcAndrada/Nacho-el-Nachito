@@ -5,7 +5,7 @@ using UnityEngine.Assertions.Must;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, DEAD };
+    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, INTERACTING, DEAD };
     public PlayerStates playerState;
 
     
@@ -82,9 +82,11 @@ public class PlayerController : MonoBehaviour
                 wallJumpController.WallSlide();
                 movementController.CheckGrounded();
                 CheckMovementStates();
-
                 hookController.CheckHookPointNearToCursor();
 
+                break;
+            case PlayerStates.INTERACTING:
+                // NADA
                 break;
             case PlayerStates.DEAD:
                 break;

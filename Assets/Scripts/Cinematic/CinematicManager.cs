@@ -83,12 +83,13 @@ public class CinematicManager : MonoBehaviour
 
     bool showingDialog;
 
-    TextMeshPro dialogTextC;
+    TextMeshProUGUI dialogTextC;
 
     int dialogIndex;
 
     PlayerMovementController P1;
 
+    PlayerController PC;
 
     KeyCode[] debugKey = { KeyCode.S, KeyCode.T, KeyCode.A, KeyCode.R };
     int debugKeyProgress = 0;
@@ -100,6 +101,8 @@ public class CinematicManager : MonoBehaviour
     {
         P1 = player.GetComponent<PlayerMovementController>();
 
+        PC = player.GetComponent<PlayerController>();
+
         // Init state
         isCinematicMode = false;
         waiting = false;
@@ -108,7 +111,7 @@ public class CinematicManager : MonoBehaviour
         showingDialog = false;
         dialogIndex = 0;
 
-        dialogTextC = dialogText.GetComponent<TextMeshPro>();
+        dialogTextC = dialogText.GetComponent<TextMeshProUGUI>();
 
         gameCameraC = gameCamera.GetComponent<GameCamera>();
     }
@@ -116,12 +119,11 @@ public class CinematicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(playingCinematic);
-   
-
         if (isCinematicMode)
         {
             playingCinematic = true;
+
+            PC.playerState = PlayerController.PlayerStates.INTERACTING;
 
             if (showingDialog)
             {
@@ -135,7 +137,6 @@ public class CinematicManager : MonoBehaviour
                 dialogTextC.text = text;
 
                 instructionsText.gameObject.SetActive(true);
-
 
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
@@ -262,11 +263,12 @@ public class CinematicManager : MonoBehaviour
                     commandIndex++;
                 }
             }
-            else
-            {
-                playingCinematic = false;
-                isCinematicMode = false;
-            }
+        }
+        else
+        {
+            PC.playerState = PlayerController.PlayerStates.NONE;
+            playingCinematic = false;
+            isCinematicMode = false;
         }
     }
 
@@ -282,9 +284,6 @@ public class CinematicManager : MonoBehaviour
         {
             Debug.Log("No puede iniciarse la cinematica" + index + "porque ya hay una en ejecucion");
         }
-
-        //showingDialog = true;
-        //dialogIndex = index;
     }
 
     public bool IsShowingDialog()
