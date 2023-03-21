@@ -36,7 +36,7 @@ public class PlayerWallJumpController : MonoBehaviour
         coll =  GetComponent<CapsuleCollider2D>();
     }
 
-    private bool IsWalled() // NECESITO QUE SI IsWalled != null el input del player se cancele y no se pueda mover mientras esta en ese estado
+    private bool IsWalled()
     {
         if(Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null)
         {
@@ -54,7 +54,7 @@ public class PlayerWallJumpController : MonoBehaviour
 
     public void WallSlide()
     {
-        if(IsWalled() && !_movementController._isGrounded) //&& _playerInput._playerMovement != 0
+        if(IsWalled() && !_movementController._isGrounded)
         {
             isWallSliding = true;
             rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
@@ -87,7 +87,7 @@ public class PlayerWallJumpController : MonoBehaviour
 
         _playerController.playerState = PlayerController.PlayerStates.AIR;
         isWallSliding = false;
-        rb2d.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x /* EL IMPULSO EL  */, wallJumpingPower.y);
-        _movementController.externalForces = new Vector2(wallJumpingDirection * wallJumpingPower.x /* EL IMPULSO EN X NO FUNCIONA CORRECTAMENTE */, wallJumpingPower.y);
+        rb2d.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+        _movementController.externalForces = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
     }
 }
