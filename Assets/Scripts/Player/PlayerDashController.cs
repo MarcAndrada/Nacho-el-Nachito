@@ -16,7 +16,7 @@ public class PlayerDashController : MonoBehaviour
 
     private Vector2 vdirection;
 
-    [SerializeField] private float _dashSpeed = 500f;
+    [SerializeField] private float _dashSpeed = 5f;
     [SerializeField] private float _dashTime = 0.3f;
     [SerializeField] private float _dashDistance = 5f;
     void Start()
@@ -32,18 +32,8 @@ public class PlayerDashController : MonoBehaviour
 
     public void Dash()
     {
-        
-        if (_playerController._playerInput._playerMovement > 0)
-        {
-            Debug.Log("Dash Derecha!");
-            vdirection = (Vector2)transform.right * _dashSpeed * _dashDistance;
-        } else if (_playerController._playerInput._playerMovement < 0)
-        {
-            Debug.Log("Dash Izquierda!");
-            vdirection = -(Vector2)transform.right * _dashSpeed * _dashDistance;
-        }
+        vdirection = (Vector2)transform.right * _dashSpeed * _dashDistance * _movementController._lastDir;
         // 
-        _movementController.externalForces = vdirection;
         _playerController.GetComponent<Rigidbody2D>().velocity = vdirection;
         StartCoroutine(StopDashing());
 
@@ -53,5 +43,8 @@ public class PlayerDashController : MonoBehaviour
     {
         yield return new WaitForSeconds(_dashTime);
         _playerController.playerState = PlayerController.PlayerStates.NONE;
+        
+        
+        
     }
 }
