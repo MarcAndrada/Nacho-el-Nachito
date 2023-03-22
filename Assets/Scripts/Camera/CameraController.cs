@@ -12,10 +12,6 @@ public class CameraController : MonoBehaviour
     private float playerVerticalOffset;
     [SerializeField]
     private float playerHorizontalOffset;
-    [Space, SerializeField]
-    private float playerOptimalDistance;
-    [SerializeField]
-    private float returnToPlayerSpeed;
 
     [Header("Mouse Borders"), SerializeField]
     private float verticalOffset;
@@ -47,9 +43,9 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-
+        PlayerAimController._instance.MoveCrosshair();
         CameraBehaviour();
-        PlayerAimController._instance.UpdateAimMethod();
+        PlayerAimController._instance.MoveCrosshair();
 
     }
 
@@ -72,19 +68,13 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            //Si no esta tocando los bordes comprobar si la camara esta muy lejos de la distancia minima sobre el player
-            if (isDistanceFromPlayerToFar(playerPos))
-            {
-                //Si esta esta lejos la camara volvera a la posicion del player
-                Vector2 dir = transform.position - transform.position;
-                ApplyInputDir(dir.normalized, returnToPlayerSpeed);
-            }
-
+            //Si no esta tocando los bordes con el raton comprobar que el player este dentro de la pantalla
+            SetMaxDistanceToCameraFormPlayer(playerPos, leftDownBorder, rightUpBorder);
             //Si no no hara nada
         }
 
         //Si choca con los bordes del mapa se bloqueara el movimiento hasta ese punto
-        //LockCameraInBorders();
+        LockCameraInBorders();
 
 
         transform.position = new Vector3(newCamPos.x, newCamPos.y, transform.position.z);
@@ -113,12 +103,10 @@ public class CameraController : MonoBehaviour
         if (_lookAtPos.x > _rightUpBorder.x - horizontalOffset || _lookAtPos.y > _rightUpBorder.y - verticalOffset ||
             _lookAtPos.x < _leftDownBorder.x + horizontalOffset || _lookAtPos.y < _leftDownBorder.y + verticalOffset)
         {
-            //Debug.Log("Toca los bordes");
             return true;
         }
         else
         {
-            //Debug.Log("No toca los bordes");
             return false;
         }
 
@@ -127,60 +115,48 @@ public class CameraController : MonoBehaviour
 
     private void ApplyInputDir(Vector2 _dir, float _speed)
     {
+        float minDirValue = 0.3f;
+        if (_dir.x < minDirValue && _dir.x > -minDirValue)
+            _dir.x = 0;
+
+        if (_dir.y < minDirValue && _dir.y > -minDirValue)
+            _dir.y = 0;
+
+
         newCamPos += _dir * _speed * Time.deltaTime;
     }
 
     private void SetMaxDistanceToCameraFormPlayer(Vector2 _playerPos, Vector2 _leftDownBorder, Vector2 _rightUpBorder)
     {
         //En caso de que la nueva posicion haya llegado al maximo de distancia permitido se bloqueara el movimiento
-        Vector2 middleSex = _rightUpBorder - _leftDownBorder;
+        Vector2 camWordlPosSize = _rightUpBorder - _leftDownBorder;
+        Vector2 updatedRightUpBorder = new Vector2(newCamPos.x + camWordlPosSize.x / 2, newCamPos.y + camWordlPosSize.y / 2);
+        Vector2 updatedLeftDownBorder = new Vector2(newCamPos.x - camWordlPosSize.x / 2, newCamPos.y - camWordlPosSize.y / 2); ;
 
-        Debug.Log(middleSex);
+
         //Comprobamos la X
-        if (_playerPos.x > _rightUpBorder.x - playerHorizontalOffset)
+        if (_playerPos.x > updatedRightUpBorder.x - playerHorizontalOffset)
         {
-            //newCamPos.x = _playerPos.x + playerHorizontalOffset - middleSex.x / 2; //PORQUE ESTO NO ESTA BIEN??????
-            Debug.Log("El PLAYER se sale por la DERECHA");
+            newCamPos.x = (_playerPos.x + playerHorizontalOffset) - (camWordlPosSize.x / 2); //PORQUE ESTO NO ESTA BIEN??????
         }
-        else if (_playerPos.x < _leftDownBorder.x + playerHorizontalOffset)
+        else if (_playerPos.x < updatedLeftDownBorder.x + playerHorizontalOffset)
         {
-            float permatrago = _playerPos.x - _leftDownBorder.x + playerHorizontalOffset ;
-            newCamPos.x = _leftDownBorder.x - permatrago + middleSex.x;
-            Debug.Log("El PLAYER se sale por la IZQUIERDA");
+            newCamPos.x = (_playerPos.x - playerHorizontalOffset) + (camWordlPosSize.x / 2);
         }
 
         //Comprobamos la Y
-        if (_playerPos.y > _rightUpBorder.y - playerVerticalOffset)
+        if (_playerPos.y > updatedRightUpBorder.y - playerVerticalOffset)
         {
-            //newCamPos.y = _playerPos.y + playerVerticalOffset - middleSex.y / 2;
-            Debug.Log("El PLAYER se sale por la ARRIBA");
+            newCamPos.y = (_playerPos.y + playerVerticalOffset) - (camWordlPosSize.y / 2);
         }
-        else if (_playerPos.y < _leftDownBorder.y + playerVerticalOffset)
+        else if (_playerPos.y < updatedLeftDownBorder.y + playerVerticalOffset)
         {
-            //newCamPos.y = _playerPos.y - playerVerticalOffset + middleSex.y / 2;
-            float permatrago = _playerPos.y + playerVerticalOffset;
-            //newCamPos.y = _leftDownBorder.y - permatrago + middleSex.y; 
-            Debug.Log("El PLAYER se sale por la ABAJO");
-
+            newCamPos.y = (_playerPos.y - playerVerticalOffset) + (camWordlPosSize.y / 2);
         }
 
     }
     #endregion
 
-    #region Return To Player Functions
-    private bool isDistanceFromPlayerToFar(Vector2 _playerPos) 
-    {
-        //Debug.Log(Vector2.Distance(_playerPos, transform.position));
-        if (Vector2.Distance(_playerPos, transform.position) > playerOptimalDistance)
-        {
-            return true;
-        }
-
-        return false;
-
-    }
-
-    #endregion
 
     private void LockCameraInBorders()
     {

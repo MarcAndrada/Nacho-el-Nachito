@@ -571,11 +571,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac41be40517448648812425d5e475509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraSpeed: 2
-  playerVerticalOffset: 4
-  playerHorizontalOffset: 8
+  cameraSpeed: 16
+  playerVerticalOffset: 3
+  playerHorizontalOffset: 5
   playerOptimalDistance: 2
-  returnToPlayerSpeed: 15
+  returnToPlayerSpeed: 7
   verticalOffset: 6
   horizontalOffset: 10
   leftDownMinPos: {x: 1.69, y: -5.1}
