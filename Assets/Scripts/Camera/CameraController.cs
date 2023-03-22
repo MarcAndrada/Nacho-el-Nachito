@@ -49,6 +49,7 @@ public class CameraController : MonoBehaviour
     {
 
         CameraBehaviour();
+        PlayerAimController._instance.UpdateAimMethod();
 
     }
 
@@ -132,27 +133,35 @@ public class CameraController : MonoBehaviour
     private void SetMaxDistanceToCameraFormPlayer(Vector2 _playerPos, Vector2 _leftDownBorder, Vector2 _rightUpBorder)
     {
         //En caso de que la nueva posicion haya llegado al maximo de distancia permitido se bloqueara el movimiento
-        Vector2 middleSex = new Vector2(_rightUpBorder.x - _leftDownBorder.x, _rightUpBorder.y - _leftDownBorder.y);
+        Vector2 middleSex = _rightUpBorder - _leftDownBorder;
 
         Debug.Log(middleSex);
         //Comprobamos la X
         if (_playerPos.x > _rightUpBorder.x - playerHorizontalOffset)
         {
-            newCamPos.x = _playerPos.x + playerHorizontalOffset - middleSex.x / 2; //PORQUE ESTO NO ESTA BIEN??????
+            //newCamPos.x = _playerPos.x + playerHorizontalOffset - middleSex.x / 2; //PORQUE ESTO NO ESTA BIEN??????
+            Debug.Log("El PLAYER se sale por la DERECHA");
         }
         else if (_playerPos.x < _leftDownBorder.x + playerHorizontalOffset)
         {
-            newCamPos.x = _playerPos.x - playerHorizontalOffset + _rightUpBorder.x / 2;
+            float permatrago = _playerPos.x - _leftDownBorder.x + playerHorizontalOffset ;
+            newCamPos.x = _leftDownBorder.x - permatrago + middleSex.x;
+            Debug.Log("El PLAYER se sale por la IZQUIERDA");
         }
 
         //Comprobamos la Y
         if (_playerPos.y > _rightUpBorder.y - playerVerticalOffset)
         {
-            newCamPos.y = _playerPos.y + playerHorizontalOffset - _rightUpBorder.y / 2;
+            //newCamPos.y = _playerPos.y + playerVerticalOffset - middleSex.y / 2;
+            Debug.Log("El PLAYER se sale por la ARRIBA");
         }
         else if (_playerPos.y < _leftDownBorder.y + playerVerticalOffset)
         {
-            newCamPos.y = _playerPos.y - playerVerticalOffset + _rightUpBorder.y / 2;
+            //newCamPos.y = _playerPos.y - playerVerticalOffset + middleSex.y / 2;
+            float permatrago = _playerPos.y + playerVerticalOffset;
+            //newCamPos.y = _leftDownBorder.y - permatrago + middleSex.y; 
+            Debug.Log("El PLAYER se sale por la ABAJO");
+
         }
 
     }
