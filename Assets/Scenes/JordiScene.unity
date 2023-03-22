@@ -3412,6 +3412,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2936491848971448797, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
+      propertyPath: ingameDashAction
+      value: 
+      objectReference: {fileID: -8849149359287587519, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
     - target: {fileID: 2936491849083777376, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.11

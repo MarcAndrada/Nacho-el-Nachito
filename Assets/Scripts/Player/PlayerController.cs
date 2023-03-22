@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
         movementController = GetComponent<PlayerMovementController>();
         hookController = GetComponent<PlayerHookController>();
         wallJumpController = GetComponent<PlayerWallJumpController>();
+        dashController = GetComponent<PlayerDashController>();
     }
 
     // Update is called once per frame
