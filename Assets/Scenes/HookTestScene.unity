@@ -196,7 +196,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2936491849083777376, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.34
+      value: 4.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 2936491849083777376, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.47
       objectReference: {fileID: 0}
     - target: {fileID: 2936491849604238484, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_Name
@@ -481,7 +485,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: orthographic size
-      value: 6.8055553
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
@@ -503,21 +507,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
-    - target: {fileID: 3811425936376163770, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
-      propertyPath: m_AssetsPPU
-      value: 18
-      objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163771, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163771, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.69
+      value: 7.58
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163771, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.1
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163771, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -571,8 +571,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac41be40517448648812425d5e475509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftDownCorner: {x: 1.69, y: -5.1}
-  rightUpCorner: {x: 0, y: 0}
+  cameraSpeed: 2
+  playerVerticalOffset: 4
+  playerHorizontalOffset: 8
+  playerOptimalDistance: 2
+  returnToPlayerSpeed: 15
+  verticalOffset: 6
+  horizontalOffset: 10
+  leftDownMinPos: {x: 1.69, y: -5.1}
+  rightUpMaxPos: {x: 22.09, y: 6.48}
 --- !u!1001 &1365434988
 PrefabInstance:
   m_ObjectHideFlags: 0

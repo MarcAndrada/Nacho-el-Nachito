@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
-  m_AssetsPPU: 21
+  m_AssetsPPU: 18
   m_RefResolutionX: 420
   m_RefResolutionY: 220
   m_CropFrame: 0
