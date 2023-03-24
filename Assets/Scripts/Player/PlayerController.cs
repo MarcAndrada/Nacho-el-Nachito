@@ -52,6 +52,9 @@ public class PlayerController : MonoBehaviour
         PlayerAimController._instance.UpdateAimMethod();
         StatesFunctions();
         AnimateCharacter();
+        PlayerAimController._instance.MoveCrosshair();
+
+        StatesFunctions();
     }
 
     private void StatesFunctions() 
@@ -82,7 +85,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerStates.HOOK:
                 hookController.MoveHookedPlayer();
+                hookController.CheckPlayerNotStucked();
                 hookController.CheckHookPointNearToCursor();
+
                 break;
             case PlayerStates.WALL_SLIDE:
                 //Bajar la Y

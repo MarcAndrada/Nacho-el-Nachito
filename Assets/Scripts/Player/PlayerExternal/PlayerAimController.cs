@@ -47,24 +47,23 @@ public class PlayerAimController : MonoBehaviour
     public void UpdateAimMethod() 
     {
         //Comprobamos con cual input estamos controlando ahora el juego
-        if (Gamepad.current == null)
-        {
-            UseMouseInput();
-        }
-        else
+        if (Gamepad.current != null)
         {
             UseControllerInput();
         }
     }
 
 
-    private void UseMouseInput()
+    public void MoveCrosshair()
     {
         Vector2 v3 = Input.mousePosition;
         v3 = Camera.main.ScreenToWorldPoint(v3);
         transform.position = v3;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
+        if (Cursor.visible)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Confined;
+        }       
 
     }
 

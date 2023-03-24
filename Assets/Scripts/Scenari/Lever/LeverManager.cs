@@ -22,7 +22,8 @@ public class LeverManager : MonoBehaviour
     void Start()
     {
         rb2d = door.GetComponent<Rigidbody2D>();
-        startPosY = transform.position.y;
+        startPosY = door.position.y;
+
     }
 
     // Update is called once per frame
@@ -37,11 +38,11 @@ public class LeverManager : MonoBehaviour
             activated = false;
         }
 
-        if(activated && door.transform.position.y <= maxPosY)
+        if(activated && door.transform.position.y <= maxPosY + startPosY)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, speed);
         }
-        else if(!activated && door.transform.position.y >= startPosY)
+        else if(!activated && door.transform.position.y > startPosY)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, -speed);
         }
