@@ -224,6 +224,7 @@ public class PlayerMovementController : MonoBehaviour
             canCoyote = true;
             canJump = true;
             externalForces = Vector2.zero;
+            playerController._playerDashController._canDash = true;
         }
         else if(canCoyote)
         {

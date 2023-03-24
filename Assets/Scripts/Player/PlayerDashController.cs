@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 public class PlayerDashController : MonoBehaviour
 {
-    private PlayerMovementController _movementController;
     private PlayerController _playerController;
 
     private Rigidbody2D rb2d;
@@ -18,33 +18,31 @@ public class PlayerDashController : MonoBehaviour
 
     [SerializeField] private float _dashSpeed = 5f;
     [SerializeField] private float _dashTime = 0.3f;
-    [SerializeField] private float _dashDistance = 5f;
+    private float _dashTimePassed = 0f;
+
     void Start()
     {
-        _movementController = GetComponent<PlayerMovementController>();
         _playerController = GetComponent<PlayerController>();
-
+        
         rb2d = GetComponent<Rigidbody2D>();
         sprt = GetComponent<SpriteRenderer>();
-        coll =  GetComponent<CapsuleCollider2D>();
-        _canDash = true;
+        coll = GetComponent<CapsuleCollider2D>();
     }
 
     public void Dash()
     {
-        vdirection = (Vector2)transform.right * _dashSpeed * _dashDistance * _movementController._lastDir;
-        // 
-        _playerController.GetComponent<Rigidbody2D>().velocity = vdirection;
-        StartCoroutine(StopDashing());
-
+        vdirection = (Vector2)transform.right * _dashSpeed * _playerController._movementController._lastDir;
+        rb2d.velocity = vdirection;
     }
 
-    private IEnumerator StopDashing()
+    public void DashTimer()
     {
-        yield return new WaitForSeconds(_dashTime);
-        _playerController.playerState = PlayerController.PlayerStates.NONE;
-        
-        
-        
+        _dashTimePassed += Time.deltaTime;
+        if (_dashTimePassed >= _dashTime)
+        {
+            _playerController.playerState = PlayerController.PlayerStates.NONE;
+            _dashTimePassed = 0;
+        }
     }
+    
 }

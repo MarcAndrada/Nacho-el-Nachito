@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerStates.DASH:
                 dashController.Dash();
+                dashController.DashTimer();
                 break;
             case PlayerStates.DEAD:
                 break;
