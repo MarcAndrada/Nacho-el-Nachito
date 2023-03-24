@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovementController movementController;
     private PlayerHookController hookController;
     private PlayerWallJumpController wallJumpController;
+    private PlayerRespawn playerRespawn;
 
     //Variable para acceder a los demas scripts
     public PlayerInput _playerInput => playerInput;
@@ -23,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public PlayerHookController _hookController => hookController;
 
     public PlayerWallJumpController _wallJumpController => wallJumpController;
+
+    public PlayerRespawn _playerRespawn => playerRespawn;
 
     private Animator anim;
 
@@ -39,6 +42,7 @@ public class PlayerController : MonoBehaviour
         movementController = GetComponent<PlayerMovementController>();
         hookController = GetComponent<PlayerHookController>();
         wallJumpController = GetComponent<PlayerWallJumpController>();
+        playerRespawn = GetComponent<PlayerRespawn>();
         anim = GetComponent<Animator>();
     }
 
@@ -93,6 +97,7 @@ public class PlayerController : MonoBehaviour
                 // NADA
                 break;
             case PlayerStates.DEAD:
+                playerRespawn.Respawn();
                 break;
             default:
                 break;
