@@ -46,3 +46,9 @@ TagManager:
   - name: DestructibleWalls
     uniqueID: 436745571
     locked: 0
+  - name: BackgroundCinematic
+    uniqueID: 1411347747
+    locked: 0
+  - name: Cinematic
+    uniqueID: 1592539409
+    locked: 0

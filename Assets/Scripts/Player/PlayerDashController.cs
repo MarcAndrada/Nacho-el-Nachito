@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 public class PlayerDashController : MonoBehaviour
 {
     private PlayerController _playerController;
@@ -16,8 +18,7 @@ public class PlayerDashController : MonoBehaviour
     public bool _canDash;
 
     private Vector2 vdirection;
-    public Vector2 _dashDirection;
-    [HideInInspector] public  Vector2 dashDir;
+    [HideInInspector] public  Vector2 _dashDirection;
     public bool _isDirectional;
     
     [SerializeField] private float _dashSpeed = 25f;
@@ -33,17 +34,12 @@ public class PlayerDashController : MonoBehaviour
         coll = GetComponent<CapsuleCollider2D>();
     }
 
-    private void Update()
-    {
-        Debug.Log(_dashDirection);
-    }
-
     public void Dash()
     {
         vdirection = (Vector2)transform.right * _playerController._movementController._lastDir * _dashSpeed;
         if (_isDirectional)
         {
-            vdirection = dashDir * _dashSpeed;
+            vdirection = _dashDirection * _dashSpeed;
         }
         rb2d.velocity = vdirection;
         

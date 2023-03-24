@@ -5,7 +5,7 @@ using UnityEngine.Assertions.Must;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, DASH, DEAD };
+    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, INTERACTING, DASH, DEAD };
     public PlayerStates playerState;
 
     
@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovementController movementController;
     private PlayerHookController hookController;
     private PlayerWallJumpController wallJumpController;
+    private PlayerRespawn playerRespawn;
     private PlayerDashController dashController;
 
     //Variable para acceder a los demas scripts
@@ -24,6 +25,10 @@ public class PlayerController : MonoBehaviour
     public PlayerHookController _hookController => hookController;
 
     public PlayerWallJumpController _wallJumpController => wallJumpController;
+
+    public PlayerRespawn _playerRespawn => playerRespawn;
+
+    private Animator anim;
 
     public PlayerDashController _playerDashController => dashController;
 
@@ -40,6 +45,8 @@ public class PlayerController : MonoBehaviour
         movementController = GetComponent<PlayerMovementController>();
         hookController = GetComponent<PlayerHookController>();
         wallJumpController = GetComponent<PlayerWallJumpController>();
+        playerRespawn = GetComponent<PlayerRespawn>();
+        anim = GetComponent<Animator>();
         dashController = GetComponent<PlayerDashController>();
     }
 
@@ -47,6 +54,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerAimController._instance.UpdateAimMethod();
+        StatesFunctions();
+        AnimateCharacter();
+        PlayerAimController._instance.MoveCrosshair();
+
         StatesFunctions();
     }
 
@@ -77,7 +88,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerStates.HOOK:
                 hookController.MoveHookedPlayer();
+                hookController.CheckPlayerNotStucked();
                 hookController.CheckHookPointNearToCursor();
+
                 break;
             case PlayerStates.WALL_SLIDE:
                 //Bajar la Y
@@ -85,14 +98,18 @@ public class PlayerController : MonoBehaviour
                 wallJumpController.WallSlide();
                 movementController.CheckGrounded();
                 CheckMovementStates();
-
                 hookController.CheckHookPointNearToCursor();
+
                 break;
             case PlayerStates.DASH:
                 dashController.Dash();
                 dashController.DashTimer();
                 break;
+            case PlayerStates.INTERACTING:
+                // NADA
+                break;
             case PlayerStates.DEAD:
+                playerRespawn.Respawn();
                 break;
             default:
                 break;
@@ -130,5 +147,22 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
+
+    private void AnimateCharacter()
+    {
+        if (playerState == PlayerStates.MOVING)
+        {
+            anim.SetBool("Moving", true);
+            anim.SetBool("OnAir", false);
+        }
+        if(playerState == PlayerStates.AIR)
+        {
+            anim.SetBool("OnAir", true);
+        }
+        if(playerState == PlayerStates.NONE || playerState == PlayerStates.INTERACTING)
+        {
+            anim.SetBool("Moving", false);
+            anim.SetBool("OnAir", false);
+        }
+    }
 }
