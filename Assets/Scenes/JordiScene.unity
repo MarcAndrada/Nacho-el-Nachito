@@ -5344,9 +5344,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canDash: 0
-  _dashSpeed: 5
-  _dashTime: 0.3
-  _dashDistance: 20
+  _dashSpeed: 25
+  _dashTime: 0.2
 --- !u!1001 &6645066297549971766
 PrefabInstance:
   m_ObjectHideFlags: 0
