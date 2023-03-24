@@ -483,29 +483,49 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
-      propertyPath: orthographic size
-      value: 7.5
+    - target: {fileID: 1350885044, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
+      propertyPath: rightUpMaxPos.x
+      value: 18.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350885044, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
+      propertyPath: rightUpMaxPos.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350885044, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
+      propertyPath: leftDownMinPos.x
+      value: 4.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350885044, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
+      propertyPath: leftDownMinPos.y
+      value: -4.59
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
-      propertyPath: m_NormalizedViewPortRect.x
-      value: 0
+      propertyPath: orthographic size
+      value: 11.444445
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
-      propertyPath: m_NormalizedViewPortRect.width
-      value: 1
+      value: 0.03611111
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 1
+      value: 0.9283199
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163750, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811425936376163770, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
+      propertyPath: m_CropFrame
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811425936376163770, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
+      propertyPath: m_RefResolutionX
+      value: 789
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811425936376163770, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
+      propertyPath: m_RefResolutionY
+      value: 412
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163771, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_RootOrder
@@ -513,11 +533,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163771, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.58
+      value: 10.81
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163771, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.5
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163771, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -554,32 +574,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
---- !u!1 &1350885043 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3811425936376163750, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
-  m_PrefabInstance: {fileID: 1350885042}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1350885044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1350885043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac41be40517448648812425d5e475509, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraSpeed: 16
-  playerVerticalOffset: 3
-  playerHorizontalOffset: 5
-  playerOptimalDistance: 2
-  returnToPlayerSpeed: 7
-  verticalOffset: 6
-  horizontalOffset: 10
-  leftDownMinPos: {x: 1.69, y: -5.1}
-  rightUpMaxPos: {x: 22.09, y: 6.48}
 --- !u!1001 &1365434988
 PrefabInstance:
   m_ObjectHideFlags: 0
