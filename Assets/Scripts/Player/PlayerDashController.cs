@@ -21,8 +21,8 @@ public class PlayerDashController : MonoBehaviour
     [HideInInspector] public  Vector2 _dashDirection;
     public bool _isDirectional;
     
-    [SerializeField] private float _dashSpeed = 25f;
-    [SerializeField] private float _dashTime = 0.2f;
+    [SerializeField] private float _dashSpeed = 28f;
+    [SerializeField] private float _dashTime = 0.3f;
     private float _dashTimePassed = 0f;
 
     void Start()
