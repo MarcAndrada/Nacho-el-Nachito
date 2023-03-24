@@ -16,7 +16,8 @@ public class PlayerMovementController : MonoBehaviour
     private float acceleration;
     private bool accelerating;
     private float lastDir; //Aqui guardaremos la direccion donde nos indica el ultimo input al que le hemos dado para que cuando este a 0 tener la direccion
-
+    public float _lastDir => lastDir;
+    
     [Header("Grounded Var")]
     [SerializeField, Tooltip("Nos dice si estamos o no en el suelo")]
     private bool isGrounded;
@@ -223,6 +224,7 @@ public class PlayerMovementController : MonoBehaviour
             canCoyote = true;
             canJump = true;
             externalForces = Vector2.zero;
+            playerController._playerDashController._canDash = true;
         }
         else if(canCoyote)
         {

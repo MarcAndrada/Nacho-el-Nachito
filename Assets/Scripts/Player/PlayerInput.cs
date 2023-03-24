@@ -28,8 +28,7 @@ public class PlayerInput : MonoBehaviour
 
         InputManager._instance.ingameAimAction.action.started += GamepadHookAction;
         InputManager._instance.ingameHookAction.action.started += MouseHookAction;
-
-
+        InputManager._instance.ingameDashAction.action.started += DashAction;
     }
 
   
@@ -71,6 +70,28 @@ public class PlayerInput : MonoBehaviour
     private void MouseHookAction(InputAction.CallbackContext obj)
     {
         playerController._hookController.HookInputPressed();
+    }
+
+   
+    private void DashAction(InputAction.CallbackContext obj)
+    {
+        if (playerController._playerDashController._canDash)
+        {
+            switch (playerController.playerState)
+            {
+                case PlayerController.PlayerStates.MOVING:
+                case PlayerController.PlayerStates.AIR:
+                    playerController._playerDashController._isDirectional = true;
+                    playerController._playerDashController._dashDirection = InputManager._instance.ingameAirDirectionAction.action.ReadValue<Vector2>();
+
+                    playerController.playerState = PlayerController.PlayerStates.DASH;
+                    break;
+                case PlayerController.PlayerStates.NONE:
+                    playerController._playerDashController._isDirectional = false;
+                    playerController.playerState = PlayerController.PlayerStates.DASH;
+                    break;
+            }
+        }
     }
 
 }

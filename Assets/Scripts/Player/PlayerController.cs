@@ -5,7 +5,7 @@ using UnityEngine.Assertions.Must;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, INTERACTING, DEAD };
+    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, INTERACTING, DASH, DEAD };
     public PlayerStates playerState;
 
     
@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private PlayerHookController hookController;
     private PlayerWallJumpController wallJumpController;
     private PlayerRespawn playerRespawn;
+    private PlayerDashController dashController;
 
     //Variable para acceder a los demas scripts
     public PlayerInput _playerInput => playerInput;
@@ -28,6 +29,8 @@ public class PlayerController : MonoBehaviour
     public PlayerRespawn _playerRespawn => playerRespawn;
 
     private Animator anim;
+
+    public PlayerDashController _playerDashController => dashController;
 
     // Start is called before the first frame update
     void Awake()
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
         wallJumpController = GetComponent<PlayerWallJumpController>();
         playerRespawn = GetComponent<PlayerRespawn>();
         anim = GetComponent<Animator>();
+        dashController = GetComponent<PlayerDashController>();
     }
 
     // Update is called once per frame
@@ -81,7 +85,6 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckSlope();
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
-
                 break;
             case PlayerStates.HOOK:
                 hookController.MoveHookedPlayer();
@@ -97,6 +100,10 @@ public class PlayerController : MonoBehaviour
                 CheckMovementStates();
                 hookController.CheckHookPointNearToCursor();
 
+                break;
+            case PlayerStates.DASH:
+                dashController.Dash();
+                dashController.DashTimer();
                 break;
             case PlayerStates.INTERACTING:
                 // NADA
@@ -125,6 +132,7 @@ public class PlayerController : MonoBehaviour
             {
                 playerState = PlayerStates.NONE;
             }
+            
         }
         else
         {
