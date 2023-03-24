@@ -68,6 +68,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
+            newCamPos = transform.position;
             //Si no esta tocando los bordes con el raton comprobar que el player este dentro de la pantalla
             SetMaxDistanceToCameraFormPlayer(playerPos, leftDownBorder, rightUpBorder);
             //Si no no hara nada
@@ -129,29 +130,29 @@ public class CameraController : MonoBehaviour
     private void SetMaxDistanceToCameraFormPlayer(Vector2 _playerPos, Vector2 _leftDownBorder, Vector2 _rightUpBorder)
     {
         //En caso de que la nueva posicion haya llegado al maximo de distancia permitido se bloqueara el movimiento
-        Vector2 camWordlPosSize = _rightUpBorder - _leftDownBorder;
-        Vector2 updatedRightUpBorder = new Vector2(newCamPos.x + camWordlPosSize.x / 2, newCamPos.y + camWordlPosSize.y / 2);
-        Vector2 updatedLeftDownBorder = new Vector2(newCamPos.x - camWordlPosSize.x / 2, newCamPos.y - camWordlPosSize.y / 2); ;
+        Vector2 camWorldPosSize = _rightUpBorder - _leftDownBorder;
+        Vector2 updatedRightUpBorder = new Vector2(newCamPos.x + camWorldPosSize.x / 2, newCamPos.y + camWorldPosSize.y / 2);
+        Vector2 updatedLeftDownBorder = new Vector2(newCamPos.x - camWorldPosSize.x / 2, newCamPos.y - camWorldPosSize.y / 2); ;
 
 
         //Comprobamos la X
         if (_playerPos.x > updatedRightUpBorder.x - playerHorizontalOffset)
         {
-            newCamPos.x = (_playerPos.x + playerHorizontalOffset) - (camWordlPosSize.x / 2); //PORQUE ESTO NO ESTA BIEN??????
+            newCamPos.x = (_playerPos.x + playerHorizontalOffset) - (camWorldPosSize.x / 2);
         }
         else if (_playerPos.x < updatedLeftDownBorder.x + playerHorizontalOffset)
         {
-            newCamPos.x = (_playerPos.x - playerHorizontalOffset) + (camWordlPosSize.x / 2);
+            newCamPos.x = (_playerPos.x - playerHorizontalOffset) + (camWorldPosSize.x / 2);
         }
 
         //Comprobamos la Y
         if (_playerPos.y > updatedRightUpBorder.y - playerVerticalOffset)
         {
-            newCamPos.y = (_playerPos.y + playerVerticalOffset) - (camWordlPosSize.y / 2);
+            newCamPos.y = (_playerPos.y + playerVerticalOffset) - (camWorldPosSize.y / 2);
         }
         else if (_playerPos.y < updatedLeftDownBorder.y + playerVerticalOffset)
         {
-            newCamPos.y = (_playerPos.y - playerVerticalOffset) + (camWordlPosSize.y / 2);
+            newCamPos.y = (_playerPos.y - playerVerticalOffset) + (camWorldPosSize.y / 2);
         }
 
     }
