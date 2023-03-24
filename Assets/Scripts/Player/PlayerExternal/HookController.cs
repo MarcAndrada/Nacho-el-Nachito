@@ -48,9 +48,6 @@ public class HookController : MonoBehaviour
         posToReach = _posToReach;
         throwDir = _posToReach - starterPos.position;
         throwDir = throwDir.normalized;
-        //Debug.DrawLine(starterPos.position, posToReach, Color.green, 10);
-        //Debug.DrawLine(starterPos.position, starterPos.position + (Vector3)throwDir * Vector3.Distance(starterPos.position, posToReach), Color.red, 4);
-        //transform.rotation = Quaternion.LookRotation(throwDir, Vector3.up);
 
         ResetHookPos();
 
