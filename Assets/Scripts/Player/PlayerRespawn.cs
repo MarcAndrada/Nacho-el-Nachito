@@ -17,7 +17,7 @@ public class PlayerRespawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sprite = GetComponent<SpriteRenderer>();  
+        sprite = GetComponent<SpriteRenderer>();
         pc = GetComponent<PlayerController>();
         startValue = timeDead;
     }
