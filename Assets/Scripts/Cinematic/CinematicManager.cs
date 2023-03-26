@@ -9,11 +9,14 @@ using System.Security.Cryptography;
 public class CinematicManager : MonoBehaviour
 {
     public Transform gameCamera;
+    public Transform mainCamera;
     public Transform[] cameraPositions;
     public Transform[] characterPositions;
     public GameObject[] Characters;
     public Transform player;
     public Transform instructionsText;
+
+    private Rigidbody2D rb2d;
 
     public static bool playingCinematic;
     public enum CinematicCommandId
@@ -29,7 +32,8 @@ public class CinematicManager : MonoBehaviour
         setObjectActive,
         setObjectPosition,
         setPlayerFacing,
-        setPlayerVelocity
+        setPlayerVelocity,
+        adjustCameraPosition
     };
 
     [System.Serializable]
@@ -63,7 +67,6 @@ public class CinematicManager : MonoBehaviour
     {
         public int character;
         public string text;
-
     };
 
     // Cinematic system
@@ -103,6 +106,8 @@ public class CinematicManager : MonoBehaviour
 
         PC = player.GetComponent<PlayerController>();
 
+        rb2d = player.GetComponent<Rigidbody2D>();
+
         // Init state
         isCinematicMode = false;
         waiting = false;
@@ -124,6 +129,8 @@ public class CinematicManager : MonoBehaviour
             playingCinematic = true;
 
             PC.playerState = PlayerController.PlayerStates.INTERACTING;
+
+            rb2d.velocity = new Vector2(0, 0);
 
             if (showingDialog)
             {
@@ -252,6 +259,11 @@ public class CinematicManager : MonoBehaviour
                     int speed = Int32.Parse(command.param1);
 
                     //P1.speed = speed;
+                }
+                else if (command.id == CinematicCommandId.adjustCameraPosition)
+                {
+                    gameCamera.position = mainCamera.position;
+                    gameCamera.rotation = mainCamera.rotation;
                 }
                 else
                 {
