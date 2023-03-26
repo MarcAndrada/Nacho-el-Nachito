@@ -82,28 +82,24 @@ public class CinematicManager : MonoBehaviour
 
     public bool isCinematicMode;
 
-    public DialogData[] dialogsData;
+    public DialogData[] dialogsData; 
 
     bool showingDialog;
 
     TextMeshProUGUI dialogTextC;
+    public float textSpeed;
 
     int dialogIndex;
 
-    PlayerMovementController P1;
+    private bool firstTime = true;
 
     PlayerController PC;
-
-    KeyCode[] debugKey = { KeyCode.S, KeyCode.T, KeyCode.A, KeyCode.R };
-    int debugKeyProgress = 0;
 
     GameCamera gameCameraC;
 
     // Start is called before the first frame update
     void Start()
     {
-        P1 = player.GetComponent<PlayerMovementController>();
-
         PC = player.GetComponent<PlayerController>();
 
         rb2d = player.GetComponent<Rigidbody2D>();
@@ -134,30 +130,58 @@ public class CinematicManager : MonoBehaviour
 
             if (showingDialog)
             {
-                for (int i = 0; i < dialogCommon.Length; i++) { dialogCommon[i].gameObject.SetActive(true); }
-                for (int i = 0; i < dialogCharacters.Length; i++) { dialogCharacters[i].gameObject.SetActive(false); }
+                if(firstTime)
+                {
+                    dialogTextC.text = string.Empty;
+                    StartDialogue();
+                    firstTime = false;
+                }
+
+                for (int i = 0; i < dialogCommon.Length; i++)
+                { 
+                    dialogCommon[i].gameObject.SetActive(true); 
+                }
+
+                for (int i = 0; i < dialogCharacters.Length; i++)
+                { 
+                    dialogCharacters[i].gameObject.SetActive(false); 
+                }
 
                 int character = dialogsData[dialogIndex].character;
                 string text = dialogsData[dialogIndex].text;
 
                 dialogCharacters[character].gameObject.SetActive(true);
-                dialogTextC.text = text;
-
                 instructionsText.gameObject.SetActive(true);
 
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
-                    showingDialog = false;
+                    if(dialogTextC.text == dialogsData[dialogIndex].text)
+                    {
+                        NextLine();
 
-                    for (int i = 0; i < dialogCommon.Length; i++) { dialogCommon[i].gameObject.SetActive(false); }
-                    for (int i = 0; i < dialogCharacters.Length; i++) { dialogCharacters[i].gameObject.SetActive(false); }
-                    commandIndex++;
+                        showingDialog = false;
 
-                    instructionsText.gameObject.SetActive(false);
+                        for (int i = 0; i < dialogCommon.Length; i++)
+                        {
+                            dialogCommon[i].gameObject.SetActive(false);
+                        }
+                        for (int i = 0; i < dialogCharacters.Length; i++)
+                        {
+                            dialogCharacters[i].gameObject.SetActive(false);
+                        }
+
+                        commandIndex++;
+
+                        instructionsText.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        StopAllCoroutines();
+                        dialogTextC.text = text;
+                    }
                 }
 
             }
-
             else if (waiting)
             {
                 if (waitTimer <= 0)
@@ -281,6 +305,7 @@ public class CinematicManager : MonoBehaviour
             PC.playerState = PlayerController.PlayerStates.NONE;
             playingCinematic = false;
             isCinematicMode = false;
+            firstTime = true;
         }
     }
 
@@ -306,5 +331,28 @@ public class CinematicManager : MonoBehaviour
     public bool IsCinematicMode()
     {
         return isCinematicMode;
+    }
+
+    private void StartDialogue()
+    {
+        StartCoroutine(TypeLine());
+    }
+
+    IEnumerator TypeLine()
+    {
+        foreach(char c in dialogsData[dialogIndex].text.ToCharArray())
+        {
+            dialogTextC.text += c;
+            yield return new WaitForSeconds(textSpeed);
+        }
+    }
+    private void NextLine()
+    {
+        if(dialogIndex < dialogsData.Length - 1)
+        {
+            dialogIndex++;
+            dialogTextC.text = string.Empty;
+            StartCoroutine(TypeLine());
+        }
     }
 }
