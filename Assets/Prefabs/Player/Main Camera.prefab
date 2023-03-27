@@ -56,9 +56,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1
-    height: 1
+    y: 0.30833334
+    width: 0.2541667
+    height: 0.25303704
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -157,9 +157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraSpeed: 16
-  playerVerticalOffset: 5
-  playerHorizontalOffset: 8
-  verticalOffset: 6
-  horizontalOffset: 10
+  playerVerticalOffset: 12
+  playerHorizontalOffset: 16
+  verticalOffset: 3
+  horizontalOffset: 5
   leftDownMinPos: {x: 0, y: 0}
   rightUpMaxPos: {x: 0, y: 0}
