@@ -352,8 +352,8 @@ MonoBehaviour:
   _canDash: 0
   _dashDirection: {x: 0, y: 0}
   _isDirectional: 0
-  _dashSpeed: 25
-  _dashTime: 0.2
+  _dashSpeed: 15
+  _dashTime: 0.4
 --- !u!114 &8139452155725308173
 MonoBehaviour:
   m_ObjectHideFlags: 0
