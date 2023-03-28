@@ -15,10 +15,15 @@ public class PlayerRespawn : MonoBehaviour
     private PlayerController pc;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
         pc = GetComponent<PlayerController>();
+    }
+
+
+    private void Start()
+    {
         startValue = timeDead;
     }
 

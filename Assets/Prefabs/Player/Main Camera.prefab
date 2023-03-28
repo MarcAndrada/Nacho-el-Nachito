@@ -157,8 +157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraSpeed: 16
-  playerVerticalOffset: 12
-  playerHorizontalOffset: 16
+  playerVerticalOffset: 6
+  playerHorizontalOffset: 12
   verticalOffset: 3
   horizontalOffset: 5
   leftDownMinPos: {x: 0, y: 0}
