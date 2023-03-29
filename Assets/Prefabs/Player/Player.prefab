@@ -280,7 +280,7 @@ MonoBehaviour:
   checkFloorRange: 0.2
   floorLayer:
     serializedVersion: 2
-    m_Bits: 80
+    m_Bits: 320
   canCoyote: 0
   coyoteTime: 0.1
   airMoveSpeed: 6.5

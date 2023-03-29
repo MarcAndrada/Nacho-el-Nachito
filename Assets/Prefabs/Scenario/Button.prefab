@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45fea824a81726544a0576a030e71375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  engineTimer: 1000
+  engineTimer: 4
   platforms: []
