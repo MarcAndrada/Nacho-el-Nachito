@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -2505,15 +2505,15 @@ TextureImporter:
       Farm_Tilemap_82: -1679557294
       Farm_Tilemap_32: -1563360665
       Farm_Tilemap_14: -1199323624
-      Farm_Tilemap_30: 5152669
+      Farm_Tilemap_89: 1257869883
       Farm_Tilemap_74: 1018561916
       Farm_Tilemap_80: 1664348935
       Farm_Tilemap_101: -1932289380
       Farm_Tilemap_19: -1143365331
-      Farm_Tilemap_77: -38791809
+      Farm_Tilemap_30: 5152669
       Farm_Tilemap_1: 15692365
       Farm_Tilemap_31: 1095333825
-      Farm_Tilemap_89: 1257869883
+      Farm_Tilemap_77: -38791809
       Farm_Tilemap_55: -186087763
       Farm_Tilemap_93: -349386502
       Farm_Tilemap_37: -1593249138
