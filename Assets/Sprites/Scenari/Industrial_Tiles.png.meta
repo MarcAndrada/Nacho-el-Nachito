@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -2528,17 +2528,17 @@ TextureImporter:
       tilemap_packed_93: 1482414612
       tilemap_packed_10: -1372486136
       tilemap_packed_53: -434839148
+      tilemap_packed_5: 1165508270
       tilemap_packed_49: 2117000743
       tilemap_packed_35: -1902256262
-      tilemap_packed_88: 501668469
       tilemap_packed_38: 1036825896
       tilemap_packed_19: -1897572405
+      tilemap_packed_88: 501668469
       tilemap_packed_46: 1289072418
       tilemap_packed_55: -2124596184
       tilemap_packed_48: 584279129
       tilemap_packed_22: 2103758349
       tilemap_packed_8: -1690559757
-      tilemap_packed_35: -1902256262
       tilemap_packed_44: -1246421211
       tilemap_packed_91: 767752759
       tilemap_packed_2: -379506374
@@ -2559,7 +2559,7 @@ TextureImporter:
       tilemap_packed_70: -1915803694
       tilemap_packed_62: -1108616073
       tilemap_packed_43: 854122364
-      tilemap_packed_49: 2117000743
+      tilemap_packed_40: -804276725
       tilemap_packed_108: 412724805
       tilemap_packed_89: -342404658
       tilemap_packed_4: 131960422
@@ -2571,23 +2571,21 @@ TextureImporter:
       tilemap_packed_82: -1049583770
       tilemap_packed_32: -507898200
       tilemap_packed_74: 687773186
-      tilemap_packed_5: 1165508270
+      tilemap_packed_45: 1726192263
       tilemap_packed_87: -620281018
       tilemap_packed_12: 1128238099
       tilemap_packed_77: 914519581
       tilemap_packed_104: 2096552784
       tilemap_packed_109: -210898876
-      tilemap_packed_40: -804276725
+      tilemap_packed_96: 1659197720
       tilemap_packed_73: -1697263590
       tilemap_packed_84: -1912413726
       tilemap_packed_99: -2018033029
-      tilemap_packed_45: 1726192263
       tilemap_packed_86: 21011508
       tilemap_packed_83: -1414771490
       tilemap_packed_41: -1772368889
       tilemap_packed_26: 1589167415
       tilemap_packed_103: 854642175
-      tilemap_packed_96: 1659197720
       tilemap_packed_54: -126153733
       tilemap_packed_11: 61542510
       tilemap_packed_50: -81971683
