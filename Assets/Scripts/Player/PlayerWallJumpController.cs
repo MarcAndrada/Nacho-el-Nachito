@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerWallJumpController : MonoBehaviour
 {
-    private PlayerMovementController _movementController;
     private PlayerController _playerController;
 
     private Rigidbody2D rb2d;
@@ -49,7 +48,7 @@ public class PlayerWallJumpController : MonoBehaviour
 
     public void WallSlide()
     {
-        if(IsWalled() && !_movementController._isGrounded)
+        if(IsWalled())
         {
             isWallSliding = true;
             rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
@@ -83,6 +82,6 @@ public class PlayerWallJumpController : MonoBehaviour
         _playerController.playerState = PlayerController.PlayerStates.AIR;
         isWallSliding = false;
         rb2d.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
-        _movementController.externalForces = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+        _playerController._movementController.externalForces = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
     }
 }

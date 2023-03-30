@@ -22,7 +22,7 @@ public class CannonSpawn : MonoBehaviour
         _timePassed -= Time.deltaTime;
         if (_timePassed <= 0)
         {
-            Instantiate(_bullet, transform.position, transform.rotation);
+            Instantiate(_bullet, transform.position, transform.rotation).GetComponent<BulletMovement>().dir = transform.right;
             _timePassed = _timeBetweenBullets;
         }
     }
