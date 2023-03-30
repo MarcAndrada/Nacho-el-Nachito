@@ -7,47 +7,41 @@ public class ActivablePlatformLogic : MonoBehaviour
     private bool startEngine = false;
 
     [SerializeField]
-    private float engineTimer = 100f;
-
-    private float startValue;
-
+    private float engineTimer;
+    private float engineTimePassed;
+    
     public Transform[] platforms;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        startValue = engineTimer;
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if(startEngine)
+        if (startEngine)
         {
-            for(int i = 0; i < platforms.Length; i++)
+            engineTimePassed += Time.deltaTime;
+            if (engineTimer <= engineTimePassed)
+            {
+                for (int i = 0; i < platforms.Length; i++)
+                {
+                    platforms[i].gameObject.SetActive(false);
+                }
+                startEngine = false;
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            startEngine = true;
+            for (int i = 0; i < platforms.Length; i++)
             {
                 platforms[i].gameObject.SetActive(true);
             }
 
-            engineTimer--;
-        }
-        else
-        {
-            for (int i = 0; i < platforms.Length; i++)
-            {
-                platforms[i].gameObject.SetActive(false);
-            }
-        }
-
-        if(engineTimer <= 0)
-        {
-            startEngine = false;
-            engineTimer = startValue;
+            engineTimePassed = 0;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        startEngine = true;
-    }
+
 }
