@@ -36,10 +36,16 @@ public class PlayerDashController : MonoBehaviour
 
     public void Dash()
     {
+        
         vdirection = (Vector2)transform.right * _playerController._movementController._lastDir * _dashSpeed;
         if (_isDirectional)
         {
+            Debug.Log(_playerController.playerState);
             vdirection = _dashDirection * _dashSpeed;
+        }
+        else
+        {
+            Debug.Log("Dash No Directional");
         }
         rb2d.velocity = vdirection;
         
