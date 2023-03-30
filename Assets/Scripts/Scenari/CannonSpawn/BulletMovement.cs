@@ -8,6 +8,8 @@ public class BulletMovement : MonoBehaviour
 {
     [SerializeField] private float _bulletSpeed;
 
+    [SerializeField] private GameObject _cannon;
+    
     private Rigidbody2D rb2d;
 
     
@@ -20,7 +22,8 @@ public class BulletMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector2.left * _bulletSpeed * Time.deltaTime);
+        // transform.rotation = _cannon.transform.rotation;
+        transform.Translate(_cannon.transform.right *_bulletSpeed * Time.deltaTime);
         if (transform.position.x < -14.5)
         {
             Destroy(this.gameObject);
