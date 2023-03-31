@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8428635481677302014
 MonoBehaviour:
@@ -79,4 +79,6 @@ MonoBehaviour:
   ingameJumpAction: {fileID: -2411879173573349129, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
   ingameAimAction: {fileID: -8534334072247181770, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
   ingameHookAction: {fileID: 2311158420507592816, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
+  ingameDashAction: {fileID: -8849149359287587519, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
+  ingameAirDirectionAction: {fileID: -7757670608685576463, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
   menuMoveAction: {fileID: 4565061864446369632, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
