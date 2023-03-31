@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6158da1feca102249b57c207252b41c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextLevel: DaniScene
+  NextLevel: 
 --- !u!61 &1534262457
 BoxCollider2D:
   m_ObjectHideFlags: 0
