@@ -201,7 +201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 392595596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.73, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -539,6 +539,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1961374786}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 392595599}
     - target: {fileID: 8937057472589204258, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_Name
       value: CinematicSystem
