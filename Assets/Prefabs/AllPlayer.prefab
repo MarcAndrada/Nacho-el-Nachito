@@ -118,7 +118,7 @@ Transform:
   - {fileID: 2936491848395056070}
   - {fileID: 7773814905631536197}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &758243872280951008
 PrefabInstance:
@@ -257,6 +257,10 @@ PrefabInstance:
       propertyPath: hookPointIcon
       value: 
       objectReference: {fileID: 5339743889227919576}
+    - target: {fileID: 8139452155725308173, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
+      propertyPath: timeDead
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
