@@ -14,7 +14,7 @@ public class PlayerWallJumpController : MonoBehaviour
     // WALL SLIDE VARIABLES
 
     public bool isWallSliding;
-    public float wallSlidingSpeed = 0.2f;
+    public float wallSlidingSpeed;
 
     [SerializeField]
     private LayerMask wallLayer;
@@ -23,12 +23,11 @@ public class PlayerWallJumpController : MonoBehaviour
     private float wallJumpingDirection;
 
     [SerializeField]
-    private Vector2 wallJumpingPower = new Vector2(8f, 16f);
+    private Vector2 wallJumpingPower;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        _movementController = GetComponent<PlayerMovementController>();
         _playerController = GetComponent<PlayerController>();
 
         rb2d = GetComponent<Rigidbody2D>();
@@ -38,18 +37,14 @@ public class PlayerWallJumpController : MonoBehaviour
 
     private bool IsWalled()
     {
-        if(Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null)
+        if(Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null ||
+            Physics2D.OverlapCircle(transform.position - new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null)
         {
-            return Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer);
+            return true;
         }
-        else if(Physics2D.OverlapCircle(transform.position - new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null)
-        {
-            return Physics2D.OverlapCircle(transform.position - new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer);
-        }
-        else
-        {
-            return false;
-        }
+
+        return false;
+
     }
 
     public void WallSlide()
