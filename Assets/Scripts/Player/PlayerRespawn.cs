@@ -29,7 +29,7 @@ public class PlayerRespawn : MonoBehaviour
 
     public void Respawn()
     {
-        timeDead = timeDead -1f * Time.deltaTime;
+        timeDead -= Time.deltaTime;
 
         if (timeDead <= 0)
         {
