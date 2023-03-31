@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 
 public class CannonSpawn : MonoBehaviour
 {
+    [SerializeField]
     private float _timeBetweenBullets = 2f;
     
     [SerializeField] private GameObject _bullet;
