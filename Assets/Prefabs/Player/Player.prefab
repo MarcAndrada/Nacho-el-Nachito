@@ -307,7 +307,7 @@ MonoBehaviour:
   hookObj: {fileID: 0}
   hookPointIcon: {fileID: 0}
   hookStarterPos: {fileID: 3854213116712417619}
-  checkRadius: 2
+  checkRadius: 3
   speed: 22
   maxSpeedAtRelease: 8
   canHook: 1
@@ -318,7 +318,7 @@ MonoBehaviour:
     m_Bits: 128
   floorLayer:
     serializedVersion: 2
-    m_Bits: 80
+    m_Bits: 2128
 --- !u!114 &6222469504518347744
 MonoBehaviour:
   m_ObjectHideFlags: 0
