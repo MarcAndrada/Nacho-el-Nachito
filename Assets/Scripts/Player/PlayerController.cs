@@ -57,8 +57,6 @@ public class PlayerController : MonoBehaviour
         StatesFunctions();
         AnimateCharacter();
         PlayerAimController._instance.MoveCrosshair();
-
-        StatesFunctions();
     }
 
     private void StatesFunctions() 

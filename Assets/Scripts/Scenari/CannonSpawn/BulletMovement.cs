@@ -7,10 +7,11 @@ using UnityEngine;
 public class BulletMovement : MonoBehaviour
 {
     [SerializeField] private float _bulletSpeed;
-
-    [SerializeField] private GameObject _cannon;
-    
+    [HideInInspector]
+    public Vector2 dir;    
     private Rigidbody2D rb2d;
+    
+    private LayerMask collisionMask;
 
     
     // Start is called before the first frame update
@@ -23,10 +24,18 @@ public class BulletMovement : MonoBehaviour
     void Update()
     {
         // transform.rotation = _cannon.transform.rotation;
-        transform.Translate(_cannon.transform.right *_bulletSpeed * Time.deltaTime);
-        if (transform.position.x < -14.5)
-        {
-            Destroy(this.gameObject);
-        }
+        rb2d.velocity =  dir.normalized *_bulletSpeed;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Floor") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("Water")) 
+        {
+            Destroy(gameObject);
+        }
+
+
+    }
+
 }

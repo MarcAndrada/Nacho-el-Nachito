@@ -31,10 +31,11 @@ public class PlayerAimController : MonoBehaviour
             _instance = this;
         }
 
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
         CheckSpriteRendEnabled();
         InputSystem.onDeviceChange += onDeviceChanged;
     }
@@ -75,14 +76,21 @@ public class PlayerAimController : MonoBehaviour
 
     private void CheckSpriteRendEnabled()
     {
+
         if (Gamepad.current == null)
         {
-            spriteRenderer.enabled = true;
+            if (spriteRenderer)
+            {
+                spriteRenderer.enabled = true;
+            }
             controllerType = ControllerType.MOUSE;
         }
         else
         {
-            spriteRenderer.enabled = false;
+            if (spriteRenderer)
+            {
+                spriteRenderer.enabled = false;
+            }
             controllerType = ControllerType.GAMEPAD;
 
         }
