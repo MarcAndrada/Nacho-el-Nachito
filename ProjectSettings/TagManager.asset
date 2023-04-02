@@ -3,20 +3,23 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Water
+  - HookPoint
+  - Obstaculo
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Floor
+  - HookPoint
+  - GuacamoleWall
+  - Wall
+  - DestructibleWall
+  - HookObstacle
   - 
   - 
   - 
@@ -40,4 +43,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: DestructibleWalls
+    uniqueID: 436745571
+    locked: 0
+  - name: BackgroundCinematic
+    uniqueID: 1411347747
+    locked: 0
+  - name: Cinematic
+    uniqueID: 1592539409
     locked: 0
