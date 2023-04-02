@@ -17,7 +17,8 @@ public class PlayerWallJumpController : MonoBehaviour
 
     [SerializeField]
     private LayerMask wallLayer;
-
+    [SerializeField]
+    private LayerMask floorLayer;
     // WALL JUMP VARIABLES
     private float wallJumpingDirection;
 
@@ -39,12 +40,35 @@ public class PlayerWallJumpController : MonoBehaviour
         if(Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null ||
             Physics2D.OverlapCircle(transform.position - new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null)
         {
-            return true;
+            if (!Physics2D.Raycast(transform.position - new Vector3(0,coll.size.y / 2), Vector2.down, 0.2f, floorLayer))
+            {
+                return true;
+            }
         }
 
         return false;
 
     }
+
+    private bool isWalledRight()
+    {
+        if (Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null )
+        {
+            return true;
+        }
+        return false;
+
+    }
+
+    public void CheckIfWallSliding() 
+    {
+        if (IsWalled())
+        {
+            _playerController.playerState = PlayerController.PlayerStates.WALL_SLIDE;
+            _playerController._playerDashController._canDash = true;
+        }
+    }
+
 
     public void WallSlide()
     {
@@ -52,36 +76,31 @@ public class PlayerWallJumpController : MonoBehaviour
         {
             isWallSliding = true;
             rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
+            if (!isWalledRight())
+            {
+                sprt.flipX = false;
+                wallJumpingDirection = 1;
+            }
+            else
+            {
+                sprt.flipX = true;
+                wallJumpingDirection = -1;
+            }
         }
         else
         {
             isWallSliding = false;
+            _playerController.playerState = PlayerController.PlayerStates.AIR;
         }
     }
 
     public void WallJump()
     {
-        if (sprt.flipX == true)
-        {
-            sprt.flipX = false;
-        }
-        else if (sprt.flipX == false)
-        {
-            sprt.flipX = true;
-        }
-
-        if (sprt.flipX == false)
-        {
-            wallJumpingDirection = 1;
-        }
-        else
-        {
-            wallJumpingDirection = -1;
-        }
 
         _playerController.playerState = PlayerController.PlayerStates.AIR;
         isWallSliding = false;
-        rb2d.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
-        _playerController._movementController.externalForces = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+        Vector2 jumpDir = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+        rb2d.velocity = jumpDir;
+        _playerController._movementController.externalForces = jumpDir;
     }
 }

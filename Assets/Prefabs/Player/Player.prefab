@@ -336,6 +336,9 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 64
   wallJumpingPower: {x: 12, y: 14}
 --- !u!114 &7857257213538850297
 MonoBehaviour:

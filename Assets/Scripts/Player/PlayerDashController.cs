@@ -38,14 +38,14 @@ public class PlayerDashController : MonoBehaviour
 
     public void Dash()
     {
-        
-        vdirection = (Vector2)transform.right * _playerController._movementController._lastDir * _dashSpeed;
-        if (_isDirectional)
+
+        if (_dashDirection != Vector2.zero)
         {
-            if (_dashDirection != Vector2.zero)
-            {
-                vdirection = _dashDirection * _dashSpeed;
-            }
+            vdirection = _dashDirection * _dashSpeed;
+        }
+        else
+        {
+            vdirection = (Vector2)transform.right * _playerController._movementController._lastDir * _dashSpeed;
         }
         rb2d.velocity = vdirection;
         
