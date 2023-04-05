@@ -76,13 +76,13 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerStates.AIR:
                 movementController.CheckGrounded();
-                wallJumpController.WallSlide();
                 CheckMovementStates();
                 movementController.AirMovement();
                 movementController.CheckJumping();
                 movementController.CheckSlope();
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
+                wallJumpController.CheckIfWallSliding();
                 break;
             case PlayerStates.HOOK:
                 hookController.MoveHookedPlayer();
@@ -95,7 +95,6 @@ public class PlayerController : MonoBehaviour
                 //Comporbar el salto
                 wallJumpController.WallSlide();
                 movementController.CheckGrounded();
-                CheckMovementStates();
                 hookController.CheckHookPointNearToCursor();
 
                 break;
@@ -134,15 +133,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if(wallJumpController.isWallSliding)
-            {
-                playerState = PlayerStates.WALL_SLIDE;
-            }
-            else
-            {
-                //Si esta en el aire
-                playerState = PlayerStates.AIR;
-            }
+            //Si esta en el aire
+            playerState = PlayerStates.AIR;
         }
     }
 
