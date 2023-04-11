@@ -1137,7 +1137,7 @@ MonoBehaviour:
     text: que tal
   - character: 1
     text: todo bien :)
-  textSpeed: 0.1
+  textSpeed: 0.05
 --- !u!1 &8937057472705740184
 GameObject:
   m_ObjectHideFlags: 0

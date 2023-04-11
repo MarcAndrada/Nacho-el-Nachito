@@ -79,15 +79,12 @@ public class PlayerInput : MonoBehaviour
         {
             switch (playerController.playerState)
             {
+                case PlayerController.PlayerStates.NONE:
                 case PlayerController.PlayerStates.MOVING:
                 case PlayerController.PlayerStates.AIR:
-                    playerController._playerDashController._isDirectional = true;
+                case PlayerController.PlayerStates.WALL_SLIDE:
                     playerController._playerDashController._dashDirection = InputManager._instance.ingameAirDirectionAction.action.ReadValue<Vector2>();
-
-                    playerController.playerState = PlayerController.PlayerStates.DASH;
-                    break;
-                case PlayerController.PlayerStates.NONE:
-                    playerController._playerDashController._isDirectional = false;
+                    playerController._wallJumpController.isWallSliding = false;
                     playerController.playerState = PlayerController.PlayerStates.DASH;
                     break;
             }
