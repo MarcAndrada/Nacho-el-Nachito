@@ -210,6 +210,7 @@ public class CinematicManager : MonoBehaviour
                     gameCameraC.ExitCinematicMode();
                     isCinematicMode = false;
                     playingCinematic = false;
+                    PC.playerState = PlayerController.PlayerStates.NONE;
                 }
                 else if (command.id == CinematicCommandId.wait)
                 {
@@ -302,7 +303,6 @@ public class CinematicManager : MonoBehaviour
         }
         else
         {
-            PC.playerState = PlayerController.PlayerStates.NONE;
             playingCinematic = false;
             isCinematicMode = false;
             firstTime = true;
