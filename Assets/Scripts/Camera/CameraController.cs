@@ -45,7 +45,6 @@ public class CameraController : MonoBehaviour
     {
         PlayerAimController._instance.MoveCrosshair();
         CameraBehaviour();
-        PlayerAimController._instance.MoveCrosshair();
 
     }
 

@@ -31,12 +31,11 @@ public class InputManager : MonoBehaviour
             if (_instance != this)
             {
                 Destroy(_instance); //Si es diferente a este mismo script borraremos el objeto actual de _instance
-                _instance = this; //Y le asignaremos este script como nuevo valor
             }
+
         }
-        else
-        {
-            _instance = this; //En caso de que no tenga valor le asigno este script como valor
-        }
+
+        _instance = this; //Y le asignaremos este script como nuevo valor
+
     }
 }
