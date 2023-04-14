@@ -29,11 +29,11 @@ public class LeverManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && collided && activated == false)
+        if (Input.GetKeyDown(KeyCode.E) && collided && activated == false) // CAMBIAR A INPUTSYSTEM
         {
             activated = true;
         }
-        else if(Input.GetKeyDown(KeyCode.E) && collided && activated == true)
+        else if(Input.GetKeyDown(KeyCode.E) && collided && activated == true) // CAMBIAR A INPUTSYSTEM
         {
             activated = false;
         }
