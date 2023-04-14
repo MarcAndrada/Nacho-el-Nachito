@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour
             // Si hay algun valor revisaremos si es diferente a este script (para asegurarnos que no le haya dado una embolia a unity)
             if (_instance != this)
             {
-                Destroy(_instance); //Si es diferente a este mismo script borraremos el objeto actual de _instance
+                Destroy(_instance.gameObject); //Si es diferente a este mismo script borraremos el objeto actual de _instance
             }
 
         }

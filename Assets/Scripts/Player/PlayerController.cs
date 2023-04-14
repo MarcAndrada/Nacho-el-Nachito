@@ -53,10 +53,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerAimController._instance.MoveCrosshair();
         StatesFunctions();
         AnimateCharacter();
-        PlayerAimController._instance.MoveCrosshair();
         PlayerAimController._instance.UpdateAimMethod();
 
     }
