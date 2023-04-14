@@ -5,12 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/HookTestScene.unity
-    guid: 9c5d4fa72eec90d4eaeea75b67189c9e
-  - enabled: 0
-    path: Assets/Scenes/CramiScene.unity
-    guid: 17186cd5bcaf15a469b2d1458d5e0229
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: d7108024d3d921e46b3e4bafe029b636
   - enabled: 1
     path: Assets/Scenes/Levels/Level 1.1.unity
     guid: 8897452b9660bc04f84ab0961d8c4d48
@@ -29,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level 3.2.unity
     guid: f18054cc07e6d634a8a22ed0eb4e9575
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 4.1.unity
+    guid: cf90aa742d488624482d13b2fc587c7f
   m_configObjects: {}

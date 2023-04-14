@@ -73,10 +73,6 @@ public class PlayerMovementController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void ResetForces() 
-    {
-        movementForces = Vector2.zero;
-    }
     public void ApplyForces() 
     {
         
@@ -414,7 +410,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void DragExternalForces()
     {
-        float drag = 8f;
+        float drag = 12f;
         if (externalForces.x > 0.1)
         {
             externalForces.x -= Time.deltaTime * drag;
@@ -427,6 +423,10 @@ public class PlayerMovementController : MonoBehaviour
         {
             externalForces.x = 0;
         }
+
+
+
+
         
     }
 

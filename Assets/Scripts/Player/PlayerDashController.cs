@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Vector2 = UnityEngine.Vector2;
 
 public class PlayerDashController : MonoBehaviour
 {
@@ -36,16 +38,14 @@ public class PlayerDashController : MonoBehaviour
 
     public void Dash()
     {
-        
-        vdirection = (Vector2)transform.right * _playerController._movementController._lastDir * _dashSpeed;
-        if (_isDirectional)
+
+        if (_dashDirection != Vector2.zero)
         {
-            Debug.Log(_playerController.playerState);
             vdirection = _dashDirection * _dashSpeed;
         }
         else
         {
-            Debug.Log("Dash No Directional");
+            vdirection = (Vector2)transform.right * _playerController._movementController._lastDir * _dashSpeed;
         }
         rb2d.velocity = vdirection;
         
