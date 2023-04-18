@@ -124,7 +124,7 @@ public class CinematicManager : MonoBehaviour
         {
             playingCinematic = true;
 
-            PC.playerState = PlayerController.PlayerStates.INTERACTING;
+            PC.playerState = PlayerController.PlayerStates.CINEMATIC;
 
             rb2d.velocity = new Vector2(0, 0);
 

@@ -347,6 +347,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 2936491849604238485}
     m_Modifications:
+    - target: {fileID: 8428635481677301984, guid: ade0526b44cf09c42a9ecd2134c31970, type: 3}
+      propertyPath: ingameInteractAction
+      value: 
+      objectReference: {fileID: 5786466186104447106, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
     - target: {fileID: 8428635481677301985, guid: ade0526b44cf09c42a9ecd2134c31970, type: 3}
       propertyPath: m_RootOrder
       value: -1

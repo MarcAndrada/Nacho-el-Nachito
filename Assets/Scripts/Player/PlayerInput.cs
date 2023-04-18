@@ -29,6 +29,8 @@ public class PlayerInput : MonoBehaviour
         InputManager._instance.ingameAimAction.action.started += GamepadHookAction;
         InputManager._instance.ingameHookAction.action.started += MouseHookAction;
         InputManager._instance.ingameDashAction.action.started += DashAction;
+
+        InputManager._instance.ingameInteractAction.action.started += InteractingAction;
     }
 
   
@@ -91,4 +93,8 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    private void InteractingAction(InputAction.CallbackContext obj)
+    {
+        playerController.playerState = PlayerController.PlayerStates.INTERACTING;
+    }
 }
