@@ -96,7 +96,6 @@ public class PlayerController : MonoBehaviour
                 wallJumpController.WallSlide();
                 movementController.CheckGrounded();
                 hookController.CheckHookPointNearToCursor();
-
                 break;
             case PlayerStates.DASH:
                 dashController.Dash();

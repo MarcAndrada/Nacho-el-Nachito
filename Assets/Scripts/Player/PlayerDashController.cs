@@ -63,6 +63,7 @@ public class PlayerDashController : MonoBehaviour
             rb2d.velocity = new Vector2(rb2d.velocity.x, _ySpeed);
             _playerController.playerState = PlayerController.PlayerStates.NONE;
             _dashTimePassed = 0;
+            _playerController._movementController.SetAirAcceleration(vdirection.x);
         }
     }
     

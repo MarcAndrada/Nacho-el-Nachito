@@ -11,7 +11,7 @@ public class PlayerWallJumpController : MonoBehaviour
     private CapsuleCollider2D coll;
 
     // WALL SLIDE VARIABLES
-
+    [Header("Wall Slide")]
     public bool isWallSliding;
     public float wallSlidingSpeed;
 
@@ -19,7 +19,10 @@ public class PlayerWallJumpController : MonoBehaviour
     private LayerMask wallLayer;
     [SerializeField]
     private LayerMask floorLayer;
+
     // WALL JUMP VARIABLES
+    [Header("Wall Jump"), SerializeField]
+    private float airWallJumpRange;
     private float wallJumpingDirection;
 
     [SerializeField]
@@ -35,10 +38,9 @@ public class PlayerWallJumpController : MonoBehaviour
         coll =  GetComponent<CapsuleCollider2D>();
     }
 
-    private bool IsWalled()
+    private bool IsWalled(float _lookDir)
     {
-        if(Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null ||
-            Physics2D.OverlapCircle(transform.position - new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null)
+        if(Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null)
         {
             if (!Physics2D.Raycast(transform.position - new Vector3(0,coll.size.y / 2), Vector2.down, 0.2f, floorLayer))
             {
@@ -94,6 +96,16 @@ public class PlayerWallJumpController : MonoBehaviour
         }
     }
 
+    public void CheckWallJumpInAir()
+    {
+        if (Physics2D.Raycast(transform.position + new Vector3(coll.size.x / 2, 0), Vector2.right, airWallJumpRange,  wallLayer) &&
+            Physics2D.Raycast(transform.position + new Vector3(coll.size.x / 2, -coll.size.y/2), Vector2.right, airWallJumpRange, wallLayer)
+            || Physics2D.Raycast(transform.position + new Vector3(-coll.size.x / 2, 0), Vector2.left, airWallJumpRange, wallLayer) &&
+            Physics2D.Raycast(transform.position + new Vector3(-coll.size.x / 2, -coll.size.y / 2), Vector2.left, airWallJumpRange, wallLayer))
+        {
+            WallJump();
+        }
+    }
     public void WallJump()
     {
 
