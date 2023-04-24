@@ -14,7 +14,8 @@ public class CinematicManager : MonoBehaviour
     public Transform[] characterPositions;
     public GameObject[] Characters;
     public Transform player;
-    public Transform instructionsText;
+    public Transform[] instructionsText;
+    public Transform[] controllerInputs; 
 
     private Rigidbody2D rb2d;
 
@@ -30,6 +31,7 @@ public class CinematicManager : MonoBehaviour
         setCameraSize,
         cameraShake,
         setObjectActive,
+        showGamePadInput,
         setObjectPosition,
         setPlayerFacing,
         setPlayerVelocity,
@@ -151,7 +153,17 @@ public class CinematicManager : MonoBehaviour
                 string text = dialogsData[dialogIndex].text;
 
                 dialogCharacters[character].gameObject.SetActive(true);
-                instructionsText.gameObject.SetActive(true);
+
+                if(PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE)
+                {
+                    instructionsText[0].gameObject.SetActive(true);
+                    instructionsText[1].gameObject.SetActive(false);
+                }
+                else
+                {
+                    instructionsText[1].gameObject.SetActive(true);
+                    instructionsText[0].gameObject.SetActive(false);
+                }
 
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
@@ -172,7 +184,14 @@ public class CinematicManager : MonoBehaviour
 
                         commandIndex++;
 
-                        instructionsText.gameObject.SetActive(false);
+                        if (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE)
+                        {
+                            instructionsText[0].gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            instructionsText[1].gameObject.SetActive(false);
+                        }
                     }
                     else
                     {
@@ -197,6 +216,11 @@ public class CinematicManager : MonoBehaviour
             else if (commandIndex <= sequences[sequenceIndex].commands.Length)
             {
                 CinematicCommand command = sequences[sequenceIndex].commands[commandIndex];
+
+                //if (sequences[sequenceIndex + 1].commands[commandIndex].id.Equals("showGamePadInput"))
+                //{
+
+                //}
 
                 if (command.id == CinematicCommandId.enterCinematicMode)
                 {
@@ -258,6 +282,13 @@ public class CinematicManager : MonoBehaviour
                     bool active = Boolean.Parse(command.param2);
 
                     Characters[objectIndex].SetActive(active);
+                }
+                else if (command.id == CinematicCommandId.showGamePadInput)
+                {
+                    int objectIndex = Int32.Parse(command.param1);
+                    bool active = Boolean.Parse(command.param2);
+
+                    controllerInputs[objectIndex].gameObject.SetActive(active);
                 }
                 else if (command.id == CinematicCommandId.setObjectPosition)
                 {
