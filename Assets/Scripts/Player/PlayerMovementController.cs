@@ -259,8 +259,7 @@ public class PlayerMovementController : MonoBehaviour
         airAcceleration = 0;
     }
     #endregion
-
-
+    
     #region Air Movement Functions
 
     public void AirMovement()

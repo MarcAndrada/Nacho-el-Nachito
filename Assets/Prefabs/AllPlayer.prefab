@@ -119,7 +119,7 @@ Transform:
   - {fileID: 7773814905631536197}
   - {fileID: 8102273091844185757}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &758243872280951008
 PrefabInstance:
@@ -212,11 +212,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3854213116837401511, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.55
+      value: 0.83
       objectReference: {fileID: 0}
     - target: {fileID: 3854213116837401511, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.23
+      value: -7.86
       objectReference: {fileID: 0}
     - target: {fileID: 3854213116837401511, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
       propertyPath: m_LocalPosition.z
@@ -258,6 +258,10 @@ PrefabInstance:
       propertyPath: hookPointIcon
       value: 
       objectReference: {fileID: 5339743889227919576}
+    - target: {fileID: 7857257213538850297, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
+      propertyPath: floorLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 8139452155725308173, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
       propertyPath: timeDead
       value: 3

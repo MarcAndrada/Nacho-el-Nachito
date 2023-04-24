@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour
             case PlayerStates.DASH:
                 dashController.Dash();
                 dashController.DashTimer();
+                dashController.DashCheckWall();
                 break;
             case PlayerStates.INTERACTING:
                 // NADA

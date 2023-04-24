@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Vector2 = UnityEngine.Vector2;
@@ -40,7 +41,6 @@ public class PlayerDashController : MonoBehaviour
 
     public void Dash()
     {
-
         if (_dashDirection != Vector2.zero)
         {
             vdirection = _dashDirection * _dashSpeed;
@@ -49,10 +49,10 @@ public class PlayerDashController : MonoBehaviour
         {
             vdirection = (Vector2)transform.right * _playerController._movementController._lastDir * _dashSpeed;
         }
-        rb2d.velocity = vdirection;
         
+        rb2d.velocity = vdirection;
+
         _canDash = false;
-        // directional dash like celeste
            
     }
 
@@ -61,10 +61,6 @@ public class PlayerDashController : MonoBehaviour
         _dashTimePassed += Time.deltaTime;
         if (_dashTimePassed >= _dashTime)
         {
-            if (CheckWall())
-            {
-                
-            }
             float _ySpeed = Mathf.Clamp(rb2d.velocity.y, -5, 5);
             rb2d.velocity = new Vector2(rb2d.velocity.x, _ySpeed);
             _playerController.playerState = PlayerController.PlayerStates.NONE;
@@ -72,11 +68,37 @@ public class PlayerDashController : MonoBehaviour
         }
     }
 
-    private bool CheckWall()
+    public void DashCheckWall()
     {
-        return ((Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, floorLayer) != null ||
-                 Physics2D.OverlapCircle(transform.position - new Vector3(coll.size.x / 2, 0), 0.2f, floorLayer) != null) &&
-                !Physics2D.Raycast(transform.position - new Vector3(0, coll.size.y / 2), Vector2.down, 0.2f,
-                    floorLayer));
+        if (Physics2D.Raycast(transform.position, transform.right * _dashDirection.x, 1, floorLayer))
+        {
+            // Stop Dash
+        }
+        else
+        {
+            bool hitUp = Physics2D.Raycast(transform.position + new Vector3(0, 0.55f), transform.right * _dashDirection.x + new Vector3(0.5f, 0.55f), 1, floorLayer);
+            bool hitDown = Physics2D.Raycast(transform.position + new Vector3(0, 0.55f), transform.right * _dashDirection.x + new Vector3(0.5f, -0.55f), 1, floorLayer);
+
+            if (hitUp && hitDown)
+            {
+                // Stop Dash
+            }
+            else if (hitUp)
+            {
+                // Move Down                
+            }
+            else if (hitDown)
+            {
+                // Move Up
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position + new Vector3(0, 0.55f) , transform.position + new Vector3(0, 0.55f) + transform.right * _dashDirection.x);
+        Gizmos.DrawLine(transform.position , transform.position + transform.right * _dashDirection.x);
+        Gizmos.DrawLine(transform.position + new Vector3(0, -0.55f) , transform.position + new Vector3(0, -0.55f) + transform.right * _dashDirection.x);
     }
 }
