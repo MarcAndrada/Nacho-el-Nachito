@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public class PlayerWallJumpController : MonoBehaviour
@@ -129,12 +126,14 @@ public class PlayerWallJumpController : MonoBehaviour
             Physics2D.Raycast(transform.position + new Vector3(coll.size.x / 2, -coll.size.y/2), Vector2.right, airWallJumpRange, wallLayer))
         {
             walledDir = 1;
+            sprt.flipX = true;
             WallJump();
         }
         else if(Physics2D.Raycast(transform.position + new Vector3(-coll.size.x / 2, 0), Vector2.left, airWallJumpRange, wallLayer) &&
             Physics2D.Raycast(transform.position + new Vector3(-coll.size.x / 2, -coll.size.y / 2), Vector2.left, airWallJumpRange, wallLayer))
         {
             walledDir = -1;
+            sprt.flipX = false;
             WallJump();
         }
     }
