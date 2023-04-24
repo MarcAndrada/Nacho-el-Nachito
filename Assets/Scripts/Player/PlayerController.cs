@@ -94,9 +94,8 @@ public class PlayerController : MonoBehaviour
                 //Bajar la Y
                 //Comporbar el salto
                 wallJumpController.WallSlide();
-                movementController.CheckGrounded();
+                wallJumpController.CheckIfStopSliding();
                 hookController.CheckHookPointNearToCursor();
-
                 break;
             case PlayerStates.DASH:
                 dashController.Dash();

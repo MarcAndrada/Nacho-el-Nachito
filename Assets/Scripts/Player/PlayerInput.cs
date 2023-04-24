@@ -52,6 +52,9 @@ public class PlayerInput : MonoBehaviour
             case PlayerController.PlayerStates.MOVING:
                 playerController._movementController.JumpInputPressed();
                 break;
+            case PlayerController.PlayerStates.AIR:
+                playerController._wallJumpController.CheckWallJumpInAir();
+                break;
         }
     }
 

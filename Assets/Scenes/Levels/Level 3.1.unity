@@ -3510,11 +3510,11 @@ PrefabInstance:
     - target: {fileID: 4871978444553713909, guid: c5e7192bef317bd4dafea08fa7a7386c, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[2].m_Data
       value: 
-      objectReference: {fileID: -2147335039, guid: cbff97afbdb562a4eb853a5ef809232b, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 4871978444553713909, guid: c5e7192bef317bd4dafea08fa7a7386c, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[3].m_Data
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -2147335039, guid: cbff97afbdb562a4eb853a5ef809232b, type: 3}
     - target: {fileID: 4871978444553713909, guid: c5e7192bef317bd4dafea08fa7a7386c, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[4].m_Data
       value: 
@@ -3685,11 +3685,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4871978444553713909, guid: c5e7192bef317bd4dafea08fa7a7386c, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[2].m_RefCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4871978444553713909, guid: c5e7192bef317bd4dafea08fa7a7386c, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[3].m_RefCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4871978444553713909, guid: c5e7192bef317bd4dafea08fa7a7386c, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[4].m_RefCount
@@ -3793,7 +3793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4871978444553713909, guid: c5e7192bef317bd4dafea08fa7a7386c, type: 3}
       propertyPath: m_Tiles.Array.data[7].second.m_TileSpriteIndex
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4871978444553713909, guid: c5e7192bef317bd4dafea08fa7a7386c, type: 3}
       propertyPath: m_Tiles.Array.data[8].second.m_TileSpriteIndex
@@ -10506,6 +10506,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5469286002622019879, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
+      propertyPath: timeUnstickWall
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7874910308689642442, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: posit
       value: 
@@ -10543,7 +10547,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0.0018518518
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
@@ -10551,7 +10555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 0.9955555
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163750, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_Name
