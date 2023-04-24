@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public class PlayerWallJumpController : MonoBehaviour
@@ -19,11 +22,17 @@ public class PlayerWallJumpController : MonoBehaviour
     private LayerMask wallLayer;
     [SerializeField]
     private LayerMask floorLayer;
+    [SerializeField]
+    private float wallCheckRange;
+
+    private float walledDir;
+    [SerializeField]
+    private float timeUnstickWall;
+    private float timeWaitedUnstickWall = 0;
 
     // WALL JUMP VARIABLES
     [Header("Wall Jump"), SerializeField]
     private float airWallJumpRange;
-    private float wallJumpingDirection;
 
     [SerializeField]
     private Vector2 wallJumpingPower;
@@ -38,26 +47,28 @@ public class PlayerWallJumpController : MonoBehaviour
         coll =  GetComponent<CapsuleCollider2D>();
     }
 
-    private bool IsWalled(float _lookDir)
+    private bool IsWalled()
     {
-        if(Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null)
+        float lookDir = _playerController._playerInput._playerMovement;
+        bool isGrounded = Physics2D.Raycast(transform.position + new Vector3(0, -coll.size.y / 2), Vector2.down, 0.1f, floorLayer);
+        //Si no esta en el muro comprueba en la direccion que se esta moviendo el personaje que no haya una pared, tambien que no este tocando el suelo
+        //O si esta en el muro comrueba que lo siga tocando y que no este tocando el suelo
+        if (!isWallSliding && lookDir != 0 &&
+            Physics2D.OverlapCircle(transform.position + (new Vector3(coll.size.x / 2, 0) * lookDir), wallCheckRange, wallLayer) && 
+            !isGrounded) 
         {
-            if (!Physics2D.Raycast(transform.position - new Vector3(0,coll.size.y / 2), Vector2.down, 0.2f, floorLayer))
-            {
-                return true;
-            }
+
+            walledDir = lookDir;
+            return true;
         }
-
-        return false;
-
-    }
-
-    private bool isWalledRight()
-    {
-        if (Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0), 0.2f, wallLayer) != null )
+        else if(isWallSliding &&
+                Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0) * walledDir, wallCheckRange * 2, wallLayer) &&
+                !isGrounded)
         {
             return true;
         }
+
+
         return false;
 
     }
@@ -78,31 +89,52 @@ public class PlayerWallJumpController : MonoBehaviour
         {
             isWallSliding = true;
             rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
-            if (!isWalledRight())
-            {
-                sprt.flipX = false;
-                wallJumpingDirection = 1;
-            }
-            else
+            if (walledDir == 1)
             {
                 sprt.flipX = true;
-                wallJumpingDirection = -1;
+            }
+            else if(walledDir == -1)
+            {
+                sprt.flipX = false;
             }
         }
         else
         {
             isWallSliding = false;
+            walledDir = 0;
             _playerController.playerState = PlayerController.PlayerStates.AIR;
+        }
+    }
+
+    public void CheckIfStopSliding()
+    {
+         if (_playerController._playerInput._playerMovement == walledDir * -1)
+        {
+            timeWaitedUnstickWall += Time.deltaTime;
+            if (timeWaitedUnstickWall >= timeUnstickWall)
+            {
+                isWallSliding = false;
+                _playerController.playerState = PlayerController.PlayerStates.AIR;
+            }
+        }
+        else
+        {
+            timeWaitedUnstickWall = 0;
         }
     }
 
     public void CheckWallJumpInAir()
     {
         if (Physics2D.Raycast(transform.position + new Vector3(coll.size.x / 2, 0), Vector2.right, airWallJumpRange,  wallLayer) &&
-            Physics2D.Raycast(transform.position + new Vector3(coll.size.x / 2, -coll.size.y/2), Vector2.right, airWallJumpRange, wallLayer)
-            || Physics2D.Raycast(transform.position + new Vector3(-coll.size.x / 2, 0), Vector2.left, airWallJumpRange, wallLayer) &&
+            Physics2D.Raycast(transform.position + new Vector3(coll.size.x / 2, -coll.size.y/2), Vector2.right, airWallJumpRange, wallLayer))
+        {
+            walledDir = 1;
+            WallJump();
+        }
+        else if(Physics2D.Raycast(transform.position + new Vector3(-coll.size.x / 2, 0), Vector2.left, airWallJumpRange, wallLayer) &&
             Physics2D.Raycast(transform.position + new Vector3(-coll.size.x / 2, -coll.size.y / 2), Vector2.left, airWallJumpRange, wallLayer))
         {
+            walledDir = -1;
             WallJump();
         }
     }
@@ -111,8 +143,21 @@ public class PlayerWallJumpController : MonoBehaviour
 
         _playerController.playerState = PlayerController.PlayerStates.AIR;
         isWallSliding = false;
-        Vector2 jumpDir = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+        Vector2 jumpDir = new Vector2(-walledDir * wallJumpingPower.x, wallJumpingPower.y);
         rb2d.velocity = jumpDir;
+        walledDir = 0;
         _playerController._movementController.externalForces = jumpDir;
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        if(_playerController != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position + new Vector3(coll.size.x / 2, 0) * _playerController._playerInput._playerMovement, wallCheckRange);
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position + new Vector3(coll.size.x / 2, 0) * walledDir, (transform.position + new Vector3(coll.size.x / 2, 0) * walledDir) + Vector3.right * walledDir * airWallJumpRange);
+        }
     }
 }
