@@ -49,8 +49,10 @@ public class PlayerWallJumpController : MonoBehaviour
         float lookDir = _playerController._playerInput._playerMovement;
         bool isGrounded = Physics2D.Raycast(transform.position + new Vector3(0, -coll.size.y / 2), Vector2.down, 0.1f, floorLayer);
         //Si no esta en el muro comprueba en la direccion que se esta moviendo el personaje que no haya una pared, tambien que no este tocando el suelo
+        //O que si esta moviendose en una direccion y esta cerca del muro
         //O si esta en el muro comrueba que lo siga tocando y que no este tocando el suelo
-        if (!isWallSliding && lookDir != 0 &&
+        if (!isWallSliding && 
+            lookDir != 0 &&
             Physics2D.OverlapCircle(transform.position + (new Vector3(coll.size.x / 2, 0) * lookDir), wallCheckRange, wallLayer) && 
             !isGrounded) 
         {
@@ -58,7 +60,17 @@ public class PlayerWallJumpController : MonoBehaviour
             walledDir = lookDir;
             return true;
         }
-        else if(isWallSliding &&
+        else if (!isWallSliding &&
+                lookDir == 0 &&
+                rb2d.velocity.y != 0 &&
+                Physics2D.OverlapCircle(transform.position + (new Vector3(coll.size.x / 2, 0) * Mathf.Clamp(rb2d.velocity.y, -1f,1f)), wallCheckRange, wallLayer) &&
+                !isGrounded)
+        {
+
+            walledDir = Mathf.Clamp(rb2d.velocity.y, -1f, 1f);
+            return true;
+        }
+        else if (isWallSliding &&
                 Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0) * walledDir, wallCheckRange * 2, wallLayer) &&
                 !isGrounded)
         {
