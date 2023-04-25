@@ -52,10 +52,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerAimController._instance.UpdateAimMethod();
         StatesFunctions();
         AnimateCharacter();
-        PlayerAimController._instance.MoveCrosshair();
+        PlayerAimController._instance.UpdateAimMethod();
+
     }
 
     private void StatesFunctions() 
@@ -93,9 +93,8 @@ public class PlayerController : MonoBehaviour
                 //Bajar la Y
                 //Comporbar el salto
                 wallJumpController.WallSlide();
-                movementController.CheckGrounded();
+                wallJumpController.CheckIfStopSliding();
                 hookController.CheckHookPointNearToCursor();
-
                 break;
             case PlayerStates.DASH:
                 dashController.Dash();
