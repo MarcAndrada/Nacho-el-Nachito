@@ -24,7 +24,6 @@ public class TriggerCinematic : MonoBehaviour
     {
         if (!fired)
         {
-            UnityEngine.Debug.Log("Funciona");
             cinematicManagerC.OnTriggerCinematic(index);
             fired = true;
         }

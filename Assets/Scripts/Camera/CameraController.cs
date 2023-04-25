@@ -41,11 +41,14 @@ public class CameraController : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        CameraBehaviour();
+
+    }
     private void LateUpdate()
     {
-        PlayerAimController._instance.MoveCrosshair();
         CameraBehaviour();
-        PlayerAimController._instance.MoveCrosshair();
 
     }
 
