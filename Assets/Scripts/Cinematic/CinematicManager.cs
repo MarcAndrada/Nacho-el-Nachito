@@ -14,7 +14,8 @@ public class CinematicManager : MonoBehaviour
     public Transform[] characterPositions;
     public GameObject[] Characters;
     public Transform player;
-    public Transform instructionsText;
+    public Transform[] instructionsText;
+    public Transform[] controllerInputs; 
 
     private Rigidbody2D rb2d;
 
@@ -30,6 +31,7 @@ public class CinematicManager : MonoBehaviour
         setCameraSize,
         cameraShake,
         setObjectActive,
+        showGamePadInput,
         setObjectPosition,
         setPlayerFacing,
         setPlayerVelocity,
@@ -124,7 +126,7 @@ public class CinematicManager : MonoBehaviour
         {
             playingCinematic = true;
 
-            PC.playerState = PlayerController.PlayerStates.INTERACTING;
+            PC.playerState = PlayerController.PlayerStates.CINEMATIC;
 
             rb2d.velocity = new Vector2(0, 0);
 
@@ -151,7 +153,17 @@ public class CinematicManager : MonoBehaviour
                 string text = dialogsData[dialogIndex].text;
 
                 dialogCharacters[character].gameObject.SetActive(true);
-                instructionsText.gameObject.SetActive(true);
+
+                if(PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE)
+                {
+                    instructionsText[0].gameObject.SetActive(true);
+                    instructionsText[1].gameObject.SetActive(false);
+                }
+                else
+                {
+                    instructionsText[1].gameObject.SetActive(true);
+                    instructionsText[0].gameObject.SetActive(false);
+                }
 
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
@@ -172,7 +184,14 @@ public class CinematicManager : MonoBehaviour
 
                         commandIndex++;
 
-                        instructionsText.gameObject.SetActive(false);
+                        if (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE)
+                        {
+                            instructionsText[0].gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            instructionsText[1].gameObject.SetActive(false);
+                        }
                     }
                     else
                     {
@@ -198,6 +217,11 @@ public class CinematicManager : MonoBehaviour
             {
                 CinematicCommand command = sequences[sequenceIndex].commands[commandIndex];
 
+                //if (sequences[sequenceIndex + 1].commands[commandIndex].id.Equals("showGamePadInput"))
+                //{
+
+                //}
+
                 if (command.id == CinematicCommandId.enterCinematicMode)
                 {
                     gameCameraC.gameObject.SetActive(true);
@@ -210,6 +234,7 @@ public class CinematicManager : MonoBehaviour
                     gameCameraC.ExitCinematicMode();
                     isCinematicMode = false;
                     playingCinematic = false;
+                    PC.playerState = PlayerController.PlayerStates.NONE;
                 }
                 else if (command.id == CinematicCommandId.wait)
                 {
@@ -258,6 +283,13 @@ public class CinematicManager : MonoBehaviour
 
                     Characters[objectIndex].SetActive(active);
                 }
+                else if (command.id == CinematicCommandId.showGamePadInput)
+                {
+                    int objectIndex = Int32.Parse(command.param1);
+                    bool active = Boolean.Parse(command.param2);
+
+                    controllerInputs[objectIndex].gameObject.SetActive(active);
+                }
                 else if (command.id == CinematicCommandId.setObjectPosition)
                 {
                     int objectIndex = Int32.Parse(command.param1);
@@ -302,7 +334,6 @@ public class CinematicManager : MonoBehaviour
         }
         else
         {
-            PC.playerState = PlayerController.PlayerStates.NONE;
             playingCinematic = false;
             isCinematicMode = false;
             firstTime = true;

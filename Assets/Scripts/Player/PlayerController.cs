@@ -5,9 +5,8 @@ using UnityEngine.Assertions.Must;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, INTERACTING, DASH, DEAD };
+    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, CINEMATIC, INTERACTING, DASH, DEAD};
     public PlayerStates playerState;
-
     
 
 
@@ -100,9 +99,13 @@ public class PlayerController : MonoBehaviour
             case PlayerStates.DASH:
                 dashController.Dash();
                 dashController.DashTimer();
+                dashController.DashCheckWall();
+                break;
+            case PlayerStates.CINEMATIC:
+                // NADA
                 break;
             case PlayerStates.INTERACTING:
-                // NADA
+                //playerState = PlayerStates.NONE;
                 break;
             case PlayerStates.DEAD:
                 playerRespawn.Respawn();
@@ -110,8 +113,6 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
-
-        
     }
 
 
@@ -148,7 +149,7 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("OnAir", true);
         }
-        if(playerState == PlayerStates.NONE || playerState == PlayerStates.INTERACTING)
+        if(playerState == PlayerStates.NONE || playerState == PlayerStates.CINEMATIC)
         {
             anim.SetBool("Moving", false);
             anim.SetBool("OnAir", false);
