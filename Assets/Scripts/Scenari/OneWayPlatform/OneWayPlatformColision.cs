@@ -19,7 +19,7 @@ public class OneWayPlatformColision : MonoBehaviour
   
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S)) // CAMBIAR POR INPUTSYSTEM
         {
             boxcollider.enabled = false;
             platformDes = true;

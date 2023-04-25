@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -64,6 +64,7 @@ public class PlayerDashController : MonoBehaviour
     {
         if (!timeStopped)
         {
+            _playerController._movementController.SetAirAcceleration(vdirection.x);
             _dashTimePassed += Time.deltaTime;
             if (_dashTimePassed >= _dashTime)
             {
