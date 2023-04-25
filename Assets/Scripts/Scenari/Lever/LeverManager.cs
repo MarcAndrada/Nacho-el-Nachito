@@ -18,26 +18,23 @@ public class LeverManager : MonoBehaviour
 
     private float startPosY;
 
+    [SerializeField]
+    private GameObject player;
+
+    PlayerController PC;
+
     // Start is called before the first frame update
     void Start()
     {
         rb2d = door.GetComponent<Rigidbody2D>();
         startPosY = door.position.y;
 
+        PC = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && collided && activated == false)
-        {
-            activated = true;
-        }
-        else if(Input.GetKeyDown(KeyCode.E) && collided && activated == true)
-        {
-            activated = false;
-        }
-
         if(activated && door.transform.position.y <= maxPosY + startPosY)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, speed);
@@ -65,6 +62,14 @@ public class LeverManager : MonoBehaviour
         if (collision.tag.Equals("Player"))
         {
             collided = false;
+        }
+    }
+
+    public void CheckIfPressed()
+    {
+        if (collided && PC.playerState == PlayerController.PlayerStates.INTERACTING) 
+        {
+            activated = !activated;
         }
     }
 }
