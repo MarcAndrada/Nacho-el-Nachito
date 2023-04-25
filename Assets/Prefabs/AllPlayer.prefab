@@ -202,6 +202,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 2936491849604238485}
     m_Modifications:
+    - target: {fileID: 3854213116837401506, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: e710d9d4105bd814e96c993583c8fbe8, type: 2}
     - target: {fileID: 3854213116837401507, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
       propertyPath: m_Name
       value: Player
@@ -259,8 +263,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5339743889227919576}
     - target: {fileID: 7857257213538850297, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
+      propertyPath: capsuleOffset
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857257213538850297, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
       propertyPath: floorLayer.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857257213538850297, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
+      propertyPath: speedDashController
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8139452155725308173, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
       propertyPath: timeDead
