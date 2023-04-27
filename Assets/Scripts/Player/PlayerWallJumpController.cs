@@ -62,12 +62,12 @@ public class PlayerWallJumpController : MonoBehaviour
         }
         else if (!isWallSliding &&
                 lookDir == 0 &&
-                rb2d.velocity.y != 0 &&
-                Physics2D.OverlapCircle(transform.position + (new Vector3(coll.size.x / 2, 0) * Mathf.Clamp(rb2d.velocity.y, -1f,1f)), wallCheckRange, wallLayer) &&
+                rb2d.velocity.x != 0 &&
+                Physics2D.OverlapCircle(transform.position + (new Vector3(coll.size.x / 2, 0) * Mathf.Clamp(rb2d.velocity.x, -1f,1f)), wallCheckRange, wallLayer) &&
                 !isGrounded)
         {
 
-            walledDir = Mathf.Clamp(rb2d.velocity.y, -1f, 1f);
+            walledDir = Mathf.Clamp(rb2d.velocity.x, -1f, 1f);
             return true;
         }
         else if (isWallSliding &&
