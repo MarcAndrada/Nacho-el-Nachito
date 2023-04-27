@@ -5,7 +5,7 @@ using UnityEngine.Assertions.Must;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, CINEMATIC, INTERACTING, DASH, DEAD};
+    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, CINEMATIC, DASH, DEAD};
     public PlayerStates playerState;
     
 
@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private PlayerWallJumpController wallJumpController;
     private PlayerRespawn playerRespawn;
     private PlayerDashController dashController;
+    private PlayerInteractionController interactionController;
 
     //Variable para acceder a los demas scripts
     public PlayerInput _playerInput => playerInput;
@@ -25,11 +26,14 @@ public class PlayerController : MonoBehaviour
 
     public PlayerWallJumpController _wallJumpController => wallJumpController;
 
+    public PlayerInteractionController _interactionController => interactionController;
+    
+    public PlayerDashController _playerDashController => dashController;
+
     public PlayerRespawn _playerRespawn => playerRespawn;
 
     private Animator anim;
 
-    public PlayerDashController _playerDashController => dashController;
 
     // Start is called before the first frame update
     void Awake()
@@ -47,6 +51,7 @@ public class PlayerController : MonoBehaviour
         playerRespawn = GetComponent<PlayerRespawn>();
         anim = GetComponent<Animator>();
         dashController = GetComponent<PlayerDashController>();
+        interactionController = GetComponent<PlayerInteractionController>();
     }
 
     // Update is called once per frame
@@ -103,9 +108,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerStates.CINEMATIC:
                 // NADA
-                break;
-            case PlayerStates.INTERACTING:
-                //playerState = PlayerStates.NONE;
                 break;
             case PlayerStates.DEAD:
                 playerRespawn.Respawn();

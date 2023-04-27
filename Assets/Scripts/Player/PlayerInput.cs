@@ -97,6 +97,6 @@ public class PlayerInput : MonoBehaviour
 
     private void InteractingAction(InputAction.CallbackContext obj)
     {
-        playerController.playerState = PlayerController.PlayerStates.INTERACTING;
+        playerController._interactionController.Interact();
     }
 }
