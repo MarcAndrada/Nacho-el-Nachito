@@ -291,6 +291,16 @@ MonoBehaviour:
   timeJumping: 0.06
   slopeOffset: 0.02
   slopeCapsuleDiv: 6
+  footsteps:
+  - {fileID: 8300000, guid: 506cefa51e95a5c40b3d24061b675ea5, type: 3}
+  - {fileID: 8300000, guid: 118c5a3498d3f2744b07d80cc216f33a, type: 3}
+  - {fileID: 8300000, guid: 60d431770af672a4aae4aeccfe4206d3, type: 3}
+  - {fileID: 8300000, guid: 550821a1a5bf779429935191a6289f7e, type: 3}
+  - {fileID: 8300000, guid: 98a8a7155bb97ca45b1053b003c4a22f, type: 3}
+  - {fileID: 8300000, guid: 19786406f46085c4bb77dd263620b3fd, type: 3}
+  - {fileID: 8300000, guid: cc939202bf6b7394a9b688ce02f84a8e, type: 3}
+  jump: {fileID: 8300000, guid: 51979352630736a4185ac68a10f9432c, type: 3}
+  fall: {fileID: 8300000, guid: c30c3c24d942470439d40997e3c02add, type: 3}
   externalForces: {x: 0, y: 0}
 --- !u!114 &3854213116837401530
 MonoBehaviour:
