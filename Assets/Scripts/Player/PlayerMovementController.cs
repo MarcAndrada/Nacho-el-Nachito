@@ -259,8 +259,7 @@ public class PlayerMovementController : MonoBehaviour
         airAcceleration = 0;
     }
     #endregion
-
-
+    
     #region Air Movement Functions
 
     public void AirMovement()
@@ -452,7 +451,10 @@ public class PlayerMovementController : MonoBehaviour
         }
 
     }
-
+    public void SetAirAcceleration(float _airAcceleration)
+    {
+        airAcceleration = _airAcceleration;
+    }
     private RaycastHit2D DoRaycast(Vector2 _pos, Vector2 _dir, float _distance, LayerMask _layer)
     {
         // Esta funcion es para simplificar el hacer un raycast que da un palo que flipas loquete ;)
