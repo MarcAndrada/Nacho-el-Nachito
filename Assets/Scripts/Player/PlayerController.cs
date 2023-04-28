@@ -13,23 +13,21 @@ public class PlayerController : MonoBehaviour
     //Aqui crearemos las variables de todos los scritps del player
     private PlayerInput playerInput;
     private PlayerMovementController movementController;
+    private PlayerDownController playerDownController;
     private PlayerHookController hookController;
     private PlayerWallJumpController wallJumpController;
     private PlayerRespawn playerRespawn;
     private PlayerDashController dashController;
     private PlayerInteractionController interactionController;
-
+    
     //Variable para acceder a los demas scripts
     public PlayerInput _playerInput => playerInput;
     public PlayerMovementController _movementController => movementController;
+    public PlayerDownController _playerDownController => playerDownController;
     public PlayerHookController _hookController => hookController;
-
     public PlayerWallJumpController _wallJumpController => wallJumpController;
-
     public PlayerInteractionController _interactionController => interactionController;
-    
     public PlayerDashController _playerDashController => dashController;
-
     public PlayerRespawn _playerRespawn => playerRespawn;
 
     private Animator anim;
@@ -39,7 +37,6 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         AllGetComponents();
-
     }
 
     private void AllGetComponents() 
@@ -51,6 +48,7 @@ public class PlayerController : MonoBehaviour
         playerRespawn = GetComponent<PlayerRespawn>();
         anim = GetComponent<Animator>();
         dashController = GetComponent<PlayerDashController>();
+        playerDownController = GetComponent<PlayerDownController>();
         interactionController = GetComponent<PlayerInteractionController>();
     }
 

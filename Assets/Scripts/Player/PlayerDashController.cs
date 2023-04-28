@@ -32,7 +32,7 @@ public class PlayerDashController : MonoBehaviour
     private float _dashTimePassed = 0f;
     public float capsuleOffset = 0.15F;
     public float speedDashController = 7;
-    
+    private bool _dashDirectional;
     void Start()
     {
         _playerController = GetComponent<PlayerController>();
@@ -48,10 +48,12 @@ public class PlayerDashController : MonoBehaviour
         if (_dashDirection != Vector2.zero)
         {
             vdirection = _dashDirection * _dashSpeed;
+            _dashDirectional = true;
         }
         else
         {
             vdirection = (Vector2)transform.right * _playerController._movementController._lastDir * _dashSpeed;
+            _dashDirectional = false;
         }
         
         rb2d.velocity = vdirection;
@@ -79,25 +81,28 @@ public class PlayerDashController : MonoBehaviour
         
         bool hitUp = Physics2D.Raycast(transform.position + new Vector3(0, coll.size.y/2f + capsuleOffset), transform.right * _dashDirection.x, 0.55f, floorLayer);
         bool hitDown = Physics2D.Raycast(transform.position - new Vector3(0, coll.size.y/2 + capsuleOffset), transform.right * _dashDirection.x, 0.55f, floorLayer);
-
-        if (hitUp && hitDown)
+        if (_dashDirectional)
         {
-            StopDash();
+            if (hitUp && hitDown)
+            {
+                StopDash();
+            }
+            else if (hitUp)
+            {
+                timeStopped = true;
+                rb2d.velocity += new Vector2(0, - speedDashController);
+            }
+            else if (hitDown)
+            {
+                timeStopped = true;
+                rb2d.velocity += new Vector2(0,  speedDashController);
+            }
+            else
+            {
+                timeStopped = false;
+            }
         }
-        else if (hitUp)
-        {
-            timeStopped = true;
-            rb2d.velocity += new Vector2(0, - speedDashController);
-        }
-        else if (hitDown)
-        {
-            timeStopped = true;
-            rb2d.velocity += new Vector2(0,  speedDashController);
-        }
-        else
-        {
-            timeStopped = false;
-        }
+        
         
     }
 

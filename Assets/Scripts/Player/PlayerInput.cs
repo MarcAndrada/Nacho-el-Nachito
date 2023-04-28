@@ -26,6 +26,7 @@ public class PlayerInput : MonoBehaviour
         InputManager._instance.ingameMovementAction.action.performed += MoveAction; //Mientras el input de ataque este activo se llamara a la funcion para guardarse el valor
         InputManager._instance.ingameMovementAction.action.canceled += MoveAction;
 
+        InputManager._instance.ingameGoDownAction.action.started += GoDownAction;
         InputManager._instance.ingameAimAction.action.started += GamepadHookAction;
         InputManager._instance.ingameHookAction.action.started += MouseHookAction;
         InputManager._instance.ingameDashAction.action.started += DashAction;
@@ -40,6 +41,10 @@ public class PlayerInput : MonoBehaviour
         playerMovement = InputManager._instance.ingameMovementAction.action.ReadValue<float>(); //Le damos a playerMovement
     }
 
+    private void GoDownAction(InputAction.CallbackContext obj)
+    {
+        playerController._playerDownController.Interact();
+    }
 
 
     private void JumpAction(InputAction.CallbackContext obj)

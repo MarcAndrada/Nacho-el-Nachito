@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class PlayerInteractionController : MonoBehaviour
 {
-    private PlayerController _playerController;
     
-    private bool collideLever;
-    private LeverManager lever;
+    private bool _collideLever;
+    private LeverManager _lever;
     private void Start()
     {
-        _playerController = GetComponent<PlayerController>();
-        collideLever = false;
+        _collideLever = false;
     }
 
     // check if player collides with lever
@@ -20,8 +18,8 @@ public class PlayerInteractionController : MonoBehaviour
     {
         if (other.CompareTag("Mechanism"))
         {
-            collideLever = true;
-            lever = other.gameObject.GetComponent<LeverManager>();
+            _collideLever = true;
+            _lever = other.gameObject.GetComponent<LeverManager>();
         }
     }
 
@@ -29,17 +27,17 @@ public class PlayerInteractionController : MonoBehaviour
     {
         if (other.CompareTag("Mechanism"))
         {
-            collideLever = false;
-            lever = null;
+            _collideLever = false;
+            _lever = null;
         }
     }
 
     public void Interact()
     {
-        if (collideLever)
+        if (_collideLever)
         {
             Debug.Log("Collide with lever");
-            lever.ActivateLever();
+            _lever.ActivateLever();
         }
         else
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -471,6 +472,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         airAcceleration = _airAcceleration;
     }
+
     private RaycastHit2D DoRaycast(Vector2 _pos, Vector2 _dir, float _distance, LayerMask _layer)
     {
         // Esta funcion es para simplificar el hacer un raycast que da un palo que flipas loquete ;)

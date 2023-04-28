@@ -16,15 +16,14 @@ public class OneWayPlatformColision : MonoBehaviour
         boxcollider = GetComponent<BoxCollider2D>();
         startValue = timeNoColision;
     }
-  
+    public void Activate()
+    {
+        boxcollider.enabled = false;
+        platformDes = true;
+    }
+    
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S)) // CAMBIAR POR INPUTSYSTEM
-        {
-            boxcollider.enabled = false;
-            platformDes = true;
-        }
-
         if(platformDes)
         {
             timeNoColision = timeNoColision - 1f * Time.deltaTime;
