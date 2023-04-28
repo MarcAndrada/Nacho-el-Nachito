@@ -1,6 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -270,6 +274,7 @@ public class PlayerMovementController : MonoBehaviour
         DragExternalForces();
         movementForces = new Vector2(airAcceleration * airMoveSpeed, 0) + externalForces;
         ClampAirSpeed();
+        ReduceExternalForces();
     }
 
     private void ApplyAirAcceleration()
@@ -422,11 +427,23 @@ public class PlayerMovementController : MonoBehaviour
         {
             externalForces.x = 0;
         }
+    }
 
-
-
-
-        
+    private void ReduceExternalForces()
+    {
+        if (externalForces != Vector2.zero)
+        {
+            externalForces = Vector2.Lerp(externalForces, Vector2.zero, Time.deltaTime * 2);
+        }
+        // detect if we are touching layer floorLayer
+        Vector3 posOffset = Vector2.right * checkFloorRange / 2 * playerController._playerInput._playerMovement;
+        Vector3 posRay = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, (-capsuleCollider.size.y / slopeCapsuleDiv) * 2) - posOffset;
+        Vector2 rayDir = Vector2.right * playerController._playerInput._playerMovement;
+        RaycastHit2D hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
+        if (hit)
+        {
+            externalForces = Vector2.zero;
+        }
     }
 
     #endregion
@@ -455,6 +472,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         airAcceleration = _airAcceleration;
     }
+
     private RaycastHit2D DoRaycast(Vector2 _pos, Vector2 _dir, float _distance, LayerMask _layer)
     {
         // Esta funcion es para simplificar el hacer un raycast que da un palo que flipas loquete ;)
