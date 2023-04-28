@@ -8,6 +8,8 @@ TagManager:
   - HookPoint
   - Obstaculo
   - CameraChanger
+  - CheckPoint
+  - OVNI
   layers:
   - Default
   - TransparentFX

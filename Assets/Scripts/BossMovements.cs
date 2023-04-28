@@ -16,6 +16,7 @@ public class BossMovements : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Vector2 target = new Vector2(playerPos.position.x, bossPosY);
     }
 
     // Update is called once per frame
