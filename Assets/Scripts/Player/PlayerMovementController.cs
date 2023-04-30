@@ -441,16 +441,33 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (externalForces != Vector2.zero)
         {
-            externalForces = Vector2.Lerp(externalForces, Vector2.zero, Time.deltaTime * 2);
+            externalForces = Vector2.Lerp(externalForces, Vector2.zero, Time.deltaTime * 1.5f);
         }
         // detect if we are touching layer floorLayer
-        Vector3 posOffset = Vector2.right * checkFloorRange / 2 * playerController._playerInput._playerMovement;
-        Vector3 posRay = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, (-capsuleCollider.size.y / slopeCapsuleDiv) * 2) - posOffset;
-        Vector2 rayDir = Vector2.right * playerController._playerInput._playerMovement;
+        Vector3 posRay = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, capsuleCollider.size.y / 2);
+        Vector2 rayDir = Vector2.right * Mathf.Clamp(externalForces.x, -1, 1);
         RaycastHit2D hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
         if (hit)
         {
             externalForces = Vector2.zero;
+        }
+        else
+        {
+            posRay.y -= capsuleCollider.size.y / 2;
+            hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
+            if (hit)
+            {
+                externalForces = Vector2.zero;
+            }
+            else
+            {
+                posRay.y -= capsuleCollider.size.y / 2;
+                hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
+                if (hit)
+                {
+                    externalForces = Vector2.zero;
+                }
+            }
         }
     }
 

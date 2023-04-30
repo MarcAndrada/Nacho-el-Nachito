@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 6222469504518347744}
   - component: {fileID: 7857257213538850297}
   - component: {fileID: 8139452155725308173}
+  - component: {fileID: 8293219300181173161}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -385,7 +386,7 @@ MonoBehaviour:
   wallCheckRange: 0.1
   timeUnstickWall: 0.2
   airWallJumpRange: 0.15
-  wallJumpingPower: {x: 12, y: 14}
+  wallJumpingPower: {x: 14, y: 14}
   walljumpSound: {fileID: 8300000, guid: db2138f2b0a595f47940f46b5d75fbba, type: 3}
   wallSlide: {fileID: 8300000, guid: 3eca88d14ff39e24793fe704ee4536ab, type: 3}
 --- !u!114 &7857257213538850297
@@ -429,3 +430,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeDead: 0.5
   posit: {fileID: 0}
+--- !u!114 &8293219300181173161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854213116837401507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b66295da9c079a40b00510d8b9d7119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
