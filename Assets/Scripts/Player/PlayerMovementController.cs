@@ -56,7 +56,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField, Tooltip("La cantidad de divisiones que hara de la colision para sacar los puntos donde comprueba posicion de los rayos para el Slope")]
     private float slopeCapsuleDiv;
 
-    [Header("Sound Var"), SerializeField]
+    [Header("Sound"), SerializeField]
     private AudioClip[] footsteps;
     [SerializeField]
     private AudioClip jump;
@@ -369,7 +369,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         jumpInputPerformed = true;
         canCoyote = false;
-        AudioManager._instance.PlayOneShotSound(jump, 0.85f, 1.25f);
+        AudioManager._instance.Play2dOneShotSound(jump, 0.65f, 1.35f, 0.2f);
     }
 
     public void CheckJumping() 
@@ -444,8 +444,7 @@ public class PlayerMovementController : MonoBehaviour
 
     public void SoundFootstep()
     {
-
-        AudioManager._instance.PlayOneShotSound(footsteps[Random.Range(0, footsteps.Length)], 0.85f, 1.25f, 0.4f);
+        AudioManager._instance.PlayOneRandomShotSound(footsteps, 0.85f, 1.25f, 0.4f);
     }
 
     #endregion

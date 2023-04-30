@@ -34,7 +34,13 @@ public class PlayerWallJumpController : MonoBehaviour
     [SerializeField]
     private Vector2 wallJumpingPower;
 
-    // Start is called before the first frame update
+    [Header("Sound"), SerializeField]
+    private AudioClip walljumpSound;
+    [SerializeField]
+    private AudioClip wallSlide;
+    private AudioSource loopAS;
+
+
     void Awake()
     {
         _playerController = GetComponent<PlayerController>();
@@ -49,8 +55,6 @@ public class PlayerWallJumpController : MonoBehaviour
         float lookDir = _playerController._playerInput._playerMovement;
         bool isGrounded = Physics2D.Raycast(transform.position + new Vector3(0, -coll.size.y / 2), Vector2.down, 0.1f, floorLayer);
         //Si no esta en el muro comprueba en la direccion que se esta moviendo el personaje que no haya una pared, tambien que no este tocando el suelo
-        //O que si esta moviendose en una direccion y esta cerca del muro
-        //O si esta en el muro comrueba que lo siga tocando y que no este tocando el suelo
         if (!isWallSliding && 
             lookDir != 0 &&
             Physics2D.OverlapCircle(transform.position + (new Vector3(coll.size.x / 2, 0) * lookDir), wallCheckRange, wallLayer) && 
@@ -60,6 +64,7 @@ public class PlayerWallJumpController : MonoBehaviour
             walledDir = lookDir;
             return true;
         }
+        //O que si esta moviendose en una direccion y esta cerca del muro
         else if (!isWallSliding &&
                 lookDir == 0 &&
                 rb2d.velocity.x != 0 &&
@@ -70,6 +75,7 @@ public class PlayerWallJumpController : MonoBehaviour
             walledDir = Mathf.Clamp(rb2d.velocity.x, -1f, 1f);
             return true;
         }
+        //O si esta en el muro comrueba que lo siga tocando y que no este tocando el suelo
         else if (isWallSliding &&
                 Physics2D.OverlapCircle(transform.position + new Vector3(coll.size.x / 2, 0) * walledDir, wallCheckRange * 2, wallLayer) &&
                 !isGrounded)
@@ -88,6 +94,7 @@ public class PlayerWallJumpController : MonoBehaviour
         {
             _playerController.playerState = PlayerController.PlayerStates.WALL_SLIDE;
             _playerController._playerDashController._canDash = true;
+            loopAS = AudioManager._instance.Play2dLoop(wallSlide);
         }
     }
 
@@ -109,9 +116,8 @@ public class PlayerWallJumpController : MonoBehaviour
         }
         else
         {
-            isWallSliding = false;
             walledDir = 0;
-            _playerController.playerState = PlayerController.PlayerStates.AIR;
+            StopSlide();
         }
     }
 
@@ -122,8 +128,7 @@ public class PlayerWallJumpController : MonoBehaviour
             timeWaitedUnstickWall += Time.deltaTime;
             if (timeWaitedUnstickWall >= timeUnstickWall)
             {
-                isWallSliding = false;
-                _playerController.playerState = PlayerController.PlayerStates.AIR;
+                StopSlide();
             }
         }
         else
@@ -131,7 +136,15 @@ public class PlayerWallJumpController : MonoBehaviour
             timeWaitedUnstickWall = 0;
         }
     }
+    private void StopSlide() 
+    {
+        isWallSliding = false;
+        _playerController.playerState = PlayerController.PlayerStates.AIR;
 
+        if (loopAS)
+            AudioManager._instance.StopLoopSound(loopAS);
+        loopAS = null;
+    }
     public void CheckWallJumpInAir()
     {
         if (Physics2D.Raycast(transform.position + new Vector3(coll.size.x / 2, 0), Vector2.right, airWallJumpRange,  wallLayer) &&
@@ -158,6 +171,10 @@ public class PlayerWallJumpController : MonoBehaviour
         rb2d.velocity = jumpDir;
         walledDir = 0;
         _playerController._movementController.externalForces = jumpDir;
+        if (loopAS)
+            AudioManager._instance.StopLoopSound(loopAS);
+        loopAS = null;
+        AudioManager._instance.Play2dOneShotSound(walljumpSound, 0.65f, 1.35f, 1.2f);
     }
 
 

@@ -9,11 +9,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private AudioMixer mixer;
 
-    private AudioSource[] actionsAS;
+    private AudioSource[] actions2dAS;
+    private List<AudioSource> actions3dAS;
     [SerializeField]
-    private int totalActionsAS;
+    private int total2DAS; 
     [SerializeField]
-    GameObject actionsASObj;
+    GameObject actions2dASObj; 
 
     private void Awake()
     {
@@ -28,38 +29,25 @@ public class AudioManager : MonoBehaviour
 
         _instance = this;
 
+        actions2dAS = new AudioSource[total2DAS];
+        actions3dAS = new List<AudioSource>();
     }
 
     private void Start()
     {
-        actionsAS = new AudioSource[totalActionsAS];
+        
         AudioMixerGroup mixerGroup = mixer.FindMatchingGroups("SFX")[0];
-        for (int i = 0; i < totalActionsAS; i++)
+        for (int i = 0; i < total2DAS; i++)
         {
-            actionsAS[i] = actionsASObj.AddComponent<AudioSource>();
-            actionsAS[i].playOnAwake = false;
-            actionsAS[i].outputAudioMixerGroup = mixerGroup;
+            actions2dAS[i] = actions2dASObj.AddComponent<AudioSource>();
+            actions2dAS[i].playOnAwake = false;
+            actions2dAS[i].outputAudioMixerGroup = mixerGroup;
         }
     }
 
-    private void Update()
+    public AudioSource GetUnused2dAS() 
     {
-        int unusedAS = 0;
-
-        foreach (AudioSource item in actionsAS)
-        {
-            if (!item.isPlaying)
-            {
-                unusedAS++;
-            }
-        }
-
-        Debug.Log(unusedAS);
-    }
-
-    public AudioSource GetUnusedAS() 
-    {
-        foreach (AudioSource item in actionsAS)
+        foreach (AudioSource item in actions2dAS)
         {
             if (!item.isPlaying)
             {
@@ -69,10 +57,46 @@ public class AudioManager : MonoBehaviour
 
         return null;
     }
-
-    public void PlayOneShotSound(AudioClip _clip, float _minPitch = 1, float _maxPitch = 1, float _volume = 1)
+    public AudioSource GetUnused3dAS()
     {
-        AudioSource _as = GetUnusedAS();
+        foreach (AudioSource item in actions3dAS)
+        {
+            if (!item.isPlaying)
+            {
+                return item;
+            }
+        }
+
+        return null;
+    }
+    public void AddNew3dAS() 
+    {
+        GameObject _obj = new GameObject();
+        AudioMixerGroup mixerGroup = mixer.FindMatchingGroups("SFX")[0];
+
+        actions3dAS.Add(_obj.AddComponent<AudioSource>());
+        _obj.transform.parent = transform;
+        actions3dAS[actions3dAS.Count - 1].playOnAwake = false;
+        actions3dAS[actions3dAS.Count - 1].outputAudioMixerGroup = mixerGroup;
+        actions3dAS[actions3dAS.Count - 1].spatialBlend = 1;
+        actions3dAS[actions3dAS.Count - 1].rolloffMode = AudioRolloffMode.Linear;
+    }
+
+    public void Play2dOneShotSound(AudioClip _clip, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 1)
+    {
+        AudioSource _as = GetUnused2dAS();
+        PlayOneShotSound(_as, _clip, _minPitch, _maxPitch, _volume);
+    }
+    public void Play3dOneShotSound(AudioClip _clip, float _radius, Vector2 _pos, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 1)
+    {
+        AudioSource _as = GetUnused3dAS();
+        _as.minDistance = _radius;
+        _as.maxDistance = _radius * 5;
+        _as.gameObject.transform.position = new Vector3(_pos.x, _pos.y, -10);
+        PlayOneShotSound(_as, _clip, _minPitch, _maxPitch, _volume);
+    }
+    private void PlayOneShotSound(AudioSource _as, AudioClip _clip, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 1)
+    {
         if (_as != null)
         {
             _as.loop = false;
@@ -83,9 +107,31 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public AudioSource PlayLoopSound(AudioClip _clip, float _minPitch = 1, float _maxPitch = 1, float _volume = 1)
+    
+    public void PlayOneRandomShotSound(AudioClip[] _clips, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 1) 
     {
-        AudioSource _as = GetUnusedAS();
+        Play2dOneShotSound(_clips[Random.Range(0, _clips.Length)], _minPitch, _maxPitch, _volume);
+    }
+
+    public AudioSource Play2dLoop(AudioClip _clip, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 0.4f) 
+    {
+        AudioSource _as = GetUnused2dAS();
+        
+        PlayLoopSound(_as, _clip, _minPitch, _maxPitch, _volume);
+
+        return _as;
+    }
+    public AudioSource Play3dLoop(AudioClip _clip, float _radius, Vector2 _pos, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 0.4f) 
+    {
+        AudioSource _as = GetUnused3dAS();
+        _as.minDistance = _radius;
+        _as.maxDistance = _radius * 5;
+        _as.gameObject.transform.position = new Vector3(_pos.x, _pos.y, -10);
+        PlayLoopSound(_as, _clip, _minPitch, _maxPitch, _volume);
+        return _as;
+    }
+    private void PlayLoopSound(AudioSource _as, AudioClip _clip, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 0.4f)
+    {
 
         _as.loop = true;
         if (_as != null)
@@ -97,12 +143,11 @@ public class AudioManager : MonoBehaviour
             _as.Play();
         }
 
-        return _as;
     }
-
-
     public void StopLoopSound(AudioSource _as) 
     {
+        _as.loop = false;
+        _as.clip = null;
         _as.Stop();
     }
 

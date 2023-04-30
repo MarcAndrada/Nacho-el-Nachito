@@ -39,6 +39,12 @@ public class PlayerHookController : MonoBehaviour
     [SerializeField]
     private LayerMask floorLayer;
 
+    [Header("Sound"), SerializeField]
+    private AudioClip hookThrow;
+    [SerializeField]
+    private AudioClip hookHit;
+ 
+    
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
@@ -71,6 +77,8 @@ public class PlayerHookController : MonoBehaviour
                 default:
                     break;
             }
+
+            AudioManager._instance.Play2dOneShotSound(hookThrow);
 
         }
     }
@@ -184,6 +192,7 @@ public class PlayerHookController : MonoBehaviour
         {
             playerController.playerState = PlayerController.PlayerStates.HOOK;
             posToReach = _target;
+            AudioManager._instance.Play2dOneShotSound(hookHit);
         }
 
         hookObj.SetActive(true);

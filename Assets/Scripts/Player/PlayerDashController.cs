@@ -12,7 +12,6 @@ public class PlayerDashController : MonoBehaviour
     private PlayerController _playerController;
 
     private Rigidbody2D rb2d;
-    private SpriteRenderer sprt;
     private CapsuleCollider2D coll;
     
     [SerializeField]
@@ -32,15 +31,24 @@ public class PlayerDashController : MonoBehaviour
     private float _dashTimePassed = 0f;
     public float capsuleOffset = 0.15F;
     public float speedDashController = 7;
-    
+
+    [Header("Souds"), SerializeField]
+    private AudioClip[] dashSounds;
+
     void Start()
     {
         _playerController = GetComponent<PlayerController>();
 
         timeStopped = false;
         rb2d = GetComponent<Rigidbody2D>();
-        sprt = GetComponent<SpriteRenderer>();
         coll = GetComponent<CapsuleCollider2D>();
+    }
+    public void StartDash(Vector2 _dashDir) 
+    {
+        _playerController._playerDashController._dashDirection = _dashDir;
+        _playerController.playerState = PlayerController.PlayerStates.DASH;
+
+        AudioManager._instance.PlayOneRandomShotSound(dashSounds, 0.55f, 1.45f, 0.6f);
     }
 
     public void Dash()
@@ -57,7 +65,8 @@ public class PlayerDashController : MonoBehaviour
         rb2d.velocity = vdirection;
 
         _canDash = false;
-           
+
+
     }
 
     public void DashTimer()

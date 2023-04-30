@@ -329,6 +329,8 @@ MonoBehaviour:
   floorLayer:
     serializedVersion: 2
     m_Bits: 2128
+  hookThrow: {fileID: 8300000, guid: f3c7f52b1f1c05f43a64981175dee5fd, type: 3}
+  hookHit: {fileID: 8300000, guid: c2838f40599c7e3479fb09cbbf6b2a6d, type: 3}
 --- !u!114 &6222469504518347744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +355,8 @@ MonoBehaviour:
   timeUnstickWall: 0.2
   airWallJumpRange: 0.15
   wallJumpingPower: {x: 12, y: 14}
+  walljumpSound: {fileID: 8300000, guid: db2138f2b0a595f47940f46b5d75fbba, type: 3}
+  wallSlide: {fileID: 8300000, guid: 3eca88d14ff39e24793fe704ee4536ab, type: 3}
 --- !u!114 &7857257213538850297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +379,11 @@ MonoBehaviour:
   _dashTime: 0.2
   capsuleOffset: 0.15
   speedDashController: 7
+  dashSounds:
+  - {fileID: 8300000, guid: 4190ea47806538b43996709f7493f5d6, type: 3}
+  - {fileID: 8300000, guid: 6532f758fdf6b944f86fb8f96d91a136, type: 3}
+  - {fileID: 8300000, guid: 8b208fb65d8b11c48a81b2da3734662a, type: 3}
+  - {fileID: 8300000, guid: 8b43fce0dc5909646bc6bed7c97cf922, type: 3}
 --- !u!114 &8139452155725308173
 MonoBehaviour:
   m_ObjectHideFlags: 0

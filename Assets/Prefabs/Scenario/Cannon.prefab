@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7986411652392102612}
   - component: {fileID: 7986411652392102613}
   - component: {fileID: 7986411652392102614}
+  - component: {fileID: 2945516205522465124}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -100,3 +101,21 @@ MonoBehaviour:
   _timeBetweenBullets: 2
   _bullet: {fileID: 5575625888041688526, guid: eddd1e76b71477f4294fd5675062a996, type: 3}
   _timePassed: 0
+--- !u!114 &2945516205522465124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7986411652392102615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34220ff4acc9d054fbf6a796f20f4c36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLoop: 0
+  playAtStart: 0
+  clip: {fileID: 8300000, guid: 656a06deb6a00ec4cb84017cbed62a3c, type: 3}
+  radius: 2
+  minMaxPitch: {x: 0.75, y: 1.25}
+  volume: 0.2
