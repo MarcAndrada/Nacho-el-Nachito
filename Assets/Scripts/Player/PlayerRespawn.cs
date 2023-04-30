@@ -21,7 +21,6 @@ public class PlayerRespawn : MonoBehaviour
         pc = GetComponent<PlayerController>();
     }
 
-
     private void Start()
     {
         startValue = timeDead;
@@ -44,6 +43,12 @@ public class PlayerRespawn : MonoBehaviour
     {
         if (collision.CompareTag("Obstaculo"))
         {
+            sprite.enabled = false;
+            pc.playerState = PlayerController.PlayerStates.DEAD;
+        }
+
+        else if(collision.CompareTag("Abduce"))
+        { 
             sprite.enabled = false;
             pc.playerState = PlayerController.PlayerStates.DEAD;
         }

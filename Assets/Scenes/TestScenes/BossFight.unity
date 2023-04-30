@@ -544,10 +544,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1562483474}
   - component: {fileID: 1562483475}
-  - component: {fileID: 1562483476}
   m_Layer: 0
   m_Name: AbducirMata
-  m_TagString: Untagged
+  m_TagString: Abduce
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -583,28 +582,17 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.33180422, y: 0.016862616}
-  - {x: 0.32324046, y: 0.016476333}
+  - {x: -0.3186314, y: 0.017334264}
+  - {x: 0.3259452, y: 0.01749316}
+  - {x: 0.30149657, y: 0.053737763}
   - {x: 0.096399456, y: 0.40520316}
   - {x: -0.086039916, y: 0.4044429}
   - {x: -0.1283817, y: 0.33072594}
-  - {x: -0.32435352, y: 0.013749792}
+  - {x: -0.31682643, y: 0.016579736}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!114 &1562483476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1562483473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d3abae278419f2499a483c8542a9bcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1578416344
 GameObject:
   m_ObjectHideFlags: 0
