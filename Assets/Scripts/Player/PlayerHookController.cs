@@ -41,8 +41,7 @@ public class PlayerHookController : MonoBehaviour
 
     [Header("Sound"), SerializeField]
     private AudioClip hookThrow;
-    [SerializeField]
-    private AudioClip hookHit;
+  
  
     
     private void Awake()
@@ -192,7 +191,6 @@ public class PlayerHookController : MonoBehaviour
         {
             playerController.playerState = PlayerController.PlayerStates.HOOK;
             posToReach = _target;
-            AudioManager._instance.Play2dOneShotSound(hookHit);
         }
 
         hookObj.SetActive(true);
