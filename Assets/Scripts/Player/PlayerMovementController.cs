@@ -60,6 +60,12 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField, Tooltip("La cantidad de divisiones que hara de la colision para sacar los puntos donde comprueba posicion de los rayos para el Slope")]
     private float slopeCapsuleDiv;
 
+    [Header("Sound"), SerializeField]
+    private AudioClip[] footsteps;
+    [SerializeField]
+    private AudioClip jump;
+    [SerializeField]
+    private AudioClip fall;
 
     private Vector2 movementForces;
     [HideInInspector]
@@ -207,6 +213,7 @@ public class PlayerMovementController : MonoBehaviour
             if (_actuallyGrounded)
             {
                 FirstTimeOnFloor();
+                //AudioManager._instance.PlayOneShotSound(fall, 0.85f, 1.25f, 0.2f); no me mola como queda
             }
             else
             {
@@ -367,6 +374,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         jumpInputPerformed = true;
         canCoyote = false;
+        AudioManager._instance.Play2dOneShotSound(jump, 0.65f, 1.35f, 0.2f);
     }
 
     public void CheckJumping() 
@@ -448,6 +456,17 @@ public class PlayerMovementController : MonoBehaviour
 
     #endregion
 
+
+    #region Animation Events
+
+    public void SoundFootstep()
+    {
+        AudioManager._instance.PlayOneRandomShotSound(footsteps, 0.85f, 1.25f, 0.4f);
+    }
+
+    #endregion
+
+
     public void CheckSlope()
     {
         //En esta funcion comprobamos si esta atascado en medio del aire
@@ -484,6 +503,9 @@ public class PlayerMovementController : MonoBehaviour
 
         return _hit[0];
     }
+
+
+
 
     private void OnDrawGizmos()
     {
