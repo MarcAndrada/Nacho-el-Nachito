@@ -169,8 +169,9 @@ public class PlayerWallJumpController : MonoBehaviour
         isWallSliding = false;
         Vector2 jumpDir = new Vector2(-walledDir * wallJumpingPower.x, wallJumpingPower.y);
         rb2d.velocity = jumpDir;
-        walledDir = 0;
         _playerController._movementController.externalForces = jumpDir;
+        _playerController._movementController.SetAirAcceleration(-walledDir);
+        walledDir = 0;
         if (loopAS)
             AudioManager._instance.StopLoopSound(loopAS);
         loopAS = null;

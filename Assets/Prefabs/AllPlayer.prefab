@@ -296,7 +296,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3854213116837401507, guid: c285df5e564820c4589c31d79109d7ab, type: 3}
   m_PrefabInstance: {fileID: 2142703725406937799}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &28421127923457409
+--- !u!114 &1655171733507738612
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,7 +305,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2936491849083777380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b66295da9c079a40b00510d8b9d7119, type: 3}
+  m_Script: {fileID: 11500000, guid: 65678fedd3d34651861901a9ebe6267d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4523695414578192698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2936491849083777380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0398e54e4d8f4371b86b2b11b8036158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5112757776357402248
@@ -380,6 +392,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 2936491849604238485}
     m_Modifications:
+    - target: {fileID: 8428635481677301984, guid: ade0526b44cf09c42a9ecd2134c31970, type: 3}
+      propertyPath: ingameGoDownAction
+      value: 
+      objectReference: {fileID: -2485080201414476194, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
     - target: {fileID: 8428635481677301984, guid: ade0526b44cf09c42a9ecd2134c31970, type: 3}
       propertyPath: ingameInteractAction
       value: 

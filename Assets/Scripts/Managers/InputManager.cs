@@ -18,6 +18,7 @@ public class InputManager : MonoBehaviour
     public InputActionReference ingameDashAction;
     public InputActionReference ingameAirDirectionAction;
     public InputActionReference ingameInteractAction;
+    public InputActionReference ingameGoDownAction;
     
     [Header("Menu Actions")]
     public InputActionReference menuMoveAction;

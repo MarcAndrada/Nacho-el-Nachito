@@ -1,6 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -277,6 +281,7 @@ public class PlayerMovementController : MonoBehaviour
         DragExternalForces();
         movementForces = new Vector2(airAcceleration * airMoveSpeed, 0) + externalForces;
         ClampAirSpeed();
+        ReduceExternalForces();
     }
 
     private void ApplyAirAcceleration()
@@ -430,11 +435,40 @@ public class PlayerMovementController : MonoBehaviour
         {
             externalForces.x = 0;
         }
+    }
 
-
-
-
-        
+    private void ReduceExternalForces()
+    {
+        if (externalForces != Vector2.zero)
+        {
+            externalForces = Vector2.Lerp(externalForces, Vector2.zero, Time.deltaTime * 1.5f);
+        }
+        // detect if we are touching layer floorLayer
+        Vector3 posRay = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, capsuleCollider.size.y / 2);
+        Vector2 rayDir = Vector2.right * Mathf.Clamp(externalForces.x, -1, 1);
+        RaycastHit2D hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
+        if (hit)
+        {
+            externalForces = Vector2.zero;
+        }
+        else
+        {
+            posRay.y -= capsuleCollider.size.y / 2;
+            hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
+            if (hit)
+            {
+                externalForces = Vector2.zero;
+            }
+            else
+            {
+                posRay.y -= capsuleCollider.size.y / 2;
+                hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
+                if (hit)
+                {
+                    externalForces = Vector2.zero;
+                }
+            }
+        }
     }
 
     #endregion
@@ -474,6 +508,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         airAcceleration = _airAcceleration;
     }
+
     private RaycastHit2D DoRaycast(Vector2 _pos, Vector2 _dir, float _distance, LayerMask _layer)
     {
         // Esta funcion es para simplificar el hacer un raycast que da un palo que flipas loquete ;)
