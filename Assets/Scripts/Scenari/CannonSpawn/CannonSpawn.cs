@@ -12,8 +12,12 @@ public class CannonSpawn : MonoBehaviour
 
     [SerializeField]
     private float _timePassed;
-    // Start is called before the first frame update
 
+    Sound3dController sound3dController;
+    private void Awake()
+    {
+        sound3dController = GetComponent<Sound3dController>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -23,6 +27,7 @@ public class CannonSpawn : MonoBehaviour
         {
             Instantiate(_bullet, transform.position, transform.rotation).GetComponent<BulletMovement>().dir = transform.right;
             _timePassed = _timeBetweenBullets;
+            sound3dController.PlaySound();
         }
     }
 }

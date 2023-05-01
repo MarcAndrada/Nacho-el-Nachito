@@ -259,3 +259,6 @@ MonoBehaviour:
   engineTimer: 2
   platforms:
   - {fileID: 194582725}
+  buttonPressed: {fileID: 8300000, guid: 3b9fd33cdbe3cdc4ca071e4f00e8fd94, type: 3}
+  buttonUnpressed: {fileID: 8300000, guid: 93a338c1e5ecbf84493c03eb9a332424, type: 3}
+  buttonTimer: {fileID: 8300000, guid: 16503c0031fd1fb409f8d0472f3d29d9, type: 3}
