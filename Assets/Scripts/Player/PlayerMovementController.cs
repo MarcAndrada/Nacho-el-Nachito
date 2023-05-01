@@ -60,6 +60,12 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField, Tooltip("La cantidad de divisiones que hara de la colision para sacar los puntos donde comprueba posicion de los rayos para el Slope")]
     private float slopeCapsuleDiv;
 
+    [Header("Sound"), SerializeField]
+    private AudioClip[] footsteps;
+    [SerializeField]
+    private AudioClip jump;
+    [SerializeField]
+    private AudioClip fall;
 
     private Vector2 movementForces;
     [HideInInspector]
@@ -207,6 +213,7 @@ public class PlayerMovementController : MonoBehaviour
             if (_actuallyGrounded)
             {
                 FirstTimeOnFloor();
+                //AudioManager._instance.PlayOneShotSound(fall, 0.85f, 1.25f, 0.2f); no me mola como queda
             }
             else
             {
@@ -367,6 +374,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         jumpInputPerformed = true;
         canCoyote = false;
+        AudioManager._instance.Play2dOneShotSound(jump, 0.65f, 1.35f, 0.2f);
     }
 
     public void CheckJumping() 
@@ -433,20 +441,48 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (externalForces != Vector2.zero)
         {
-            externalForces = Vector2.Lerp(externalForces, Vector2.zero, Time.deltaTime * 2);
+            externalForces = Vector2.Lerp(externalForces, Vector2.zero, Time.deltaTime * 1.5f);
         }
         // detect if we are touching layer floorLayer
-        Vector3 posOffset = Vector2.right * checkFloorRange / 2 * playerController._playerInput._playerMovement;
-        Vector3 posRay = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, (-capsuleCollider.size.y / slopeCapsuleDiv) * 2) - posOffset;
-        Vector2 rayDir = Vector2.right * playerController._playerInput._playerMovement;
+        Vector3 posRay = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, capsuleCollider.size.y / 2);
+        Vector2 rayDir = Vector2.right * Mathf.Clamp(externalForces.x, -1, 1);
         RaycastHit2D hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
         if (hit)
         {
             externalForces = Vector2.zero;
         }
+        else
+        {
+            posRay.y -= capsuleCollider.size.y / 2;
+            hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
+            if (hit)
+            {
+                externalForces = Vector2.zero;
+            }
+            else
+            {
+                posRay.y -= capsuleCollider.size.y / 2;
+                hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
+                if (hit)
+                {
+                    externalForces = Vector2.zero;
+                }
+            }
+        }
     }
 
     #endregion
+
+
+    #region Animation Events
+
+    public void SoundFootstep()
+    {
+        AudioManager._instance.PlayOneRandomShotSound(footsteps, 0.85f, 1.25f, 0.4f);
+    }
+
+    #endregion
+
 
     public void CheckSlope()
     {
@@ -484,6 +520,9 @@ public class PlayerMovementController : MonoBehaviour
 
         return _hit[0];
     }
+
+
+
 
     private void OnDrawGizmos()
     {
