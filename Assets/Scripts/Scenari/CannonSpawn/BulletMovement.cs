@@ -11,13 +11,12 @@ public class BulletMovement : MonoBehaviour
     public Vector2 dir;    
     private Rigidbody2D rb2d;
     
-    private LayerMask collisionMask;
-
-    
+    private Sound3dController sound3dController;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        sound3dController = GetComponent<Sound3dController>();
     }
 
     // Update is called once per frame
@@ -32,6 +31,7 @@ public class BulletMovement : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor") ||
             collision.gameObject.layer == LayerMask.NameToLayer("Water")) 
         {
+            sound3dController.PlaySound();
             Destroy(gameObject);
         }
 

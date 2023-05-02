@@ -227,3 +227,4 @@ MonoBehaviour:
   hookSpeed: 60
   minDistanceToPoint: 0.4
   hooked: 0
+  hookHit: {fileID: 8300000, guid: c2838f40599c7e3479fb09cbbf6b2a6d, type: 3}

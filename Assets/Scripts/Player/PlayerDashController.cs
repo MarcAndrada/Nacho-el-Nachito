@@ -12,7 +12,6 @@ public class PlayerDashController : MonoBehaviour
     private PlayerController _playerController;
 
     private Rigidbody2D rb2d;
-    private SpriteRenderer sprt;
     private CapsuleCollider2D coll;
     
     [SerializeField]
@@ -32,15 +31,25 @@ public class PlayerDashController : MonoBehaviour
     private float _dashTimePassed = 0f;
     public float capsuleOffset = 0.15F;
     public float speedDashController = 7;
-    
+
+    [Header("Souds"), SerializeField]
+    private AudioClip[] dashSounds;
+
+    private bool _dashDirectional;
     void Start()
     {
         _playerController = GetComponent<PlayerController>();
 
         timeStopped = false;
         rb2d = GetComponent<Rigidbody2D>();
-        sprt = GetComponent<SpriteRenderer>();
         coll = GetComponent<CapsuleCollider2D>();
+    }
+    public void StartDash(Vector2 _dashDir) 
+    {
+        _playerController._playerDashController._dashDirection = _dashDir;
+        _playerController.playerState = PlayerController.PlayerStates.DASH;
+
+        AudioManager._instance.PlayOneRandomShotSound(dashSounds, 0.55f, 1.45f, 0.6f);
     }
 
     public void Dash()
@@ -48,16 +57,19 @@ public class PlayerDashController : MonoBehaviour
         if (_dashDirection != Vector2.zero)
         {
             vdirection = _dashDirection * _dashSpeed;
+            _dashDirectional = true;
         }
         else
         {
             vdirection = (Vector2)transform.right * _playerController._movementController._lastDir * _dashSpeed;
+            _dashDirectional = false;
         }
         
         rb2d.velocity = vdirection;
 
         _canDash = false;
-           
+
+
     }
 
     public void DashTimer()
@@ -79,25 +91,28 @@ public class PlayerDashController : MonoBehaviour
         
         bool hitUp = Physics2D.Raycast(transform.position + new Vector3(0, coll.size.y/2f + capsuleOffset), transform.right * _dashDirection.x, 0.55f, floorLayer);
         bool hitDown = Physics2D.Raycast(transform.position - new Vector3(0, coll.size.y/2 + capsuleOffset), transform.right * _dashDirection.x, 0.55f, floorLayer);
-
-        if (hitUp && hitDown)
+        if (_dashDirectional)
         {
-            StopDash();
+            if (hitUp && hitDown)
+            {
+                StopDash();
+            }
+            else if (hitUp)
+            {
+                timeStopped = true;
+                rb2d.velocity += new Vector2(0, - speedDashController);
+            }
+            else if (hitDown)
+            {
+                timeStopped = true;
+                rb2d.velocity += new Vector2(0,  speedDashController);
+            }
+            else
+            {
+                timeStopped = false;
+            }
         }
-        else if (hitUp)
-        {
-            timeStopped = true;
-            rb2d.velocity += new Vector2(0, - speedDashController);
-        }
-        else if (hitDown)
-        {
-            timeStopped = true;
-            rb2d.velocity += new Vector2(0,  speedDashController);
-        }
-        else
-        {
-            timeStopped = false;
-        }
+        
         
     }
 
