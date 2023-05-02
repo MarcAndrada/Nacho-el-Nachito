@@ -8,6 +8,9 @@ TagManager:
   - HookPoint
   - Obstaculo
   - CameraChanger
+  - Mechanism
+  - CheckPoint
+  - OneWayPlatform
   layers:
   - Default
   - TransparentFX
