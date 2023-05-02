@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b2d8cae742e6746a8dd7bfc13bfe92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixer: {fileID: 24100000, guid: 91431e3f39c99ae45bb678e7a1bf3b80, type: 2}
+  mixer: {fileID: 24100000, guid: ab1e5abd9e243cb4aa1c715aed20f09c, type: 2}
   total2DAS: 10
   actions2dASObj: {fileID: 7801625978062410442}
 --- !u!1001 &2822508450719972823

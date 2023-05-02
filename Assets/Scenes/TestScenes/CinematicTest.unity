@@ -241,11 +241,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!224 &445246909 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1404744598025789801, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-  m_PrefabInstance: {fileID: 1404744597494049018}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &716579253
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,11 +371,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
---- !u!4 &1644378660 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8937057472507636217, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-  m_PrefabInstance: {fileID: 1404744597494049018}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1954660994
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,26 +495,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1404744597809293085, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: m_text
-      value: Press <sprite=7> to Skip
-      objectReference: {fileID: 0}
-    - target: {fileID: 1404744597809293085, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: d9949a425e7032a488980b9a86f38b53, type: 2}
-    - target: {fileID: 1404744598025789806, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 348bb398ffeae884489db0112a2f0cab, type: 2}
-    - target: {fileID: 7806881968502851332, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: m_text
-      value: Press <sprite=1>to Skip
-      objectReference: {fileID: 0}
-    - target: {fileID: 7806881968502851332, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: m_spriteAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 348bb398ffeae884489db0112a2f0cab, type: 2}
     - target: {fileID: 8937057472589204256, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -570,10 +540,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: text
-      value: 
-      objectReference: {fileID: 445246909}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1961374786}
@@ -581,70 +547,6 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 392595599}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: dialogsData.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: DialogSymbols.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: DialogSymbols.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: d9949a425e7032a488980b9a86f38b53, type: 2}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: DialogSymbols.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 348bb398ffeae884489db0112a2f0cab, type: 2}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: characterPositions.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: dialogsData.Array.data[0].text
-      value: Utiliza <sprite=0> para saltar
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: dialogsData.Array.data[9].text
-      value: todo bien :)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: characterPositions.Array.data[0]
-      value: 
-      objectReference: {fileID: 1644378660}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.data[0].text
-      value: Utiliza <sprite=0> para saltar
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.data[1].text
-      value: No utilices <sprite=1> para saltar
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.data[0].text
-      value: Utiliza <sprite=0> para saltar
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.data[1].text
-      value: No utilices <sprite=1> para saltar
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: dialogsData.Array.data[9].character
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: sequences.Array.data[0].commands.Array.data[1].param1
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8937057472589204258, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_Name
       value: CinematicSystem

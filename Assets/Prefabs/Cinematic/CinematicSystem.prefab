@@ -514,7 +514,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press       to Skip
+  m_text: Press <sprite=7> to Skip
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -533,7 +533,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: d9949a425e7032a488980b9a86f38b53, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -744,7 +744,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 348bb398ffeae884489db0112a2f0cab, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press       to Skip
+  m_text: Press <sprite=1>to Skip
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1063,7 +1063,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 348bb398ffeae884489db0112a2f0cab, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -1262,14 +1262,17 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   cameraPositions:
   - {fileID: 8937057472507636217}
-  characterPositions: []
+  characterPositions:
+  - {fileID: 8937057472507636217}
   Characters: []
-  player: {fileID: 0}
   instructionsText:
   - {fileID: 1404744597809293084}
   - {fileID: 5589306674640635776}
-  controllerInputs:
-  - {fileID: 0}
+  player: {fileID: 0}
+  text: {fileID: 1404744598025789801}
+  DialogSymbols:
+  - {fileID: 11400000, guid: d9949a425e7032a488980b9a86f38b53, type: 2}
+  - {fileID: 11400000, guid: 348bb398ffeae884489db0112a2f0cab, type: 2}
   sequences:
   - name: Test
     commands:
@@ -1279,7 +1282,7 @@ MonoBehaviour:
       param3: 
       param4: 
     - id: 12
-      param1: 
+      param1: 1
       param2: 
       param3: 
       param4: 
@@ -1407,25 +1410,16 @@ MonoBehaviour:
   - {fileID: 1404744598278666172}
   dialogText: {fileID: 1404744598025789801}
   isCinematicMode: 0
-  dialogsData:
+  keyboardDialogs:
   - character: 0
-    text: TEST TEST TEST TEST.
-  - character: 1
-    text: MAS TEST MAS TEST MAS TEST.
+    text: Utiliza <sprite=0> para saltar
   - character: 0
-    text: QUE PASA
+    text: No utilices <sprite=1> para saltar
+  gamepadDialogs:
   - character: 0
-    text: "PU\xD1ETAAAAAAAAAAAAAA"
-  - character: 1
-    text: VAMO VAMO VAMOOOO
-  - character: 1
-    text: ESTO FUNCA QUE DA GUSTO
-  - character: 1
-    text: :DDDDDDDDDDDDDD
+    text: Utiliza <sprite=0> para saltar
   - character: 0
-    text: que tal
-  - character: 1
-    text: todo bien :)
+    text: No utilices <sprite=1> para saltar
   textSpeed: 0.05
 --- !u!1 &8937057472705740184
 GameObject:
