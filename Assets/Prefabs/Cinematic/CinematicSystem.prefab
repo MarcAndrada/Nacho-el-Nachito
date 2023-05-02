@@ -1244,7 +1244,7 @@ Transform:
   - {fileID: 8937057471837032223}
   - {fileID: 8937057471875332132}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8937057472589204257
 MonoBehaviour:
@@ -1274,7 +1274,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9949a425e7032a488980b9a86f38b53, type: 2}
   - {fileID: 11400000, guid: 348bb398ffeae884489db0112a2f0cab, type: 2}
   sequences:
-  - name: Test
+  - name: Dialog 1.1
     commands:
     - id: 0
       param1: 
@@ -1296,23 +1296,6 @@ MonoBehaviour:
       param2: 
       param3: 
       param4: 
-    - id: 1
-      param1: 
-      param2: 
-      param3: 
-      param4: 
-  - name: Test
-    commands:
-    - id: 0
-      param1: 
-      param2: 
-      param3: 
-      param4: 
-    - id: 12
-      param1: 
-      param2: 
-      param3: 
-      param4: 
     - id: 4
       param1: 2
       param2: 
@@ -1320,28 +1303,6 @@ MonoBehaviour:
       param4: 
     - id: 4
       param1: 3
-      param2: 
-      param3: 
-      param4: 
-    - id: 2
-      param1: 2
-      param2: 
-      param3: 
-      param4: 
-    - id: 1
-      param1: 
-      param2: 
-      param3: 
-      param4: 
-  - name: Test
-    commands:
-    - id: 0
-      param1: 
-      param2: 
-      param3: 
-      param4: 
-    - id: 12
-      param1: 
       param2: 
       param3: 
       param4: 
@@ -1360,28 +1321,6 @@ MonoBehaviour:
       param2: 
       param3: 
       param4: 
-    - id: 2
-      param1: 2
-      param2: 
-      param3: 
-      param4: 
-    - id: 1
-      param1: 
-      param2: 
-      param3: 
-      param4: 
-  - name: Test
-    commands:
-    - id: 0
-      param1: 
-      param2: 
-      param3: 
-      param4: 
-    - id: 12
-      param1: 
-      param2: 
-      param3: 
-      param4: 
     - id: 4
       param1: 7
       param2: 
@@ -1392,8 +1331,28 @@ MonoBehaviour:
       param2: 
       param3: 
       param4: 
-    - id: 2
-      param1: 2
+    - id: 4
+      param1: 9
+      param2: 
+      param3: 
+      param4: 
+    - id: 4
+      param1: 10
+      param2: 
+      param3: 
+      param4: 
+    - id: 4
+      param1: 11
+      param2: 
+      param3: 
+      param4: 
+    - id: 4
+      param1: 12
+      param2: 
+      param3: 
+      param4: 
+    - id: 4
+      param1: 13
       param2: 
       param3: 
       param4: 
@@ -1411,15 +1370,77 @@ MonoBehaviour:
   dialogText: {fileID: 1404744598025789801}
   isCinematicMode: 0
   keyboardDialogs:
+  - character: 1
+    text: "Eh t\xFA, espera!"
   - character: 0
-    text: Utiliza <sprite=0> para saltar
+    text: "\xBFNos conocemos de algo?"
+  - character: 1
+    text: "Desde luego que no, pero tu tambi\xE9n parece ser que te has transformado
+      en comida, as\xED que ya tenemos algo en com\xFAn."
   - character: 0
-    text: No utilices <sprite=1> para saltar
+    text: "\xBFTienes idea de qu\xE9 ha pasado?"
+  - character: 1
+    text: Me ha parecido ver algo brillante sobrevolando la zona.
+  - character: 0
+    text: "\xBFQu\xE9 crees que puede haber sido? \xBFAcaso insin\xFAas que ha sido
+      un OVNI?"
+  - character: 1
+    text: "Literalmente t\xFA eres un nacho y yo soy un taco y estamos hablando,
+      \xBFqu\xE9 tan raro te parece?"
+  - character: 0
+    text: "Tienes raz\xF3n."
+  - character: 1
+    text: "Creo que nos conviene colaborar, a ver si podemos solucionar esta situaci\xF3n
+      tan absurda."
+  - character: 1
+    text: "Tambi\xE9n te puedo dar alg\xFAn que otro consejo por el camino para que
+      no mueras en soledad."
+  - character: 1
+    text: "Ten cuidado cuando avances por ah\xED, vas a tener que saltar ese hueco."
+  - character: 1
+    text: Prueba usando <sprite=7>
+  - character: 1
+    text: Ah por cierto, me llamo Paco, encantado.
+  - character: 0
+    text: Yo Nacho, pero me puedes llamar Nachito.
+  - character: 0
+    text: Yo Nacho, pero me puedes llamar Nachito.
   gamepadDialogs:
+  - character: 1
+    text: "Eh t\xFA, espera!"
   - character: 0
-    text: Utiliza <sprite=0> para saltar
+    text: "\xBFNos conocemos de algo?"
+  - character: 1
+    text: "Desde luego que no, pero tu tambi\xE9n parece ser que te has transformado
+      en comida, as\xED que ya tenemos algo en com\xFAn."
   - character: 0
-    text: No utilices <sprite=1> para saltar
+    text: "\xBFTienes idea de qu\xE9 ha pasado?"
+  - character: 1
+    text: Me ha parecido ver algo brillante sobrevolando la zona.
+  - character: 0
+    text: "\xBFQu\xE9 crees que puede haber sido? \xBFAcaso insin\xFAas que ha sido
+      un OVNI?"
+  - character: 1
+    text: "Literalmente t\xFA eres un nacho y yo soy un taco y estamos hablando,
+      \xBFqu\xE9 tan raro te parece?"
+  - character: 0
+    text: "Tienes raz\xF3n."
+  - character: 1
+    text: "Creo que nos conviene colaborar, a ver si podemos solucionar esta situaci\xF3n
+      tan absurda."
+  - character: 1
+    text: "Tambi\xE9n te puedo dar alg\xFAn que otro consejo por el camino para que
+      no mueras en soledad."
+  - character: 1
+    text: "Ten cuidado cuando avances por ah\xED, vas a tener que saltar ese hueco."
+  - character: 1
+    text: Prueba usando <sprite=0>
+  - character: 1
+    text: Ah por cierto, me llamo Paco, encantado.
+  - character: 0
+    text: Yo Nacho, pero me puedes llamar Nachito.
+  - character: 0
+    text: Yo Nacho, pero me puedes llamar Nachito.
   textSpeed: 0.05
 --- !u!1 &8937057472705740184
 GameObject:
@@ -1572,7 +1593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8937057472913978799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4, y: -14.83, z: 0}
+  m_LocalPosition: {x: -1.49, y: -22.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
