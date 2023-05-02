@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7986411652392102613}
   - component: {fileID: 7986411652392102614}
   - component: {fileID: 2945516205522465124}
-  - component: {fileID: 6651201530166612801}
+  - component: {fileID: 8712849300411573455}
   m_Layer: 0
-  m_Name: Cannon
+  m_Name: CannonAir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7986411652392102613
 SpriteRenderer:
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1977637768, guid: f28e3e9d37bed9f4b96da6fafdba66a1, type: 3}
+  m_Sprite: {fileID: 413405950, guid: f28e3e9d37bed9f4b96da6fafdba66a1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   radius: 2
   minMaxPitch: {x: 0.75, y: 1.25}
   volume: 0.2
---- !u!95 &6651201530166612801
+--- !u!95 &8712849300411573455
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ Animator:
   m_GameObject: {fileID: 7986411652392102615}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bd63323789e128f44be62e98c7936305, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9f4c647caf7f07b4e8524132bd31eb19, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
