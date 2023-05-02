@@ -6,7 +6,6 @@ public class UpdateCheckPoint : MonoBehaviour
 {
     [SerializeField]
     private Transform _respawnPosition;
-    private bool isActivated = false;
     
     [SerializeField] private Animator _animator;
     private void OnTriggerEnter2D(Collider2D collision)
