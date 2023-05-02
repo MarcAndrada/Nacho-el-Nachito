@@ -162,8 +162,8 @@ MonoBehaviour:
   playerHorizontalOffset: 12
   verticalOffset: 3
   horizontalOffset: 5
-  leftDownMinPos: {x: 6.04, y: -16.45}
-  rightUpMaxPos: {x: 19.88, y: -2.2}
+  leftDownMinPos: {x: 9.01, y: -3.17}
+  rightUpMaxPos: {x: 96.11, y: 11.48}
 --- !u!114 &8755379915033798544
 MonoBehaviour:
   m_ObjectHideFlags: 0
