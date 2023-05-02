@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckSlope();
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
+                playerDownController.CheckIfCanGoOneWayPlat();
                 break;
             case PlayerStates.AIR:
                 movementController.CheckGrounded();
@@ -85,6 +86,7 @@ public class PlayerController : MonoBehaviour
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
                 wallJumpController.CheckIfWallSliding();
+                playerDownController.CheckIfCanGoOneWayPlat();
                 break;
             case PlayerStates.HOOK:
                 hookController.MoveHookedPlayer();
@@ -98,6 +100,7 @@ public class PlayerController : MonoBehaviour
                 wallJumpController.WallSlide();
                 wallJumpController.CheckIfStopSliding();
                 hookController.CheckHookPointNearToCursor();
+                playerDownController.CheckIfCanGoOneWayPlat();
                 break;
             case PlayerStates.DASH:
                 dashController.Dash();

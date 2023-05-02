@@ -136,7 +136,7 @@ public class PlayerWallJumpController : MonoBehaviour
             timeWaitedUnstickWall = 0;
         }
     }
-    private void StopSlide() 
+    public void StopSlide() 
     {
         isWallSliding = false;
         _playerController.playerState = PlayerController.PlayerStates.AIR;
