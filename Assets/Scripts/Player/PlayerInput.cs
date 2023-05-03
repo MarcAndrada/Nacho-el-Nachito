@@ -56,6 +56,8 @@ public class PlayerInput : MonoBehaviour
         InputManager._instance.ingameJumpAction.action.canceled -= StopJump;
         InputManager._instance.ingameMovementAction.action.performed -= MoveAction;
         InputManager._instance.ingameMovementAction.action.canceled -= MoveAction;
+        InputManager._instance.ingameInteractTextAction.action.started -= InteractTextAction;
+        InputManager._instance.ingameInteractPauseAction.action.started -= InteractPauseAction;
 
         InputManager._instance.ingameAimAction.action.started -= GamepadHookAction;
         InputManager._instance.ingameHookAction.action.started -= MouseHookAction;
