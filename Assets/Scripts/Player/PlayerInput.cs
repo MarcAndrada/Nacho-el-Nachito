@@ -17,8 +17,8 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
-        cinematicManager = GetComponent<CinematicManager>();
-        pauseGameController = GetComponent<PauseGameController>();
+        cinematicManager = FindObjectOfType<CinematicManager>();
+        pauseGameController = FindObjectOfType<PauseGameController>();
     }
 
     /*
