@@ -60,15 +60,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PauseGame",
-                    "type": "Button",
-                    "id": "1bc0bd85-e8bf-43ab-95af-9ce09e8fdade",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Dash",
                     "type": "Button",
                     "id": "816593db-7679-49c9-a99a-00b543c48797",
@@ -90,6 +81,15 @@
                     "name": "InteractText",
                     "type": "Button",
                     "id": "ab34ca94-a24f-4299-a70d-5a3d6eac4f4f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InteractPause",
+                    "type": "Button",
+                    "id": "d393f37b-33f7-4969-955e-1303d3740b06",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -215,17 +215,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9d35bdb9-1eb7-42e0-9fa3-37c29d4156cb",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PauseGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -457,6 +446,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "InteractText",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d747229-95fc-4e60-8d65-7f7ad1a146d7",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f981531-0ced-41d8-a4b7-cd136a145550",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractPause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -81,4 +81,8 @@ MonoBehaviour:
   ingameHookAction: {fileID: 2311158420507592816, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
   ingameDashAction: {fileID: -8849149359287587519, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
   ingameAirDirectionAction: {fileID: -7757670608685576463, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
+  ingameInteractAction: {fileID: 5786466186104447106, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
+  ingameGoDownAction: {fileID: -2485080201414476194, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
+  ingameInteractTextAction: {fileID: 1078526210454430673, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
+  ingameInteractPauseAction: {fileID: 5936975233288748870, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
   menuMoveAction: {fileID: 4565061864446369632, guid: fed0edd6474027c41ba672a7c43653ba, type: 3}
