@@ -13345,14 +13345,112 @@ PrefabInstance:
     - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 1842719879}
+      objectReference: {fileID: 1842719886}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].name
+      value: Dialog 3.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[0].text
+      value: "Hey, ves esas paredes de all\xED?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[1].text
+      value: "Si las utilizas debidamente puedes deslizarte e impulsarte a trav\xE9s
+        de ellas."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[2].text
+      value: Para poder hacer eso te prestare una cosilla.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[3].text
+      value: Guacamole? Es muy pegajoso.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[4].text
+      value: "Gracias al guacamole si saltas sobre una de esas paredes, caeras poco
+        a poco, adem\xE1s de poder propulsarte hacia el lado contrario si pulsas
+        <sprite=0>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[0].text
+      value: "Hey, ves esas paredes de all\xED?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[1].text
+      value: "Si las utilizas debidamente puedes deslizarte e impulsarte a trav\xE9s
+        de ellas."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[2].text
+      value: Para poder hacer eso te prestare una cosilla.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[3].text
+      value: Guacamole? Es muy pegajoso.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[4].text
+      value: "Gracias al guacamole si saltas sobre una de esas paredes, caeras poco
+        a poco, adem\xE1s de poder propulsarte hacia el lado contrario si pulsas
+        <sprite=7>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[1].character
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[3].character
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[1].character
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[2].character
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[3].character
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].commands.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].commands.Array.data[6].id
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].commands.Array.data[7].id
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].commands.Array.data[6].param1
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].commands.Array.data[7].param1
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8937057472589204258, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_Name
       value: CinematicSystem
       objectReference: {fileID: 0}
     - target: {fileID: 8937057472589204258, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8937057472913978796, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13528,9 +13626,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
---- !u!1 &1842719879 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3811425936376163750, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
+--- !u!4 &1842719886 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3811425936376163771, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
   m_PrefabInstance: {fileID: 1842719878}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1938676084

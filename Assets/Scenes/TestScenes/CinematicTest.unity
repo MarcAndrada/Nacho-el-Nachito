@@ -316,6 +316,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2936491848670876794, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2936491849604238484, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_Name
       value: AllPlayer
@@ -330,7 +334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2936491849604238485, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.959487
+      value: 4.67
       objectReference: {fileID: 0}
     - target: {fileID: 2936491849604238485, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_LocalPosition.z

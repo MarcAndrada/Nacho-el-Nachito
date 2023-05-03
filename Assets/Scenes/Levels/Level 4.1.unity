@@ -13953,7 +13953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2936491849604238485, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 2936491849604238485, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14185,13 +14185,111 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1794141730}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].name
+      value: Dialog 4.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[0].text
+      value: "Ya has aprendido casi todo lo necesario para seguir, pero aun te queda
+        lo m\xE1s importante y divertido de todo, el gancho de queso."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[1].text
+      value: Queso? Y que pretendes que haga con esto?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[2].text
+      value: "Ves esos puntos de anclaje de color rojo? Si usas <sprite=6> podr\xE1s
+        acercarte a ellos y posteriormente salir propulsado hacia adelante conservando
+        la inercia."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[3].text
+      value: "Ten en cuenta que el gancho ira hacia la direcci\xF3n en la que apuntes,
+        asi que ten cuidado de no lanzarlo a una pared!!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[4].text
+      value: "Puedes concatenar varios usos del gancho para avanzar grandes distancias
+        y sortear obst\xE1culos imposibles de esquivar de otra forma."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[0].text
+      value: "Ya has aprendido casi todo lo necesario para seguir, pero aun te queda
+        lo m\xE1s importante y divertido de todo, el gancho de queso."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[1].text
+      value: Queso? Y que pretendes que haga con esto?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[2].text
+      value: "Ves esos puntos de anclaje de color rojo? Si pulsas <sprite=2>, podr\xE1s
+        acercarte a ellos y posteriormente salir propulsado hacia adelante conservando
+        la inercia."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[3].text
+      value: Para apuntar hacia a donde quieres que vaya el gancho, puedes utilizar
+        <sprite=4>
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[4].text
+      value: "Puedes concatenar varios usos del gancho para avanzar grandes distancias
+        y sortear obst\xE1culos imposibles de esquivar de otra forma."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[3].character
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[3].character
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].commands.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].commands.Array.data[6].id
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].commands.Array.data[7].id
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].commands.Array.data[6].param1
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: sequences.Array.data[0].commands.Array.data[7].param1
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8937057472589204258, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_Name
       value: CinematicSystem
       objectReference: {fileID: 0}
     - target: {fileID: 8937057472589204258, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472913978786, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: m_Size.x
+      value: 4.8831573
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472913978786, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: m_Offset.x
+      value: -2.1078794
       objectReference: {fileID: 0}
     - target: {fileID: 8937057472913978796, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14435,7 +14533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0
+      value: 0.0018518518
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
@@ -14443,7 +14541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 1
+      value: 0.9955555
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163750, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_Name
