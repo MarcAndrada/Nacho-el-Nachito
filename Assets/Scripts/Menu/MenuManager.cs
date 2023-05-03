@@ -22,6 +22,7 @@ public class MenuManager : MonoBehaviour
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(GameScene);
+        Time.timeScale = 1.0f;
     }
 
     public void ResumeGame()

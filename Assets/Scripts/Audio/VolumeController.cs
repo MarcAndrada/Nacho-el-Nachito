@@ -21,7 +21,7 @@ public class VolumeController : MonoBehaviour
     private void Start()
     {
         // Initialize Master volume value
-        if(PlayerPrefs.HasKey("MasterValue"))
+        if(PlayerPrefs.HasKey("MasterVolume"))
         {
             LoadMasterValue();
         }
