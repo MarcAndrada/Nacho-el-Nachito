@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class PauseGameController : MonoBehaviour
 {
+    
     public GameObject pauseMenu;
-
     public GameObject pauseOptions;
 
-    // Update is called once per frame
-    void Update()
+    public void PauseInteraction()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale != 0) 
+        if (Time.timeScale != 0.0f)
         {
             Time.timeScale = 0.0f;
             pauseMenu.SetActive(true);
-        }
-        else if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0.0f && pauseOptions.activeSelf == true)
+        } 
+        else if (Time.timeScale == 0.0f && pauseOptions.activeSelf)
         {
             Time.timeScale = 1.0f;
             pauseMenu.SetActive(false);
