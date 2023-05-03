@@ -36,14 +36,18 @@ public class PlayerDashController : MonoBehaviour
     private AudioClip[] dashSounds;
 
     private bool _dashDirectional;
-    void Start()
+    void Awake()
     {
         _playerController = GetComponent<PlayerController>();
-
-        timeStopped = false;
         rb2d = GetComponent<Rigidbody2D>();
         coll = GetComponent<CapsuleCollider2D>();
     }
+
+    private void Start()
+    {
+        timeStopped = false;
+    }
+
     public void StartDash(Vector2 _dashDir) 
     {
         _playerController._playerDashController._dashDirection = _dashDir;
@@ -88,9 +92,22 @@ public class PlayerDashController : MonoBehaviour
 
     public void DashCheckWall()
     {
-        
-        bool hitUp = Physics2D.Raycast(transform.position + new Vector3(0, coll.size.y/2f + capsuleOffset), transform.right * _dashDirection.x, 0.55f, floorLayer);
-        bool hitDown = Physics2D.Raycast(transform.position - new Vector3(0, coll.size.y/2 + capsuleOffset), transform.right * _dashDirection.x, 0.55f, floorLayer);
+
+        Vector3 posOffset = new Vector3(0, coll.size.y / 2f );
+
+        //esta condicion es para que cuando este en el suelo no se encuentre con una plataforma
+        //un poco movida y mueva al player cuando no deberia hacerlo
+        if (!_playerController._movementController._isGrounded)
+        {
+            posOffset.y += capsuleOffset;
+        }
+        else
+        {
+            posOffset.y -= capsuleOffset;
+        }
+
+        bool hitUp = Physics2D.Raycast(transform.position + posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
+        bool hitDown = Physics2D.Raycast(transform.position - posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
         if (_dashDirectional)
         {
             if (hitUp && hitDown)
@@ -100,12 +117,13 @@ public class PlayerDashController : MonoBehaviour
             else if (hitUp)
             {
                 timeStopped = true;
-                rb2d.velocity += new Vector2(0, - speedDashController);
+                rb2d.velocity -= new Vector2(0, speedDashController);
             }
             else if (hitDown)
             {
                 timeStopped = true;
-                rb2d.velocity += new Vector2(0,  speedDashController);
+                rb2d.velocity += new Vector2(0, speedDashController);
+                Debug.Log("ME CAGO EN DIOS");
             }
             else
             {

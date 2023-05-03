@@ -50,6 +50,7 @@ public class ActivablePlatformLogic : MonoBehaviour
                 platforms[i].gameObject.SetActive(true);
             }
 
+            startEngine = false;
             engineTimePassed = 0;
             AudioManager._instance.Play2dOneShotSound(buttonPressed);
         }
@@ -60,7 +61,8 @@ public class ActivablePlatformLogic : MonoBehaviour
         {
             startEngine = true;
             AudioManager._instance.Play2dOneShotSound(buttonUnpressed);
-            timerAS = AudioManager._instance.Play2dLoop(buttonTimer);
+            if(!timerAS)
+                timerAS = AudioManager._instance.Play2dLoop(buttonTimer);
         }
     }
 

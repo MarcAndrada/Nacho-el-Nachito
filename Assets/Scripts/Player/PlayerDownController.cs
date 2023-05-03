@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PlayerDownController : MonoBehaviour
 {
-
+    [HideInInspector]
+    public bool goingDown;
     private bool _collideOneWay;
     private OneWayPlatformColision _oneWayPlatform;
 
@@ -30,16 +31,12 @@ public class PlayerDownController : MonoBehaviour
             _oneWayPlatform = null;
         }
     }
-    public void Interact()
+    public void CheckIfCanGoOneWayPlat()
     {
-        if (_collideOneWay)
+        if (_collideOneWay && goingDown)
         {
-            Debug.Log("Collide with lever");
+            Debug.Log("Collide with plarform");
             _oneWayPlatform.Activate();
-        }
-        else
-        {
-            Debug.Log("Colliding with nothing");
         }
     }
 }

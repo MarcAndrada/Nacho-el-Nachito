@@ -34,7 +34,8 @@ public class BrokenPlatform : MonoBehaviour
             if (contacts[0].normal == Vector2.down)
             {
                 touched = true;
-                fallAS = AudioManager._instance.Play2dLoop(fallingLoop);
+                if (!fallAS)
+                    fallAS = AudioManager._instance.Play2dLoop(fallingLoop);
             }
         }
     }
