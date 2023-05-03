@@ -35,14 +35,17 @@ public class PlayerRespawn : MonoBehaviour
         if (timeDead <= 0)
         {
             transform.position = posit.position;
-            sprite.enabled = true;
             timeDead = startValue;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
             pc.playerState = PlayerController.PlayerStates.NONE;
         }
     }
 
     public void Die() 
     {
+        // Nos aseguramos que no se repita la animación de muerte al colisionar con un obstaculo mientras está muerto
+        if (pc.playerState == PlayerController.PlayerStates.DEAD) return;
+        
         switch (pc.playerState)
         {
             case PlayerController.PlayerStates.MOVING:
@@ -56,15 +59,10 @@ public class PlayerRespawn : MonoBehaviour
             case PlayerController.PlayerStates.WALL_SLIDE:
                 pc._wallJumpController.StopSlide();
                 break;
-            case PlayerController.PlayerStates.CINEMATIC:
-                break;
-            case PlayerController.PlayerStates.DASH:
-                break;
-            default:
-                break;
         }
 
-        sprite.enabled = false;
+        rb2d.constraints = RigidbodyConstraints2D.FreezePosition;
+        pc.DeadAnimation();
         pc.playerState = PlayerController.PlayerStates.DEAD;
 
     }

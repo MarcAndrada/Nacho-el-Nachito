@@ -5,13 +5,15 @@ using UnityEngine;
 public class UpdateCheckPoint : MonoBehaviour
 {
     [SerializeField]
-    private Transform RespawnPosition;
-
+    private Transform _respawnPosition;
+    
+    [SerializeField] private Animator _animator;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
-            RespawnPosition.position = transform.position; 
+            _animator.SetBool("isActivated", true);
+            _respawnPosition.position = transform.position; 
         }
     }
 }

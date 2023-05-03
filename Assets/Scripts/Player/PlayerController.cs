@@ -147,15 +147,23 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("Moving", true);
             anim.SetBool("OnAir", false);
+            
         }
-        if(playerState == PlayerStates.AIR)
+
+        if (playerState == PlayerStates.AIR)
         {
             anim.SetBool("OnAir", true);
         }
-        if(playerState == PlayerStates.NONE || playerState == PlayerStates.CINEMATIC)
+
+        if (playerState == PlayerStates.NONE || playerState == PlayerStates.CINEMATIC)
         {
             anim.SetBool("Moving", false);
             anim.SetBool("OnAir", false);
         }
+    }
+
+    public void DeadAnimation()
+    {
+        anim.SetTrigger("Death");
     }
 }
