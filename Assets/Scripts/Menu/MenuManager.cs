@@ -24,6 +24,11 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(GameScene);
     }
 
+    public void ResumeGame()
+    {
+        Time.timeScale = 1.0f;
+    }
+
     public void CloseGame()
     {
         Application.Quit();
