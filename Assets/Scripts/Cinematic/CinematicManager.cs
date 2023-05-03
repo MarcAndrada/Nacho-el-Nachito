@@ -407,4 +407,9 @@ public class CinematicManager : MonoBehaviour
             StartCoroutine(TypeLine());
         }
     }
+
+    public void InteractText()
+    {
+        
+    }
 }
