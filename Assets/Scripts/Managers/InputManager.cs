@@ -20,6 +20,7 @@ public class InputManager : MonoBehaviour
     public InputActionReference ingameInteractAction;
     public InputActionReference ingameGoDownAction;
     public InputActionReference ingameInteractTextAction;
+    public InputActionReference ingameInteractPauseAction;
     
     [Header("Menu Actions")]
     public InputActionReference menuMoveAction;
