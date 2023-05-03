@@ -6,6 +6,8 @@ public class PauseGameController : MonoBehaviour
 {
     public GameObject pauseMenu;
 
+    public GameObject pauseOptions;
+
     // Update is called once per frame
     void Update()
     {
@@ -14,7 +16,7 @@ public class PauseGameController : MonoBehaviour
             Time.timeScale = 0.0f;
             pauseMenu.SetActive(true);
         }
-        else if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0.0f)
+        else if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0.0f && pauseOptions.activeSelf == true)
         {
             Time.timeScale = 1.0f;
             pauseMenu.SetActive(false);
