@@ -10,6 +10,8 @@ TagManager:
   - CameraChanger
   - CheckPoint
   - OVNI
+  - Mechanism
+  - OneWayPlatform
   layers:
   - Default
   - TransparentFX

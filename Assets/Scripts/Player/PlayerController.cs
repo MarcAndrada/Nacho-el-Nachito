@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckSlope();
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
+                playerDownController.CheckIfCanGoOneWayPlat();
                 break;
             case PlayerStates.AIR:
                 movementController.CheckGrounded();
@@ -85,6 +86,7 @@ public class PlayerController : MonoBehaviour
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
                 wallJumpController.CheckIfWallSliding();
+                playerDownController.CheckIfCanGoOneWayPlat();
                 break;
             case PlayerStates.HOOK:
                 hookController.MoveHookedPlayer();
@@ -98,6 +100,7 @@ public class PlayerController : MonoBehaviour
                 wallJumpController.WallSlide();
                 wallJumpController.CheckIfStopSliding();
                 hookController.CheckHookPointNearToCursor();
+                playerDownController.CheckIfCanGoOneWayPlat();
                 break;
             case PlayerStates.DASH:
                 dashController.Dash();
@@ -144,15 +147,23 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("Moving", true);
             anim.SetBool("OnAir", false);
+            
         }
-        if(playerState == PlayerStates.AIR)
+
+        if (playerState == PlayerStates.AIR)
         {
             anim.SetBool("OnAir", true);
         }
-        if(playerState == PlayerStates.NONE || playerState == PlayerStates.CINEMATIC)
+
+        if (playerState == PlayerStates.NONE || playerState == PlayerStates.CINEMATIC)
         {
             anim.SetBool("Moving", false);
             anim.SetBool("OnAir", false);
         }
+    }
+
+    public void DeadAnimation()
+    {
+        anim.SetTrigger("Death");
     }
 }

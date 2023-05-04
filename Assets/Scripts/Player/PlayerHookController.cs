@@ -221,7 +221,7 @@ public class PlayerHookController : MonoBehaviour
 
     }
 
-    private void StopHook()
+    public void StopHook()
     {        
         playerController._movementController.externalForces = rb2d.velocity;
         float xSpeed = Mathf.Clamp(rb2d.velocity.x, -maxSpeedAtRelease, maxSpeedAtRelease);

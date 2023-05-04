@@ -11,10 +11,14 @@ public class PlayerInput : MonoBehaviour
 
     private PlayerController playerController;
 
-
+    private CinematicManager cinematicManager;
+    
+    private PauseGameController pauseGameController;
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
+        cinematicManager = FindObjectOfType<CinematicManager>();
+        pauseGameController = FindObjectOfType<PauseGameController>();
     }
 
     /*
@@ -27,13 +31,17 @@ public class PlayerInput : MonoBehaviour
         InputManager._instance.ingameJumpAction.action.canceled += StopJump; //Al dejar de apretar el boton de saltar dejara de saltar
         InputManager._instance.ingameMovementAction.action.performed += MoveAction; //Mientras el input de ataque este activo se llamara a la funcion para guardarse el valor
         InputManager._instance.ingameMovementAction.action.canceled += MoveAction;
-
-        InputManager._instance.ingameGoDownAction.action.started += GoDownAction;
+        InputManager._instance.ingameInteractTextAction.action.started += InteractTextAction;
+        InputManager._instance.ingameInteractPauseAction.action.started += InteractPauseAction;
+        
+        
         InputManager._instance.ingameAimAction.action.started += GamepadHookAction;
         InputManager._instance.ingameHookAction.action.started += MouseHookAction;
         InputManager._instance.ingameDashAction.action.started += DashAction;
 
         InputManager._instance.ingameInteractAction.action.started += InteractingAction;
+        InputManager._instance.ingameGoDownAction.action.started += GoDownAction;
+        InputManager._instance.ingameGoDownAction.action.canceled += GoDownAction;
     }
 
     /*
@@ -48,12 +56,17 @@ public class PlayerInput : MonoBehaviour
         InputManager._instance.ingameJumpAction.action.canceled -= StopJump;
         InputManager._instance.ingameMovementAction.action.performed -= MoveAction;
         InputManager._instance.ingameMovementAction.action.canceled -= MoveAction;
+        InputManager._instance.ingameInteractTextAction.action.started -= InteractTextAction;
+        InputManager._instance.ingameInteractPauseAction.action.started -= InteractPauseAction;
 
         InputManager._instance.ingameAimAction.action.started -= GamepadHookAction;
         InputManager._instance.ingameHookAction.action.started -= MouseHookAction;
         InputManager._instance.ingameDashAction.action.started -= DashAction;
 
         InputManager._instance.ingameInteractAction.action.started -= InteractingAction;
+        InputManager._instance.ingameGoDownAction.action.started -= GoDownAction;
+        InputManager._instance.ingameGoDownAction.action.canceled -= GoDownAction;
+
     }
 
 
@@ -63,12 +76,6 @@ public class PlayerInput : MonoBehaviour
     {
         playerMovement = InputManager._instance.ingameMovementAction.action.ReadValue<float>(); //Le damos a playerMovement
     }
-
-    private void GoDownAction(InputAction.CallbackContext obj)
-    {
-        playerController._playerDownController.Interact();
-    }
-
 
     private void JumpAction(InputAction.CallbackContext obj)
     {
@@ -126,5 +133,27 @@ public class PlayerInput : MonoBehaviour
         playerController._interactionController.Interact();
     }
 
+    private void GoDownAction(InputAction.CallbackContext obj)
+    {
+        if (InputManager._instance.ingameGoDownAction.action.ReadValue<float>() == 1)
+        {
+            playerController._playerDownController.goingDown = true;
+        }
+        else
+        {
+            playerController._playerDownController.goingDown = false;
+        }
+    }
+
+    private void InteractTextAction(InputAction.CallbackContext obj)
+    {
+        cinematicManager.InteractText();
+    }
+
+    private void InteractPauseAction(InputAction.CallbackContext obj)
+    {
+        pauseGameController.PauseInteraction();
+    }
+    
     #endregion
 }
