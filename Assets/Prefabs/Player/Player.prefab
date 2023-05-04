@@ -389,6 +389,7 @@ MonoBehaviour:
   wallJumpingPower: {x: 14, y: 14}
   walljumpSound: {fileID: 8300000, guid: db2138f2b0a595f47940f46b5d75fbba, type: 3}
   wallSlide: {fileID: 8300000, guid: 3eca88d14ff39e24793fe704ee4536ab, type: 3}
+  jumpSound: {fileID: 8300000, guid: 51979352630736a4185ac68a10f9432c, type: 3}
 --- !u!114 &7857257213538850297
 MonoBehaviour:
   m_ObjectHideFlags: 0

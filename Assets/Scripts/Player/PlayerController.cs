@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, CINEMATIC, DASH, DEAD};
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         StatesFunctions();
         AnimateCharacter();
         PlayerAimController._instance.UpdateAimMethod();
-
+        Cheats();
     }
 
     private void StatesFunctions() 
@@ -165,5 +165,38 @@ public class PlayerController : MonoBehaviour
     public void DeadAnimation()
     {
         anim.SetTrigger("Death");
+    }
+
+    private void Cheats()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SceneManager.LoadScene("Level 1.1");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SceneManager.LoadScene("Level 1.2");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SceneManager.LoadScene("Level 2.1");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SceneManager.LoadScene("Level 2.2");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SceneManager.LoadScene("Level 3.1");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            SceneManager.LoadScene("Level 3.2");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            SceneManager.LoadScene("Level 4.1");
+        }
+
     }
 }

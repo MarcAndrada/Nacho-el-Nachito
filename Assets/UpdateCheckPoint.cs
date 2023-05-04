@@ -13,7 +13,7 @@ public class UpdateCheckPoint : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             _animator.SetBool("isActivated", true);
-            _respawnPosition.position = transform.position; 
+            collision.GetComponent<PlayerRespawn>().SetRespawnPos(transform); 
         }
     }
-}
+} 
