@@ -41,6 +41,7 @@ public class PlayerInput : MonoBehaviour
 
         InputManager._instance.ingameInteractAction.action.started += InteractingAction;
         InputManager._instance.ingameGoDownAction.action.started += GoDownAction;
+        InputManager._instance.ingameGoDownAction.action.performed += GoDownAction;
         InputManager._instance.ingameGoDownAction.action.canceled += GoDownAction;
     }
 
@@ -65,6 +66,7 @@ public class PlayerInput : MonoBehaviour
 
         InputManager._instance.ingameInteractAction.action.started -= InteractingAction;
         InputManager._instance.ingameGoDownAction.action.started -= GoDownAction;
+        InputManager._instance.ingameGoDownAction.action.performed -= GoDownAction;
         InputManager._instance.ingameGoDownAction.action.canceled -= GoDownAction;
 
     }
@@ -135,7 +137,7 @@ public class PlayerInput : MonoBehaviour
 
     private void GoDownAction(InputAction.CallbackContext obj)
     {
-        if (InputManager._instance.ingameGoDownAction.action.ReadValue<float>() == 1)
+        if (InputManager._instance.ingameGoDownAction.action.ReadValue<float>() >= 0.2f)
         {
             playerController._playerDownController.goingDown = true;
         }

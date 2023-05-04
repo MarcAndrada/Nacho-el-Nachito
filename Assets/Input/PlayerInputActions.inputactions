@@ -409,7 +409,7 @@
                     "name": "",
                     "id": "7658dbba-301d-40fe-b7fa-5457b2fca0ec",
                     "path": "<Gamepad>/leftStick/down",
-                    "interactions": "",
+                    "interactions": "Press(pressPoint=0.5)",
                     "processors": "",
                     "groups": "",
                     "action": "GoDown",
