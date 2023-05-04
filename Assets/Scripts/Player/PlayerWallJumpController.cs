@@ -38,6 +38,8 @@ public class PlayerWallJumpController : MonoBehaviour
     private AudioClip walljumpSound;
     [SerializeField]
     private AudioClip wallSlide;
+    [SerializeField]
+    private AudioClip jumpSound;
     private AudioSource loopAS;
 
 
@@ -176,6 +178,7 @@ public class PlayerWallJumpController : MonoBehaviour
             AudioManager._instance.StopLoopSound(loopAS);
         loopAS = null;
         AudioManager._instance.Play2dOneShotSound(walljumpSound, 0.65f, 1.35f, 1.2f);
+        AudioManager._instance.Play2dOneShotSound(jumpSound, 0.65f, 1.35f, 0.2f);
     }
 
 

@@ -66,6 +66,11 @@ public class PlayerRespawn : MonoBehaviour
 
     }
 
+    public void SetRespawnPos(Transform _newPos)
+    {
+        posit = _newPos;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Obstaculo"))
