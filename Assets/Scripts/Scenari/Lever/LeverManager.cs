@@ -17,13 +17,18 @@ public class LeverManager : MonoBehaviour
 
     private float startPosY;
 
+    private SpriteRenderer spriteRenderer;
 
+    [SerializeField]
+    private Sprite sprite_on;
+    [SerializeField] 
+    private Sprite sprite_off;
     // Start is called before the first frame update
     void Start()
     {
         rb2d = door.GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         startPosY = door.position.y;
-
     }
 
     // Update is called once per frame
@@ -45,6 +50,14 @@ public class LeverManager : MonoBehaviour
     
     public void ActivateLever()
     {
+        if (!activated)
+        {
+            spriteRenderer.sprite = sprite_on;
+        }
+        else
+        {
+            spriteRenderer.sprite = sprite_off;
+        }
         activated = !activated;
     }
 
