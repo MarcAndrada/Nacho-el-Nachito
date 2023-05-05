@@ -8,8 +8,9 @@ TagManager:
   - HookPoint
   - Obstaculo
   - CameraChanger
-  - Mechanism
   - CheckPoint
+  - OVNI
+  - Mechanism
   - OneWayPlatform
   layers:
   - Default

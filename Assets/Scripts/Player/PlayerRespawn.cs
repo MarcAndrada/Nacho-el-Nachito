@@ -22,7 +22,6 @@ public class PlayerRespawn : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
     }
 
-
     private void Start()
     {
         startValue = timeDead;
@@ -77,6 +76,12 @@ public class PlayerRespawn : MonoBehaviour
         if (collision.CompareTag("Obstaculo"))
         {
             Die();
+        }
+
+        else if(collision.CompareTag("OVNI"))
+        { 
+            sprite.enabled = false;
+            pc.playerState = PlayerController.PlayerStates.DEAD;
         }
     }
 }
