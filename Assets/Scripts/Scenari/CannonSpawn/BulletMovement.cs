@@ -29,7 +29,8 @@ public class BulletMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor") ||
-            collision.gameObject.layer == LayerMask.NameToLayer("Water")) 
+            collision.gameObject.layer == LayerMask.NameToLayer("Water") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("HookObstacle"))
         {
             sound3dController.PlaySound();
             Destroy(gameObject);
