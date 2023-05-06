@@ -62,7 +62,7 @@ public class PlayerRespawn : MonoBehaviour
                 break;
         }
 
-        rb2d.constraints = RigidbodyConstraints2D.FreezePosition;
+        rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
         pc.DeadAnimation();
         pc.playerState = PlayerController.PlayerStates.DEAD;
 
