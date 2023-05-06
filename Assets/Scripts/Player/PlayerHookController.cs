@@ -232,6 +232,7 @@ public class PlayerHookController : MonoBehaviour
         rb2d.velocity = new Vector2(xSpeed, ySpeed);
         playerController.playerState = PlayerController.PlayerStates.AIR;
         hookController.DisableHook();
+        playerController._playerDashController._canDash = true;
     }
 
     public void CheckPlayerNotStucked() 

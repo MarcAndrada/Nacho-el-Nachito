@@ -58,6 +58,7 @@ public class PlayerDashController : MonoBehaviour
 
     public void Dash()
     {
+        _playerController._movementController.externalForces = Vector2.zero;
         if (_dashDirection != Vector2.zero)
         {
             vdirection = _dashDirection * _dashSpeed;
