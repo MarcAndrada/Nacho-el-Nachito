@@ -12,6 +12,8 @@ public class PlayerHookController : MonoBehaviour
     [SerializeField]
     private SpriteRenderer hookPointIcon;
     private HookController hookController;
+    
+    public HookController _hookController => hookController;
     [SerializeField]
     private Transform hookStarterPos;
     [SerializeField]
@@ -61,7 +63,7 @@ public class PlayerHookController : MonoBehaviour
     #region Input Functions
     public void HookInputPressed()
     {
-        if (canHook)
+        if (canHook && playerController.playerState != PlayerController.PlayerStates.DEAD)
         {
             canHook = false;
 
@@ -187,6 +189,7 @@ public class PlayerHookController : MonoBehaviour
     #region Throw Hook Functions
     private void ThrowHook(Vector2 _target, bool _stickPoint)
     {
+        
         if (_stickPoint)
         {
             playerController.playerState = PlayerController.PlayerStates.HOOK;
