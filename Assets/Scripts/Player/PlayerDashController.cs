@@ -106,10 +106,12 @@ public class PlayerDashController : MonoBehaviour
             posOffset.y -= capsuleOffset;
         }
 
-        bool hitUp = Physics2D.Raycast(transform.position + posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
-        bool hitDown = Physics2D.Raycast(transform.position - posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
+        RaycastHit2D hitUpRaycastHit2D = Physics2D.Raycast(transform.position + posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
+        RaycastHit2D hitDownRaycastHit2D = Physics2D.Raycast(transform.position - posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
         if (_dashDirectional)
         {
+            bool hitUp = hitUpRaycastHit2D.collider != null && !hitUpRaycastHit2D.collider.CompareTag("OneWayPlatform");
+            bool hitDown = hitDownRaycastHit2D.collider != null && !hitDownRaycastHit2D.collider.CompareTag("OneWayPlatform");
             if (hitUp && hitDown)
             {
                 StopDash();
@@ -123,7 +125,6 @@ public class PlayerDashController : MonoBehaviour
             {
                 timeStopped = true;
                 rb2d.velocity += new Vector2(0, speedDashController);
-                Debug.Log("ME CAGO EN DIOS");
             }
             else
             {
