@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -6918,22 +6918,22 @@ TextureImporter:
       Sprite sheet for Basic Pack_43: 459083958
       Sprite sheet for Basic Pack_278: -148755314
       Sprite sheet for Basic Pack_236: 340307269
-      Sprite sheet for Basic Pack_308: 375524259
-      Sprite sheet for Basic Pack_21: -538602102
+      Sprite sheet for Basic Pack_33: 2103063559
+      Sprite sheet for Basic Pack_126: 2031108184
       Sprite sheet for Basic Pack_245: 282421410
+      Sprite sheet for Basic Pack_308: 375524259
+      Sprite sheet for Basic Pack_143: -1420079934
+      Sprite sheet for Basic Pack_21: -538602102
       Sprite sheet for Basic Pack_78: -1141516074
-      Sprite sheet for Basic Pack_154: 1134942472
+      Sprite sheet for Basic Pack_226: -254283041
       Sprite sheet for Basic Pack_279: -1885883855
       Sprite sheet for Basic Pack_289: -75699223
-      Sprite sheet for Basic Pack_126: 2031108184
-      Sprite sheet for Basic Pack_226: -254283041
-      Sprite sheet for Basic Pack_143: -1420079934
-      Sprite sheet for Basic Pack_33: 2103063559
       Sprite sheet for Basic Pack_124: 462489412
       Sprite sheet for Basic Pack_7: 1080312765
       Sprite sheet for Basic Pack_231: -1367755697
       Sprite sheet for Basic Pack_232: -690493895
       Sprite sheet for Basic Pack_135: -1713611833
+      Sprite sheet for Basic Pack_154: 1134942472
       Sprite sheet for Basic Pack_252: -747684778
       Sprite sheet for Basic Pack_11: 1583907982
       Sprite sheet for Basic Pack_125: 1807853349
