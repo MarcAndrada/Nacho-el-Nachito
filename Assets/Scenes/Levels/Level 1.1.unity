@@ -809,6 +809,40 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1627060496}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[1].text
+      value: Nos conocemos de algo?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[3].text
+      value: Tienes idea de que ha pasado?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[5].text
+      value: Que crees que puede haber sido? Acaso insinuas que ha sido un OVNI?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: gamepadDialogs.Array.data[6].text
+      value: Literalmente tu eres un nacho y yo soy un taco y estamos hablando, que
+        tan raro te parece?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[1].text
+      value: Nos conocemos de algo?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[3].text
+      value: Tienes idea de que ha pasado?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[5].text
+      value: Que crees que puede haber sido? Acaso insinuas que ha sido un OVNI?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: keyboardDialogs.Array.data[6].text
+      value: Literalmente tu eres un nacho y yo soy un taco y estamos hablando, que
+        tan raro te parece?
+      objectReference: {fileID: 0}
     - target: {fileID: 8937057472589204258, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_Name
       value: CinematicSystem
