@@ -316,6 +316,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2936491848670876794, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2936491849604238484, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_Name
       value: AllPlayer
@@ -330,7 +334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2936491849604238485, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.959487
+      value: 4.67
       objectReference: {fileID: 0}
     - target: {fileID: 2936491849604238485, guid: 6e5aad4637d3fa84e8821b83dbf17d22, type: 3}
       propertyPath: m_LocalPosition.z
@@ -546,6 +550,10 @@ PrefabInstance:
     - target: {fileID: 8937057472589204258, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_Name
       value: CinematicSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937057472705740184, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

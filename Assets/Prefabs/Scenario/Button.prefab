@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &194582725
 Transform:
   m_ObjectHideFlags: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 194582724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.37, y: 5.35, z: 0}
-  m_LocalScale: {x: 2.411302, y: 1, z: 1}
+  m_LocalPosition: {x: 0.02, y: 11.34, z: 0}
+  m_LocalScale: {x: 2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6789401740986550243}
@@ -159,7 +159,7 @@ Transform:
   m_GameObject: {fileID: 6789401740986549791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.14, y: -3.8850002, z: 0}
-  m_LocalScale: {x: 1, y: 0.25, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 194582725}
@@ -207,8 +207,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.2198736, g: 0.31186005, b: 0.764151, a: 1}
+  m_Sprite: {fileID: -58779957, guid: 0714e18b60e2f4542903794f613983b7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -231,7 +231,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.6}
+  m_Offset: {x: 0, y: -0.26019514}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -242,7 +242,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3268223, y: 2.4855595}
+  m_Size: {x: 1.3268223, y: 0.8615105}
   m_EdgeRadius: 0
 --- !u!114 &6789401740986550240
 MonoBehaviour:
@@ -259,3 +259,8 @@ MonoBehaviour:
   engineTimer: 2
   platforms:
   - {fileID: 194582725}
+  buttonPressed: {fileID: 8300000, guid: 3b9fd33cdbe3cdc4ca071e4f00e8fd94, type: 3}
+  buttonUnpressed: {fileID: 8300000, guid: 93a338c1e5ecbf84493c03eb9a332424, type: 3}
+  buttonTimer: {fileID: 8300000, guid: 16503c0031fd1fb409f8d0472f3d29d9, type: 3}
+  spire_on: {fileID: 1891995919, guid: 0714e18b60e2f4542903794f613983b7, type: 3}
+  spire_off: {fileID: -58779957, guid: 0714e18b60e2f4542903794f613983b7, type: 3}

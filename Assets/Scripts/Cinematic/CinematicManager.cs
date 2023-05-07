@@ -5,6 +5,7 @@ using TMPro;
 using UnityEditor;
 using System;
 using System.Security.Cryptography;
+using UnityEngine.TextCore.Text;
 
 public class CinematicManager : MonoBehaviour
 {
@@ -13,10 +14,16 @@ public class CinematicManager : MonoBehaviour
     public Transform[] cameraPositions;
     public Transform[] characterPositions;
     public GameObject[] Characters;
+    public Transform[] instructionsText;
+
     public Transform player;
-    public Transform instructionsText;
+
+    public Transform textBlock;
+    public TMP_SpriteAsset[] DialogSymbols;
 
     private Rigidbody2D rb2d;
+
+    private TextMeshProUGUI tmp;
 
     public static bool playingCinematic;
     public enum CinematicCommandId
@@ -82,7 +89,11 @@ public class CinematicManager : MonoBehaviour
 
     public bool isCinematicMode;
 
-    public DialogData[] dialogsData; 
+    private DialogData[] dialogsData;
+
+    public DialogData[] keyboardDialogs;
+
+    public DialogData[] gamepadDialogs;
 
     bool showingDialog;
 
@@ -97,12 +108,16 @@ public class CinematicManager : MonoBehaviour
 
     GameCamera gameCameraC;
 
+    private string text;
+
     // Start is called before the first frame update
     void Start()
     {
         PC = player.GetComponent<PlayerController>();
 
         rb2d = player.GetComponent<Rigidbody2D>();
+
+        tmp = textBlock.GetComponent<TextMeshProUGUI>();
 
         // Init state
         isCinematicMode = false;
@@ -124,9 +139,22 @@ public class CinematicManager : MonoBehaviour
         {
             playingCinematic = true;
 
-            PC.playerState = PlayerController.PlayerStates.INTERACTING;
+            PC.playerState = PlayerController.PlayerStates.CINEMATIC;
 
             rb2d.velocity = new Vector2(0, 0);
+
+            if (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE)
+            {
+                dialogsData = keyboardDialogs;
+
+                tmp.spriteAsset = DialogSymbols[0];
+            }
+            else
+            {
+                dialogsData = gamepadDialogs;
+
+                tmp.spriteAsset = DialogSymbols[1];
+            }
 
             if (showingDialog)
             {
@@ -148,39 +176,20 @@ public class CinematicManager : MonoBehaviour
                 }
 
                 int character = dialogsData[dialogIndex].character;
-                string text = dialogsData[dialogIndex].text;
+                text = dialogsData[dialogIndex].text;
 
                 dialogCharacters[character].gameObject.SetActive(true);
-                instructionsText.gameObject.SetActive(true);
 
-                if (Input.GetKeyDown(KeyCode.Return))
+                if(PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE)
                 {
-                    if(dialogTextC.text == dialogsData[dialogIndex].text)
-                    {
-                        NextLine();
-
-                        showingDialog = false;
-
-                        for (int i = 0; i < dialogCommon.Length; i++)
-                        {
-                            dialogCommon[i].gameObject.SetActive(false);
-                        }
-                        for (int i = 0; i < dialogCharacters.Length; i++)
-                        {
-                            dialogCharacters[i].gameObject.SetActive(false);
-                        }
-
-                        commandIndex++;
-
-                        instructionsText.gameObject.SetActive(false);
-                    }
-                    else
-                    {
-                        StopAllCoroutines();
-                        dialogTextC.text = text;
-                    }
+                    instructionsText[0].gameObject.SetActive(true);
+                    instructionsText[1].gameObject.SetActive(false);
                 }
-
+                else
+                {
+                    instructionsText[1].gameObject.SetActive(true);
+                    instructionsText[0].gameObject.SetActive(false);
+                }
             }
             else if (waiting)
             {
@@ -210,6 +219,7 @@ public class CinematicManager : MonoBehaviour
                     gameCameraC.ExitCinematicMode();
                     isCinematicMode = false;
                     playingCinematic = false;
+                    PC.playerState = PlayerController.PlayerStates.NONE;
                 }
                 else if (command.id == CinematicCommandId.wait)
                 {
@@ -288,6 +298,7 @@ public class CinematicManager : MonoBehaviour
                 {
                     gameCamera.position = mainCamera.position;
                     gameCamera.rotation = mainCamera.rotation;
+                    gameCamera.localScale = mainCamera.localScale;
                 }
                 else
                 {
@@ -302,7 +313,6 @@ public class CinematicManager : MonoBehaviour
         }
         else
         {
-            PC.playerState = PlayerController.PlayerStates.NONE;
             playingCinematic = false;
             isCinematicMode = false;
             firstTime = true;
@@ -342,6 +352,15 @@ public class CinematicManager : MonoBehaviour
     {
         foreach(char c in dialogsData[dialogIndex].text.ToCharArray())
         {
+            if(c == '<')
+            {
+                textSpeed = 0.00f;
+            }
+            else if(c == '>')
+            {
+                textSpeed = 0.05f;
+            }
+
             dialogTextC.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
@@ -353,6 +372,41 @@ public class CinematicManager : MonoBehaviour
             dialogIndex++;
             dialogTextC.text = string.Empty;
             StartCoroutine(TypeLine());
+        }
+    }
+
+    public void InteractText()
+    {
+        if (dialogTextC.text == dialogsData[dialogIndex].text)
+        {
+            NextLine();
+
+            showingDialog = false;
+
+            for (int i = 0; i < dialogCommon.Length; i++)
+            {
+                dialogCommon[i].gameObject.SetActive(false);
+            }
+            for (int i = 0; i < dialogCharacters.Length; i++)
+            {
+                dialogCharacters[i].gameObject.SetActive(false);
+            }
+
+            commandIndex++;
+
+            if (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE)
+            {
+                instructionsText[0].gameObject.SetActive(false);
+            }
+            else
+            {
+                instructionsText[1].gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            StopAllCoroutines();
+            dialogTextC.text = text;
         }
     }
 }

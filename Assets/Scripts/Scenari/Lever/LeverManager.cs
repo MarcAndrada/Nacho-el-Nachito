@@ -9,7 +9,6 @@ public class LeverManager : MonoBehaviour
 
     private Rigidbody2D rb2d;
 
-    private bool collided = false;
     private bool activated = false;
     private float speed = 10;
     
@@ -18,26 +17,23 @@ public class LeverManager : MonoBehaviour
 
     private float startPosY;
 
+    private SpriteRenderer spriteRenderer;
+
+    [SerializeField]
+    private Sprite sprite_on;
+    [SerializeField] 
+    private Sprite sprite_off;
     // Start is called before the first frame update
     void Start()
     {
         rb2d = door.GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         startPosY = door.position.y;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && collided && activated == false)
-        {
-            activated = true;
-        }
-        else if(Input.GetKeyDown(KeyCode.E) && collided && activated == true)
-        {
-            activated = false;
-        }
-
         if(activated && door.transform.position.y <= maxPosY + startPosY)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, speed);
@@ -51,20 +47,19 @@ public class LeverManager : MonoBehaviour
             rb2d.velocity = new Vector2(0, 0);
         }
     }
-
-    private void OnTriggerStay2D(Collider2D collision)
+    
+    public void ActivateLever()
     {
-        if (collision.tag.Equals("Player"))
+        if (!activated)
         {
-            collided = true;
+            spriteRenderer.sprite = sprite_on;
         }
+        else
+        {
+            spriteRenderer.sprite = sprite_off;
+        }
+        activated = !activated;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag.Equals("Player"))
-        {
-            collided = false;
-        }
-    }
+
 }

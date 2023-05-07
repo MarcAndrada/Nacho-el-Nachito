@@ -11,46 +11,88 @@ public class PlayerInput : MonoBehaviour
 
     private PlayerController playerController;
 
-    private PlayerWallJumpController wallJumpController;
-
+    private CinematicManager cinematicManager;
+    
+    private PauseGameController pauseGameController;
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
-        wallJumpController = GetComponent<PlayerWallJumpController>();
+        cinematicManager = FindObjectOfType<CinematicManager>();
+        pauseGameController = FindObjectOfType<PauseGameController>();
     }
 
+    /*
+     *
+     * Aqui vinculamos cada input con la accion que realizara     
+     */
     private void Start()
     {
         InputManager._instance.ingameJumpAction.action.started += JumpAction; //Asignamos la funcion que se llamara pulsar el boton de salto
         InputManager._instance.ingameJumpAction.action.canceled += StopJump; //Al dejar de apretar el boton de saltar dejara de saltar
         InputManager._instance.ingameMovementAction.action.performed += MoveAction; //Mientras el input de ataque este activo se llamara a la funcion para guardarse el valor
         InputManager._instance.ingameMovementAction.action.canceled += MoveAction;
-
+        InputManager._instance.ingameInteractTextAction.action.started += InteractTextAction;
+        InputManager._instance.ingameInteractPauseAction.action.started += InteractPauseAction;
+        
+        
         InputManager._instance.ingameAimAction.action.started += GamepadHookAction;
         InputManager._instance.ingameHookAction.action.started += MouseHookAction;
         InputManager._instance.ingameDashAction.action.started += DashAction;
+
+        InputManager._instance.ingameInteractAction.action.started += InteractingAction;
+        InputManager._instance.ingameGoDownAction.action.started += GoDownAction;
+        InputManager._instance.ingameGoDownAction.action.performed += GoDownAction;
+        InputManager._instance.ingameGoDownAction.action.canceled += GoDownAction;
     }
 
-  
+    /*
+     * ---------------------------IMPORTANTE!!!!------------------------------------- 
+     * Al cambiar de escena, borrar el objeto... 
+     * Tendremos que desvincular las funciones de los inputs para que no nos pete el codigo
+     *
+     */
+    private void OnDestroy()
+    {
+        InputManager._instance.ingameJumpAction.action.started -= JumpAction;
+        InputManager._instance.ingameJumpAction.action.canceled -= StopJump;
+        InputManager._instance.ingameMovementAction.action.performed -= MoveAction;
+        InputManager._instance.ingameMovementAction.action.canceled -= MoveAction;
+        InputManager._instance.ingameInteractTextAction.action.started -= InteractTextAction;
+        InputManager._instance.ingameInteractPauseAction.action.started -= InteractPauseAction;
 
+        InputManager._instance.ingameAimAction.action.started -= GamepadHookAction;
+        InputManager._instance.ingameHookAction.action.started -= MouseHookAction;
+        InputManager._instance.ingameDashAction.action.started -= DashAction;
+
+        InputManager._instance.ingameInteractAction.action.started -= InteractingAction;
+        InputManager._instance.ingameGoDownAction.action.started -= GoDownAction;
+        InputManager._instance.ingameGoDownAction.action.performed -= GoDownAction;
+        InputManager._instance.ingameGoDownAction.action.canceled -= GoDownAction;
+
+    }
+
+
+
+    #region Actions
     private void MoveAction(InputAction.CallbackContext obj)
     {
         playerMovement = InputManager._instance.ingameMovementAction.action.ReadValue<float>(); //Le damos a playerMovement
     }
-
-
 
     private void JumpAction(InputAction.CallbackContext obj)
     {
         switch (playerController.playerState)
         {
             case PlayerController.PlayerStates.WALL_SLIDE:
-                wallJumpController.WallJump();
+                playerController._wallJumpController.WallJump();
                 break;
 
             case PlayerController.PlayerStates.NONE:
             case PlayerController.PlayerStates.MOVING:
                 playerController._movementController.JumpInputPressed();
+                break;
+            case PlayerController.PlayerStates.AIR:
+                playerController._wallJumpController.CheckWallJumpInAir();
                 break;
         }
     }
@@ -82,13 +124,38 @@ public class PlayerInput : MonoBehaviour
                 case PlayerController.PlayerStates.NONE:
                 case PlayerController.PlayerStates.MOVING:
                 case PlayerController.PlayerStates.AIR:
-                case PlayerController.PlayerStates.WALL_SLIDE:
-                    playerController._playerDashController._dashDirection = InputManager._instance.ingameAirDirectionAction.action.ReadValue<Vector2>();
-                    playerController._wallJumpController.isWallSliding = false;
-                    playerController.playerState = PlayerController.PlayerStates.DASH;
+                    playerController._playerDashController.StartDash(InputManager._instance.ingameAirDirectionAction.action.ReadValue<Vector2>());
                     break;
             }
         }
     }
 
+    private void InteractingAction(InputAction.CallbackContext obj)
+    {
+        playerController._interactionController.Interact();
+    }
+
+    private void GoDownAction(InputAction.CallbackContext obj)
+    {
+        if (InputManager._instance.ingameGoDownAction.action.ReadValue<float>() >= 0.2f)
+        {
+            playerController._playerDownController.goingDown = true;
+        }
+        else
+        {
+            playerController._playerDownController.goingDown = false;
+        }
+    }
+
+    private void InteractTextAction(InputAction.CallbackContext obj)
+    {
+        cinematicManager.InteractText();
+    }
+
+    private void InteractPauseAction(InputAction.CallbackContext obj)
+    {
+        pauseGameController.PauseInteraction();
+    }
+    
+    #endregion
 }

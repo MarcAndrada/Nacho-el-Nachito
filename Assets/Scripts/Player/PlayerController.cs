@@ -2,41 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, INTERACTING, DASH, DEAD };
+    public enum PlayerStates {NONE, MOVING, AIR, HOOK,  WALL_SLIDE, CINEMATIC, DASH, DEAD};
     public PlayerStates playerState;
-
     
 
 
     //Aqui crearemos las variables de todos los scritps del player
     private PlayerInput playerInput;
     private PlayerMovementController movementController;
+    private PlayerDownController playerDownController;
     private PlayerHookController hookController;
     private PlayerWallJumpController wallJumpController;
     private PlayerRespawn playerRespawn;
     private PlayerDashController dashController;
-
+    private PlayerInteractionController interactionController;
+    
     //Variable para acceder a los demas scripts
     public PlayerInput _playerInput => playerInput;
     public PlayerMovementController _movementController => movementController;
+    public PlayerDownController _playerDownController => playerDownController;
     public PlayerHookController _hookController => hookController;
-
     public PlayerWallJumpController _wallJumpController => wallJumpController;
-
+    public PlayerInteractionController _interactionController => interactionController;
+    public PlayerDashController _playerDashController => dashController;
     public PlayerRespawn _playerRespawn => playerRespawn;
 
     private Animator anim;
 
-    public PlayerDashController _playerDashController => dashController;
 
     // Start is called before the first frame update
     void Awake()
     {
         AllGetComponents();
-
     }
 
     private void AllGetComponents() 
@@ -48,15 +48,17 @@ public class PlayerController : MonoBehaviour
         playerRespawn = GetComponent<PlayerRespawn>();
         anim = GetComponent<Animator>();
         dashController = GetComponent<PlayerDashController>();
+        playerDownController = GetComponent<PlayerDownController>();
+        interactionController = GetComponent<PlayerInteractionController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        PlayerAimController._instance.UpdateAimMethod();
         StatesFunctions();
         AnimateCharacter();
-        PlayerAimController._instance.MoveCrosshair();
+        PlayerAimController._instance.UpdateAimMethod();
+        Cheats();
     }
 
     private void StatesFunctions() 
@@ -73,6 +75,7 @@ public class PlayerController : MonoBehaviour
                 movementController.CheckSlope();
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
+                playerDownController.CheckIfCanGoOneWayPlat();
                 break;
             case PlayerStates.AIR:
                 movementController.CheckGrounded();
@@ -83,6 +86,7 @@ public class PlayerController : MonoBehaviour
                 movementController.ApplyForces();
                 hookController.CheckHookPointNearToCursor();
                 wallJumpController.CheckIfWallSliding();
+                playerDownController.CheckIfCanGoOneWayPlat();
                 break;
             case PlayerStates.HOOK:
                 hookController.MoveHookedPlayer();
@@ -94,15 +98,16 @@ public class PlayerController : MonoBehaviour
                 //Bajar la Y
                 //Comporbar el salto
                 wallJumpController.WallSlide();
-                movementController.CheckGrounded();
+                wallJumpController.CheckIfStopSliding();
                 hookController.CheckHookPointNearToCursor();
-
+                playerDownController.CheckIfCanGoOneWayPlat();
                 break;
             case PlayerStates.DASH:
                 dashController.Dash();
                 dashController.DashTimer();
+                dashController.DashCheckWall();
                 break;
-            case PlayerStates.INTERACTING:
+            case PlayerStates.CINEMATIC:
                 // NADA
                 break;
             case PlayerStates.DEAD:
@@ -111,8 +116,6 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
-
-        
     }
 
 
@@ -144,15 +147,56 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("Moving", true);
             anim.SetBool("OnAir", false);
+            
         }
-        if(playerState == PlayerStates.AIR)
+
+        if (playerState == PlayerStates.AIR)
         {
             anim.SetBool("OnAir", true);
         }
-        if(playerState == PlayerStates.NONE || playerState == PlayerStates.INTERACTING)
+
+        if (playerState == PlayerStates.NONE || playerState == PlayerStates.CINEMATIC)
         {
             anim.SetBool("Moving", false);
             anim.SetBool("OnAir", false);
         }
+    }
+
+    public void DeadAnimation()
+    {
+        anim.SetTrigger("Death");
+    }
+
+    private void Cheats()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SceneManager.LoadScene("Level 1.1");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SceneManager.LoadScene("Level 1.2");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SceneManager.LoadScene("Level 2.1");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SceneManager.LoadScene("Level 2.2");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SceneManager.LoadScene("Level 3.1");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            SceneManager.LoadScene("Level 3.2");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            SceneManager.LoadScene("Level 4.1");
+        }
+
     }
 }

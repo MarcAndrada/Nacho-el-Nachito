@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "GoDown",
+                    "type": "Button",
+                    "id": "6a9736d1-bdf6-451b-8a86-9a1e3ee8d450",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "6db0bd22-5b27-4f85-b0aa-103ad0b5edd9",
@@ -51,15 +60,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PauseGame",
-                    "type": "Button",
-                    "id": "1bc0bd85-e8bf-43ab-95af-9ce09e8fdade",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Dash",
                     "type": "Button",
                     "id": "816593db-7679-49c9-a99a-00b543c48797",
@@ -76,6 +76,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "InteractText",
+                    "type": "Button",
+                    "id": "ab34ca94-a24f-4299-a70d-5a3d6eac4f4f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InteractPause",
+                    "type": "Button",
+                    "id": "d393f37b-33f7-4969-955e-1303d3740b06",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -181,7 +199,7 @@
                 {
                     "name": "",
                     "id": "d7748dd3-0a1c-47e2-84ff-e3871ca265e9",
-                    "path": "",
+                    "path": "<Keyboard>/#(F)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -191,12 +209,12 @@
                 },
                 {
                     "name": "",
-                    "id": "9d35bdb9-1eb7-42e0-9fa3-37c29d4156cb",
-                    "path": "",
+                    "id": "40510e24-8873-4f15-b3d9-cd24a4859364",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PauseGame",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -386,6 +404,72 @@
                     "action": "AirDirection",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "7658dbba-301d-40fe-b7fa-5457b2fca0ec",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "Press(pressPoint=0.5)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GoDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4fadcad9-30b6-4b32-b022-59c6812cefb0",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GoDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c80a2705-6eb1-4225-9ae1-d4113544d87e",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractText",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cbef83f9-3d43-4b55-b9b7-1fb37ccc3834",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractText",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d747229-95fc-4e60-8d65-7f7ad1a146d7",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f981531-0ced-41d8-a4b7-cd136a145550",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

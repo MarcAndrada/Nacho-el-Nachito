@@ -12,6 +12,14 @@ public class BrokenPlatform : MonoBehaviour
     bool touched = false;
     Collider2D coll;
     SpriteRenderer spriteRenderer;
+
+    [Header("Sound"), SerializeField]
+    private AudioClip fallingLoop;
+    [SerializeField]
+    private AudioClip fallSound;
+    private AudioSource fallAS; 
+
+
     private void Awake()
     {
         coll = GetComponent<Collider2D>();
@@ -26,6 +34,8 @@ public class BrokenPlatform : MonoBehaviour
             if (contacts[0].normal == Vector2.down)
             {
                 touched = true;
+                if (!fallAS)
+                    fallAS = AudioManager._instance.Play2dLoop(fallingLoop);
             }
         }
     }
@@ -40,6 +50,9 @@ public class BrokenPlatform : MonoBehaviour
                 spriteRenderer.enabled = false;
                 timePassed = 0f;
                 touched = false;
+                AudioManager._instance.StopLoopSound(fallAS);
+                fallAS = null;
+                AudioManager._instance.Play2dOneShotSound(fallSound);
             }
         }
        else

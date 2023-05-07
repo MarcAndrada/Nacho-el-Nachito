@@ -7,6 +7,11 @@ TagManager:
   - Water
   - HookPoint
   - Obstaculo
+  - CameraChanger
+  - CheckPoint
+  - OVNI
+  - Mechanism
+  - OneWayPlatform
   layers:
   - Default
   - TransparentFX
@@ -20,7 +25,7 @@ TagManager:
   - Wall
   - DestructibleWall
   - HookObstacle
-  - 
+  - Cinematic
   - 
   - 
   - 

@@ -13,6 +13,8 @@ public class PlayerAimController : MonoBehaviour
     public static PlayerAimController _instance;
     [HideInInspector]
     public Vector2 gamepadDir;
+    [SerializeField]
+    private float crosshairSpeed;
 
     private SpriteRenderer spriteRenderer;
 
@@ -52,6 +54,10 @@ public class PlayerAimController : MonoBehaviour
         {
             UseControllerInput();
         }
+        else
+        {
+            MoveCrosshair();
+        }
     }
 
 
@@ -59,8 +65,9 @@ public class PlayerAimController : MonoBehaviour
     {
         Vector2 v3 = Input.mousePosition;
         v3 = Camera.main.ScreenToWorldPoint(v3);
+        //transform.position = Vector3.MoveTowards(transform.position, v3, Time.deltaTime * crosshairSpeed);
         transform.position = v3;
-        if (Cursor.visible)
+        if (Cursor.visible && Time.deltaTime > 0)
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Confined;

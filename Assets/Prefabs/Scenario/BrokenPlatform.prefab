@@ -50,6 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeDelay: 1
   timeDelayRespawn: 2
+  fallingLoop: {fileID: 8300000, guid: 0d78bb5e860e7a94c946ebf8aa23ee1c, type: 3}
+  fallSound: {fileID: 8300000, guid: 403379e8a5b64fe41a66d06f22fa5414, type: 3}
 --- !u!212 &8373213025897795036
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -141,7 +143,7 @@ PlatformEffector2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RotationalOffset: 0
-  m_UseOneWay: 1
+  m_UseOneWay: 0
   m_UseOneWayGrouping: 0
   m_SurfaceArc: 180
   m_UseSideFriction: 0

@@ -20,6 +20,10 @@ public class HookController : MonoBehaviour
     private LineRenderer lineRenderer;
     private Rigidbody2D rb2d;
     private PlayerHookController playerHookController;
+
+    [Header("Sound"), SerializeField]
+    private AudioClip hookHit;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -81,6 +85,7 @@ public class HookController : MonoBehaviour
             else
             {
                 hooked = true;
+                AudioManager._instance.Play2dOneShotSound(hookHit, 0.85f, 1.25f);
             }
         }
     }

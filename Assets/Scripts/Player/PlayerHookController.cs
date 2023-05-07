@@ -39,6 +39,11 @@ public class PlayerHookController : MonoBehaviour
     [SerializeField]
     private LayerMask floorLayer;
 
+    [Header("Sound"), SerializeField]
+    private AudioClip hookThrow;
+  
+ 
+    
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
@@ -71,6 +76,8 @@ public class PlayerHookController : MonoBehaviour
                 default:
                     break;
             }
+
+            AudioManager._instance.Play2dOneShotSound(hookThrow);
 
         }
     }
@@ -214,7 +221,7 @@ public class PlayerHookController : MonoBehaviour
 
     }
 
-    private void StopHook()
+    public void StopHook()
     {        
         playerController._movementController.externalForces = rb2d.velocity;
         float xSpeed = Mathf.Clamp(rb2d.velocity.x, -maxSpeedAtRelease, maxSpeedAtRelease);
