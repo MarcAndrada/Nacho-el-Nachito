@@ -551,6 +551,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CinematicSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 8937057472705740184, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
