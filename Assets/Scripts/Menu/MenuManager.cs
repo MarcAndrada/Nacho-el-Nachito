@@ -28,6 +28,7 @@ public class MenuManager : MonoBehaviour
     public void ResumeGame()
     {
         Time.timeScale = 1.0f;
+        Cursor.visible = false;
     }
 
     public void CloseGame()

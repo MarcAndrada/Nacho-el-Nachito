@@ -12,6 +12,7 @@ public class PauseGameController : MonoBehaviour
     {
         if (Time.timeScale != 0.0f)
         {
+            Cursor.visible = true;
             Time.timeScale = 0.0f;
             pauseMenu.SetActive(true);
         } 
@@ -19,6 +20,8 @@ public class PauseGameController : MonoBehaviour
         {
             Time.timeScale = 1.0f;
             pauseMenu.SetActive(false);
+            Cursor.visible = false;
+
         }
     }
 }
