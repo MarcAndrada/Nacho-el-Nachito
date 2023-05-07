@@ -806,95 +806,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 17964247}
     - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: textBlock
-      value: 
-      objectReference: {fileID: 1307945003}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1627060496}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.data[0].text
-      value: Eh tu, espera!
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.data[2].text
-      value: "Desde luego que no, pero tu tambien parece ser que te has transformado
-        en comida, as\xED que ya tenemos algo en com\xFAn."
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.data[3].text
-      value: "\xBFTienes idea de que ha pasado?"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.data[5].text
-      value: "\xBFQue crees que puede haber sido? \xBFAcaso insinuas que ha sido
-        un OVNI?"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.data[6].text
-      value: "Literalmente tu eres un nacho y yo soy un taco y estamos hablando,
-        \xBFque tan raro te parece?"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.data[7].text
-      value: Tienes razon.
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.data[8].text
-      value: Creo que nos conviene colaborar, a ver si podemos solucionar esta situacion
-        tan absurda.
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.data[9].text
-      value: Tambien te puedo dar algun que otro consejo por el camino para que no
-        mueras en soledad.
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: gamepadDialogs.Array.data[10].text
-      value: Ten cuidado cuando avances por ahi, vas a tener que saltar ese hueco.
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.data[0].text
-      value: Eh tu, espera!
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.data[2].text
-      value: Desde luego que no, pero tu tambien parece ser que te has transformado
-        en comida, asi que ya tenemos algo en comun.
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.data[3].text
-      value: "\xBFTienes idea de que ha pasado?"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.data[5].text
-      value: "\xBFQue crees que puede haber sido? \xBFAcaso insinuas que ha sido
-        un OVNI?"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.data[6].text
-      value: "Literalmente tu eres un nacho y yo soy un taco y estamos hablando,
-        \xBFque tan raro te parece?"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.data[7].text
-      value: Tienes razon.
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.data[8].text
-      value: Creo que nos conviene colaborar, a ver si podemos solucionar esta situacion
-        tan absurda.
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.data[9].text
-      value: Tambien te puedo dar algun que otro consejo por el camino para que no
-        mueras en soledad.
-      objectReference: {fileID: 0}
-    - target: {fileID: 8937057472589204257, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-      propertyPath: keyboardDialogs.Array.data[10].text
-      value: Ten cuidado cuando avances por ahi, vas a tener que saltar ese hueco.
-      objectReference: {fileID: 0}
     - target: {fileID: 8937057472589204258, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
       propertyPath: m_Name
       value: CinematicSystem
@@ -906,11 +820,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
---- !u!224 &1307945003 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1404744598025789801, guid: 6e2e8a7428210c94da581c43d75f0978, type: 3}
-  m_PrefabInstance: {fileID: 1307945002}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1403137461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1037,7 +946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0
+      value: 0.23179486
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
@@ -1045,7 +954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 1
+      value: 0.5364102
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163748, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_NormalizedViewPortRect.height

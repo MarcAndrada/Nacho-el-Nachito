@@ -728,7 +728,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c010f7c3c05c3764488df69fc1b1053e, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 7220503612988925792, guid: c010f7c3c05c3764488df69fc1b1053e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -788,10 +788,10 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -20.524567, y: -33.30498, z: -66.66126, w: 39.12758}
+  m_margin: {x: -18.932594, y: -33.30498, z: -66.66126, w: 39.12758}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1404744598278666175
@@ -896,9 +896,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1404744598308531753}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.76}
-  m_LocalScale: {x: 1.4175, y: 1.4175, z: 1.4175}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1404744597891188995}
@@ -912,9 +912,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 567, y: 282.3}
-  m_SizeDelta: {x: 800, y: 397.17813}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!223 &1404744598308531757
 Canvas:
   m_ObjectHideFlags: 0
@@ -1244,7 +1244,7 @@ Transform:
   - {fileID: 8937057471837032223}
   - {fileID: 8937057471875332132}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8937057472589204257
 MonoBehaviour:
@@ -1269,7 +1269,7 @@ MonoBehaviour:
   - {fileID: 1404744597809293084}
   - {fileID: 5589306674640635776}
   player: {fileID: 0}
-  textBlock: {fileID: 0}
+  textBlock: {fileID: 1404744598025789801}
   DialogSymbols:
   - {fileID: 11400000, guid: d9949a425e7032a488980b9a86f38b53, type: 2}
   - {fileID: 11400000, guid: 348bb398ffeae884489db0112a2f0cab, type: 2}
@@ -1371,32 +1371,32 @@ MonoBehaviour:
   isCinematicMode: 0
   keyboardDialogs:
   - character: 1
-    text: "Eh t\xFA, espera!"
+    text: Eh tu, espera!
   - character: 0
     text: "\xBFNos conocemos de algo?"
   - character: 1
-    text: "Desde luego que no, pero tu tambi\xE9n parece ser que te has transformado
-      en comida, as\xED que ya tenemos algo en com\xFAn."
+    text: Desde luego que no, pero tu tambien parece ser que te has transformado
+      en comida, asi que ya tenemos algo en comun.
   - character: 0
-    text: "\xBFTienes idea de qu\xE9 ha pasado?"
+    text: "\xBFTienes idea de que ha pasado?"
   - character: 1
     text: Me ha parecido ver algo brillante sobrevolando la zona.
   - character: 0
-    text: "\xBFQu\xE9 crees que puede haber sido? \xBFAcaso insin\xFAas que ha sido
-      un OVNI?"
+    text: "\xBFQue crees que puede haber sido? \xBFAcaso insinuas que ha sido un
+      OVNI?"
   - character: 1
-    text: "Literalmente t\xFA eres un nacho y yo soy un taco y estamos hablando,
-      \xBFqu\xE9 tan raro te parece?"
+    text: "Literalmente tu eres un nacho y yo soy un taco y estamos hablando, \xBFque
+      tan raro te parece?"
   - character: 0
-    text: "Tienes raz\xF3n."
+    text: Tienes razon.
   - character: 1
-    text: "Creo que nos conviene colaborar, a ver si podemos solucionar esta situaci\xF3n
-      tan absurda."
+    text: Creo que nos conviene colaborar, a ver si podemos solucionar esta situacion
+      tan absurda.
   - character: 1
-    text: "Tambi\xE9n te puedo dar alg\xFAn que otro consejo por el camino para que
-      no mueras en soledad."
+    text: Tambien te puedo dar algun que otro consejo por el camino para que no mueras
+      en soledad.
   - character: 1
-    text: "Ten cuidado cuando avances por ah\xED, vas a tener que saltar ese hueco."
+    text: Ten cuidado cuando avances por ahi, vas a tener que saltar ese hueco.
   - character: 1
     text: Prueba usando <sprite=7>
   - character: 1
@@ -1407,32 +1407,32 @@ MonoBehaviour:
     text: Yo Nacho, pero me puedes llamar Nachito.
   gamepadDialogs:
   - character: 1
-    text: "Eh t\xFA, espera!"
+    text: Eh tu, espera!
   - character: 0
     text: "\xBFNos conocemos de algo?"
   - character: 1
-    text: "Desde luego que no, pero tu tambi\xE9n parece ser que te has transformado
+    text: "Desde luego que no, pero tu tambien parece ser que te has transformado
       en comida, as\xED que ya tenemos algo en com\xFAn."
   - character: 0
-    text: "\xBFTienes idea de qu\xE9 ha pasado?"
+    text: "\xBFTienes idea de que ha pasado?"
   - character: 1
     text: Me ha parecido ver algo brillante sobrevolando la zona.
   - character: 0
-    text: "\xBFQu\xE9 crees que puede haber sido? \xBFAcaso insin\xFAas que ha sido
-      un OVNI?"
+    text: "\xBFQue crees que puede haber sido? \xBFAcaso insinuas que ha sido un
+      OVNI?"
   - character: 1
-    text: "Literalmente t\xFA eres un nacho y yo soy un taco y estamos hablando,
-      \xBFqu\xE9 tan raro te parece?"
+    text: "Literalmente tu eres un nacho y yo soy un taco y estamos hablando, \xBFque
+      tan raro te parece?"
   - character: 0
-    text: "Tienes raz\xF3n."
+    text: Tienes razon.
   - character: 1
-    text: "Creo que nos conviene colaborar, a ver si podemos solucionar esta situaci\xF3n
-      tan absurda."
+    text: Creo que nos conviene colaborar, a ver si podemos solucionar esta situacion
+      tan absurda.
   - character: 1
-    text: "Tambi\xE9n te puedo dar alg\xFAn que otro consejo por el camino para que
-      no mueras en soledad."
+    text: Tambien te puedo dar algun que otro consejo por el camino para que no mueras
+      en soledad.
   - character: 1
-    text: "Ten cuidado cuando avances por ah\xED, vas a tener que saltar ese hueco."
+    text: Ten cuidado cuando avances por ahi, vas a tener que saltar ese hueco.
   - character: 1
     text: Prueba usando <sprite=0>
   - character: 1
@@ -1504,7 +1504,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.1
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1533,7 +1533,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 8937057472589204256}
-  speed: 0
 --- !u!114 &8937057472705740185
 MonoBehaviour:
   m_ObjectHideFlags: 0

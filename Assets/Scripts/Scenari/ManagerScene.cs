@@ -30,7 +30,7 @@ public class ManagerScene : MonoBehaviour
         if (timer <= 0 && !levelFinished)
         {
             startTimer = false;
-            timer = 650;
+            timer = 550;
         }
 
         if (timer <= 0 && levelFinished)
