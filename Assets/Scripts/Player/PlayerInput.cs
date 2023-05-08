@@ -105,19 +105,22 @@ public class PlayerInput : MonoBehaviour
 
     private void GamepadHookAction(InputAction.CallbackContext obj)
     {
-        PlayerAimController._instance.gamepadDir = InputManager._instance.ingameAimAction.action.ReadValue<Vector2>();
-        playerController._hookController.HookInputPressed();
+        if (playerController._canHook)
+        {
+            PlayerAimController._instance.gamepadDir = InputManager._instance.ingameAimAction.action.ReadValue<Vector2>();
+            playerController._hookController.HookInputPressed();
+        }
     }
 
     private void MouseHookAction(InputAction.CallbackContext obj)
-    {
-        playerController._hookController.HookInputPressed();
+    { 
+        if (playerController._canHook) playerController._hookController.HookInputPressed();
     }
 
    
     private void DashAction(InputAction.CallbackContext obj)
     {
-        if (playerController._playerDashController._canDash)
+        if (playerController._playerDashController._canDash && playerController._canDash)
         {
             switch (playerController.playerState)
             {
