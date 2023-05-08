@@ -13,8 +13,7 @@ public class PlayerAimController : MonoBehaviour
     public static PlayerAimController _instance;
     [HideInInspector]
     public Vector2 gamepadDir;
-    [SerializeField]
-    private float crosshairSpeed;
+
 
     private SpriteRenderer spriteRenderer;
 
@@ -35,7 +34,6 @@ public class PlayerAimController : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
 
         CheckSpriteRendEnabled();
@@ -67,9 +65,8 @@ public class PlayerAimController : MonoBehaviour
         v3 = Camera.main.ScreenToWorldPoint(v3);
         //transform.position = Vector3.MoveTowards(transform.position, v3, Time.deltaTime * crosshairSpeed);
         transform.position = v3;
-        if (Cursor.visible && Time.deltaTime > 0)
+        if (Cursor.lockState != CursorLockMode.Confined)
         {
-            Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Confined;
         }       
 

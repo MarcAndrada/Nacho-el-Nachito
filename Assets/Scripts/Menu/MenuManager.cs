@@ -11,7 +11,6 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
     }
 
     public void StartGame()
@@ -28,7 +27,6 @@ public class MenuManager : MonoBehaviour
     public void ResumeGame()
     {
         Time.timeScale = 1.0f;
-        Cursor.visible = false;
     }
 
     public void CloseGame()

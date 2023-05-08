@@ -10,7 +10,7 @@ public class PlayerHookController : MonoBehaviour
     [Header("Hook"), SerializeField]
     private GameObject hookObj;
     [SerializeField]
-    private SpriteRenderer hookPointIcon;
+    private GameObject hookPointIcon;
     private HookController hookController;
     
     public HookController _hookController => hookController;
@@ -130,7 +130,7 @@ public class PlayerHookController : MonoBehaviour
             RaycastHit2D nearToCursorHit = CheckHookPointAround();
             if (nearToCursorHit.collider != null)
             {
-                hookPointIcon.enabled = true;
+                hookPointIcon.SetActive(true);
                 hookPointIcon.transform.position = nearToCursorHit.transform.position;
 
                 hookPointSelected = nearToCursorHit.transform.gameObject;
@@ -138,7 +138,7 @@ public class PlayerHookController : MonoBehaviour
             }
             else
             {
-                hookPointIcon.enabled = false;
+                hookPointIcon.SetActive(false);
                 hookPointSelected = null;
             }
         }
@@ -176,14 +176,14 @@ public class PlayerHookController : MonoBehaviour
 
         if (hookPointSelected != null)
         {
-            hookPointIcon.enabled = true;
+            hookPointIcon.SetActive(true);
             hookPointIcon.transform.position = hookPointSelected.transform.position;
         }
         else
         {
-            hookPointIcon.enabled = false;
+            hookPointIcon.SetActive(false);
         }
-        
+
     }
 
     #endregion
