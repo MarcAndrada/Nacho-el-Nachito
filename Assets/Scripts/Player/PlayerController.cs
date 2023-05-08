@@ -32,10 +32,14 @@ public class PlayerController : MonoBehaviour
 
     private Animator anim;
 
+    [SerializeField] public bool _canDash;
+    [SerializeField] public bool _canHook;
 
     // Start is called before the first frame update
     void Awake()
     {
+        _canHook = false;
+        _canDash = false;
         AllGetComponents();
     }
 
@@ -60,6 +64,7 @@ public class PlayerController : MonoBehaviour
         PlayerAimController._instance.UpdateAimMethod();
         Cheats();
         SetPowerUps();
+        hookController.CheckActivated();
     }
 
     private void StatesFunctions() 
@@ -204,21 +209,21 @@ public class PlayerController : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Level 1.1" || 
             SceneManager.GetActiveScene().name == "Level 1.2")
         {
-            hookController.canHook = false;
-            dashController._canDash = false;
+            _canHook = false;
+            _canDash = false;
         }
         else if (SceneManager.GetActiveScene().name == "Level 2.1" || 
                  SceneManager.GetActiveScene().name == "Level 2.2" ||
                  SceneManager.GetActiveScene().name == "Level 3.1" || 
                  SceneManager.GetActiveScene().name == "Level 3.2")
         {
-            hookController.canHook = false;
-            dashController._canDash = true;
+            _canHook = false;
+            _canDash = true;
         }
         else
         {
-            hookController.canHook = true;
-            dashController._canDash = true;
+            _canHook = true;
+            _canDash = true;
         }
     }
 }

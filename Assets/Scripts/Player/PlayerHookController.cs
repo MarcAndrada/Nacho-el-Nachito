@@ -40,11 +40,13 @@ public class PlayerHookController : MonoBehaviour
     private LayerMask hookLayer;
     [SerializeField]
     private LayerMask floorLayer;
-
+    [SerializeField] 
+    private GameObject _hookTarget;
+    
     [Header("Sound"), SerializeField]
     private AudioClip hookThrow;
-  
- 
+
+    
     
     private void Awake()
     {
@@ -317,5 +319,15 @@ public class PlayerHookController : MonoBehaviour
         }
     }
 
-
+    public void CheckActivated()
+    {
+        if (playerController._canHook)
+        {
+            _hookTarget.SetActive(true);
+        }
+        else
+        {
+            _hookTarget.SetActive(false);
+        }
+    }
 }
