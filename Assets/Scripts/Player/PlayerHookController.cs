@@ -12,6 +12,8 @@ public class PlayerHookController : MonoBehaviour
     [SerializeField]
     private SpriteRenderer hookPointIcon;
     private HookController hookController;
+    
+    public HookController _hookController => hookController;
     [SerializeField]
     private Transform hookStarterPos;
     [SerializeField]
@@ -38,11 +40,13 @@ public class PlayerHookController : MonoBehaviour
     private LayerMask hookLayer;
     [SerializeField]
     private LayerMask floorLayer;
-
+    [SerializeField] 
+    private GameObject _hookTarget;
+    
     [Header("Sound"), SerializeField]
     private AudioClip hookThrow;
-  
- 
+
+    
     
     private void Awake()
     {
@@ -61,7 +65,7 @@ public class PlayerHookController : MonoBehaviour
     #region Input Functions
     public void HookInputPressed()
     {
-        if (canHook)
+        if (canHook && playerController.playerState != PlayerController.PlayerStates.DEAD)
         {
             canHook = false;
 
@@ -187,6 +191,7 @@ public class PlayerHookController : MonoBehaviour
     #region Throw Hook Functions
     private void ThrowHook(Vector2 _target, bool _stickPoint)
     {
+        
         if (_stickPoint)
         {
             playerController.playerState = PlayerController.PlayerStates.HOOK;
@@ -229,6 +234,7 @@ public class PlayerHookController : MonoBehaviour
         rb2d.velocity = new Vector2(xSpeed, ySpeed);
         playerController.playerState = PlayerController.PlayerStates.AIR;
         hookController.DisableHook();
+        playerController._playerDashController._canDash = true;
     }
 
     public void CheckPlayerNotStucked() 
@@ -313,5 +319,15 @@ public class PlayerHookController : MonoBehaviour
         }
     }
 
-
+    public void CheckActivated()
+    {
+        if (playerController._canHook)
+        {
+            _hookTarget.SetActive(true);
+        }
+        else
+        {
+            _hookTarget.SetActive(false);
+        }
+    }
 }

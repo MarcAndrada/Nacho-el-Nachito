@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameCamera : MonoBehaviour
 {
     public Transform gameManager;
-    public float speed = 1.0f;
+    private float speed = 0f;
 
     Camera cameraC;
 

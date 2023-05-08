@@ -298,6 +298,7 @@ public class CinematicManager : MonoBehaviour
                 {
                     gameCamera.position = mainCamera.position;
                     gameCamera.rotation = mainCamera.rotation;
+                    gameCamera.localScale = mainCamera.localScale;
                 }
                 else
                 {

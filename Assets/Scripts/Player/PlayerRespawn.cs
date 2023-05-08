@@ -53,6 +53,8 @@ public class PlayerRespawn : MonoBehaviour
                 break;
             case PlayerController.PlayerStates.HOOK:
                 pc._hookController.StopHook();
+                pc._hookController._hookController.ResetHookPos();
+                pc._hookController._hookController.DisableHook();
                 rb2d.velocity = Vector2.zero;
                 break;
             case PlayerController.PlayerStates.WALL_SLIDE:
@@ -60,7 +62,7 @@ public class PlayerRespawn : MonoBehaviour
                 break;
         }
 
-        rb2d.constraints = RigidbodyConstraints2D.FreezePosition;
+        rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
         pc.DeadAnimation();
         pc.playerState = PlayerController.PlayerStates.DEAD;
 
