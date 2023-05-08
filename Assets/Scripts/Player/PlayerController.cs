@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
         PlayerAimController._instance.UpdateAimMethod();
         Cheats();
         SetPowerUps();
+        hookController.CheckActivated();
     }
 
     private void StatesFunctions() 
