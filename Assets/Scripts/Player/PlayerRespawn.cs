@@ -69,7 +69,6 @@ public class PlayerRespawn : MonoBehaviour
         pc.DeadAnimation();
         pc.playerState = PlayerController.PlayerStates.DEAD;
         deathParticles.SetActive(true);
-
     }
 
     public void SetRespawnPos(Transform _newPos)
@@ -85,9 +84,8 @@ public class PlayerRespawn : MonoBehaviour
         }
 
         else if(collision.CompareTag("OVNI"))
-        { 
-            sprite.enabled = false;
-            pc.playerState = PlayerController.PlayerStates.DEAD;
+        {
+            Die(); 
         }
     }
 }

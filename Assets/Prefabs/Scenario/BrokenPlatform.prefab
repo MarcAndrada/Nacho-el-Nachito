@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8373213025897795037
 MonoBehaviour:
@@ -50,9 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeDelay: 1
   timeDelayRespawn: 2
+  rotationValue: 0.4
   fallingLoop: {fileID: 8300000, guid: 0d78bb5e860e7a94c946ebf8aa23ee1c, type: 3}
   fallSound: {fileID: 8300000, guid: 403379e8a5b64fe41a66d06f22fa5414, type: 3}
-  rotationValue: 0.4
 --- !u!212 &8373213025897795036
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -94,7 +94,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 2096552784, guid: cbff97afbdb562a4eb853a5ef809232b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0852ae83781d6064b98d76399676b31a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,18 +118,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0056434274, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 3, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.020278, y: 1}
   m_EdgeRadius: 0
 --- !u!251 &8373213025897795010
 PlatformEffector2D:

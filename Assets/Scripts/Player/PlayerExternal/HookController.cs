@@ -99,5 +99,4 @@ public class HookController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-
 }
