@@ -450,11 +450,12 @@ public class PlayerMovementController : MonoBehaviour
         {
             externalForces = Vector2.Lerp(externalForces, Vector2.zero, Time.deltaTime * 1.5f);
         }
+
         // detect if we are touching layer floorLayer
         Vector3 posRay = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, capsuleCollider.size.y / 2);
         Vector2 rayDir = Vector2.right * Mathf.Clamp(externalForces.x, -1, 1);
         RaycastHit2D hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
-        if (hit)
+        if (hit && !hit.collider.CompareTag("OneWayPlatform"))
         {
             externalForces = Vector2.zero;
         }
@@ -462,7 +463,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             posRay.y -= capsuleCollider.size.y / 2;
             hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
-            if (hit)
+            if (hit && !hit.collider.CompareTag("OneWayPlatform"))
             {
                 externalForces = Vector2.zero;
             }
@@ -470,7 +471,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 posRay.y -= capsuleCollider.size.y / 2;
                 hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
-                if (hit)
+                if (hit && !hit.collider.CompareTag("OneWayPlatform"))
                 {
                     externalForces = Vector2.zero;
                 }
