@@ -1,19 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossDie : MonoBehaviour
 {
     private ManagerScene managerScene; 
-    // Start is called before the first frame update
-    void Start()
+    
+    [SerializeField] private GameObject finishCollider;
+
+    private LeverManager _leverManager;
+
+    private void Awake()
     {
-        managerScene = GetComand<ManagerScene>(); 
+        _leverManager = GetComponent<LeverManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (_leverManager.activated)
+        {
+            finishCollider.SetActive(true);
+        }
     }
 }
