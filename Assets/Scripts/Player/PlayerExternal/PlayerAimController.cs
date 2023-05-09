@@ -67,7 +67,7 @@ public class PlayerAimController : MonoBehaviour
         v3 = Camera.main.ScreenToWorldPoint(v3);
         //transform.position = Vector3.MoveTowards(transform.position, v3, Time.deltaTime * crosshairSpeed);
         transform.position = v3;
-        if (Cursor.visible)
+        if (Cursor.visible && Time.deltaTime > 0)
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Confined;
