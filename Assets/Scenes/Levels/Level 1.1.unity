@@ -217,11 +217,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1014667601394348582, guid: abf29b71700d13f47812d970d884183f, type: 3}
       propertyPath: camSize.x
-      value: 310
+      value: 354
       objectReference: {fileID: 0}
     - target: {fileID: 1014667601394348582, guid: abf29b71700d13f47812d970d884183f, type: 3}
       propertyPath: camSize.y
-      value: 175
+      value: 198
       objectReference: {fileID: 0}
     - target: {fileID: 1014667601394348583, guid: abf29b71700d13f47812d970d884183f, type: 3}
       propertyPath: m_Name
@@ -951,7 +951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1014667601394348585, guid: abf29b71700d13f47812d970d884183f, type: 3}
       propertyPath: m_Size.x
-      value: 5.410141
+      value: 5.814084
       objectReference: {fileID: 0}
     - target: {fileID: 1014667601394348585, guid: abf29b71700d13f47812d970d884183f, type: 3}
       propertyPath: m_Size.y
@@ -959,11 +959,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1014667601394348585, guid: abf29b71700d13f47812d970d884183f, type: 3}
       propertyPath: m_Offset.x
-      value: 17.998665
+      value: 17.796694
       objectReference: {fileID: 0}
     - target: {fileID: 1014667601394348585, guid: abf29b71700d13f47812d970d884183f, type: 3}
       propertyPath: m_Offset.y
-      value: 1.6208214
+      value: 1.6208215
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -983,7 +983,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1451716199}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: CamChange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -12,6 +12,7 @@ public class BouncingWall : MonoBehaviour
 
     [Header("Sound"), SerializeField]
     private AudioClip bounceSound;
+
     private void Awake()
     {
         _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
