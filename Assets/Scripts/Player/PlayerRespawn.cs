@@ -14,6 +14,9 @@ public class PlayerRespawn : MonoBehaviour
 
     private PlayerController pc;
     private Rigidbody2D rb2d;
+
+    [Header("Particles"), SerializeField]
+    private GameObject deathParticles;
     // Start is called before the first frame update
     void Awake()
     {
@@ -65,6 +68,7 @@ public class PlayerRespawn : MonoBehaviour
         rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
         pc.DeadAnimation();
         pc.playerState = PlayerController.PlayerStates.DEAD;
+        deathParticles.SetActive(true);
 
     }
 
