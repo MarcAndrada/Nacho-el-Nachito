@@ -37626,7 +37626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPos: {fileID: 2129829411}
-  speed: 0.5
+  speed: 0.1
   bossPosY: 8
 --- !u!50 &1850581814
 Rigidbody2D:
