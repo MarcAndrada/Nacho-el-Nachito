@@ -69,7 +69,6 @@ public class PlayerRespawn : MonoBehaviour
         pc.DeadAnimation();
         pc.playerState = PlayerController.PlayerStates.DEAD;
         deathParticles.SetActive(true);
-
     }
 
     public void SetRespawnPos(Transform _newPos)
