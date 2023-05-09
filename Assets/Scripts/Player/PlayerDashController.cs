@@ -34,6 +34,8 @@ public class PlayerDashController : MonoBehaviour
 
     [Header("Souds"), SerializeField]
     private AudioClip[] dashSounds;
+    [SerializeField]
+    private GameObject dashParticles;
 
     private bool _dashDirectional;
     void Awake()
@@ -50,10 +52,25 @@ public class PlayerDashController : MonoBehaviour
 
     public void StartDash(Vector2 _dashDir) 
     {
-        _playerController._playerDashController._dashDirection = _dashDir;
+        _dashDirection = _dashDir;
         _playerController.playerState = PlayerController.PlayerStates.DASH;
 
         AudioManager._instance.PlayOneRandomShotSound(dashSounds, 0.55f, 1.45f, 0.6f);
+        //Quaternion.Euler(0, 0, 90 * _playerController._movementController._lastDir)
+
+        if (_dashDir == Vector2.zero)
+        {
+            _dashDir.x = _playerController._movementController._lastDir;
+        }
+        Vector2 startPos = transform.position;
+        if (Physics2D.Raycast(transform.position, _dashDir, 1.5f, floorLayer))
+        {
+            startPos -= _dashDir * 1.5f;
+        }
+
+
+        GameObject _particulita = Instantiate(dashParticles, startPos, Quaternion.identity);        
+        _particulita.transform.rotation = Quaternion.LookRotation(new Vector3(_dashDir.x, _dashDir.y));
     }
 
     public void Dash()

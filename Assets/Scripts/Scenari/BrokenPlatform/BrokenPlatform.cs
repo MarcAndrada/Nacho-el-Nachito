@@ -11,19 +11,27 @@ public class BrokenPlatform : MonoBehaviour
     private float timePassed = 0f;
     bool touched = false;
     Collider2D coll;
-    SpriteRenderer spriteRenderer;
+    SpriteRenderer spriteRenderer; 
+    private Quaternion starterRot;
+    [SerializeField]
+    private float rotationValue;
 
     [Header("Sound"), SerializeField]
     private AudioClip fallingLoop;
     [SerializeField]
     private AudioClip fallSound;
-    private AudioSource fallAS; 
+    private AudioSource fallAS;
 
+   
 
     private void Awake()
     {
         coll = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    private void Start()
+    {
+        starterRot = transform.rotation;
     }
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -43,6 +51,7 @@ public class BrokenPlatform : MonoBehaviour
     {
        if (touched)
         {
+            Shake();
             timePassed += Time.fixedDeltaTime;
             if (timePassed >= timeDelay)
             {
@@ -53,6 +62,7 @@ public class BrokenPlatform : MonoBehaviour
                 AudioManager._instance.StopLoopSound(fallAS);
                 fallAS = null;
                 AudioManager._instance.Play2dOneShotSound(fallSound);
+                transform.rotation = starterRot;
             }
         }
        else
@@ -69,5 +79,10 @@ public class BrokenPlatform : MonoBehaviour
             }
         }
 
+    }
+
+    private void Shake()
+    {
+        transform.rotation = Quaternion.Euler(starterRot.x, starterRot.y, starterRot.z + Random.Range(-rotationValue, rotationValue));
     }
 }
