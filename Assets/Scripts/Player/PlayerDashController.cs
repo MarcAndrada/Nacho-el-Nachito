@@ -34,6 +34,8 @@ public class PlayerDashController : MonoBehaviour
 
     [Header("Souds"), SerializeField]
     private AudioClip[] dashSounds;
+    [SerializeField]
+    private GameObject dashParticles;
 
     private bool _dashDirectional;
     void Awake()
@@ -50,14 +52,30 @@ public class PlayerDashController : MonoBehaviour
 
     public void StartDash(Vector2 _dashDir) 
     {
-        _playerController._playerDashController._dashDirection = _dashDir;
+        _dashDirection = _dashDir;
         _playerController.playerState = PlayerController.PlayerStates.DASH;
 
         AudioManager._instance.PlayOneRandomShotSound(dashSounds, 0.55f, 1.45f, 0.6f);
+        //Quaternion.Euler(0, 0, 90 * _playerController._movementController._lastDir)
+
+        if (_dashDir == Vector2.zero)
+        {
+            _dashDir.x = _playerController._movementController._lastDir;
+        }
+        Vector2 startPos = transform.position;
+        if (Physics2D.Raycast(transform.position, _dashDir, 1.5f, floorLayer))
+        {
+            startPos -= _dashDir * 1.5f;
+        }
+
+
+        GameObject _particulita = Instantiate(dashParticles, startPos, Quaternion.identity);        
+        _particulita.transform.rotation = Quaternion.LookRotation(new Vector3(_dashDir.x, _dashDir.y));
     }
 
     public void Dash()
     {
+        _playerController._movementController.externalForces = Vector2.zero;
         if (_dashDirection != Vector2.zero)
         {
             vdirection = _dashDirection * _dashSpeed;
@@ -106,10 +124,12 @@ public class PlayerDashController : MonoBehaviour
             posOffset.y -= capsuleOffset;
         }
 
-        bool hitUp = Physics2D.Raycast(transform.position + posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
-        bool hitDown = Physics2D.Raycast(transform.position - posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
+        RaycastHit2D hitUpRaycastHit2D = Physics2D.Raycast(transform.position + posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
+        RaycastHit2D hitDownRaycastHit2D = Physics2D.Raycast(transform.position - posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
         if (_dashDirectional)
         {
+            bool hitUp = hitUpRaycastHit2D.collider != null && !hitUpRaycastHit2D.collider.CompareTag("OneWayPlatform");
+            bool hitDown = hitDownRaycastHit2D.collider != null && !hitDownRaycastHit2D.collider.CompareTag("OneWayPlatform");
             if (hitUp && hitDown)
             {
                 StopDash();
@@ -123,7 +143,6 @@ public class PlayerDashController : MonoBehaviour
             {
                 timeStopped = true;
                 rb2d.velocity += new Vector2(0, speedDashController);
-                Debug.Log("ME CAGO EN DIOS");
             }
             else
             {

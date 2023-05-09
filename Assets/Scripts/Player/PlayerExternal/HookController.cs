@@ -56,7 +56,7 @@ public class HookController : MonoBehaviour
         ResetHookPos();
 
     }
-    private void ResetHookPos()
+    public void ResetHookPos()
     {
         hooked = false;
         transform.position = starterPos.position;
