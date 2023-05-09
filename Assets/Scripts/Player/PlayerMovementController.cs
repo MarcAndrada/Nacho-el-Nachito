@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -19,7 +18,7 @@ public class PlayerMovementController : MonoBehaviour
     private Vector2 moveDir;
     private float acceleration;
     private bool accelerating;
-    private float lastDir; //Aqui guardaremos la direccion donde nos indica el ultimo input al que le hemos dado para que cuando este a 0 tener la direccion
+    private float lastDir = 1; //Aqui guardaremos la direccion donde nos indica el ultimo input al que le hemos dado para que cuando este a 0 tener la direccion
     public float _lastDir => lastDir;
     
     [Header("Grounded Var")]
@@ -66,6 +65,13 @@ public class PlayerMovementController : MonoBehaviour
     private AudioClip jump;
     [SerializeField]
     private AudioClip fall;
+
+    [Header("Particles"), SerializeField]
+    private GameObject footstepParticle;
+    [SerializeField]
+    private Vector2 footstepFeetOffset;
+    [SerializeField]
+    private GameObject jumpParticles;
 
     private Vector2 movementForces;
     [HideInInspector]
@@ -375,6 +381,7 @@ public class PlayerMovementController : MonoBehaviour
         jumpInputPerformed = true;
         canCoyote = false;
         AudioManager._instance.Play2dOneShotSound(jump, 0.65f, 1.35f, 0.2f);
+        Instantiate(jumpParticles, transform.position - new Vector3(0,footstepFeetOffset.y), jumpParticles.transform.rotation);
     }
 
     public void CheckJumping() 
@@ -479,6 +486,16 @@ public class PlayerMovementController : MonoBehaviour
     public void SoundFootstep()
     {
         AudioManager._instance.PlayOneRandomShotSound(footsteps, 0.85f, 1.25f, 0.4f);
+        Quaternion dir;
+        if (lastDir == -1)
+        {
+            dir = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+            dir = Quaternion.identity;
+        }
+        Instantiate(footstepParticle, (Vector2)transform.position - new Vector2(footstepFeetOffset.x * lastDir, footstepFeetOffset.y), dir);
     }
 
     #endregion

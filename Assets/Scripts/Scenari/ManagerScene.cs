@@ -24,13 +24,13 @@ public class ManagerScene : MonoBehaviour
     {
         if(startTimer)
         {
-            timer--;
+            timer -= Time.deltaTime;
         }
 
         if (timer <= 0 && !levelFinished)
         {
             startTimer = false;
-            timer = 550;
+            timer = 2;
         }
 
         if (timer <= 0 && levelFinished)

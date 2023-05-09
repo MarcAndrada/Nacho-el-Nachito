@@ -42,6 +42,13 @@ public class PlayerWallJumpController : MonoBehaviour
     private AudioClip jumpSound;
     private AudioSource loopAS;
 
+    [Header("Particles"), SerializeField]
+    private GameObject wallSlideParticles;
+    [SerializeField]
+    private GameObject wallJumpParticles;
+    [SerializeField]
+    private Vector2 wallJumpPartOffset;
+
 
     void Awake()
     {
@@ -97,6 +104,8 @@ public class PlayerWallJumpController : MonoBehaviour
             _playerController.playerState = PlayerController.PlayerStates.WALL_SLIDE;
             _playerController._playerDashController._canDash = true;
             loopAS = AudioManager._instance.Play2dLoop(wallSlide);
+            wallSlideParticles.SetActive(true);
+            wallSlideParticles.transform.position = transform.position + new Vector3(0.3f * walledDir, -0.2f);
         }
     }
 
@@ -146,6 +155,7 @@ public class PlayerWallJumpController : MonoBehaviour
         if (loopAS)
             AudioManager._instance.StopLoopSound(loopAS);
         loopAS = null;
+        wallSlideParticles.SetActive(false);
     }
     public void CheckWallJumpInAir()
     {
@@ -173,12 +183,15 @@ public class PlayerWallJumpController : MonoBehaviour
         rb2d.velocity = jumpDir;
         _playerController._movementController.externalForces = jumpDir;
         _playerController._movementController.SetAirAcceleration(-walledDir);
-        walledDir = 0;
         if (loopAS)
             AudioManager._instance.StopLoopSound(loopAS);
         loopAS = null;
         AudioManager._instance.Play2dOneShotSound(walljumpSound, 0.65f, 1.35f, 1.2f);
         AudioManager._instance.Play2dOneShotSound(jumpSound, 0.65f, 1.35f, 0.2f);
+        wallSlideParticles.SetActive(false);
+        Instantiate(wallJumpParticles, transform.position + new Vector3(wallJumpPartOffset.x * walledDir, -wallJumpPartOffset.y), Quaternion.identity);
+        walledDir = 0;
+
     }
 
 
