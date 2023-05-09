@@ -46,6 +46,8 @@ public class PlayerWallJumpController : MonoBehaviour
     private GameObject wallSlideParticles;
     [SerializeField]
     private GameObject wallJumpParticles;
+    [SerializeField]
+    private Vector2 wallJumpPartOffset;
 
 
     void Awake()
@@ -181,14 +183,14 @@ public class PlayerWallJumpController : MonoBehaviour
         rb2d.velocity = jumpDir;
         _playerController._movementController.externalForces = jumpDir;
         _playerController._movementController.SetAirAcceleration(-walledDir);
-        walledDir = 0;
         if (loopAS)
             AudioManager._instance.StopLoopSound(loopAS);
         loopAS = null;
         AudioManager._instance.Play2dOneShotSound(walljumpSound, 0.65f, 1.35f, 1.2f);
         AudioManager._instance.Play2dOneShotSound(jumpSound, 0.65f, 1.35f, 0.2f);
         wallSlideParticles.SetActive(false);
-        Instantiate(wallJumpParticles, transform.position + new Vector3(0.3f * walledDir, -0.3f), Quaternion.identity);
+        Instantiate(wallJumpParticles, transform.position + new Vector3(wallJumpPartOffset.x * walledDir, -wallJumpPartOffset.y), Quaternion.identity);
+        walledDir = 0;
 
     }
 

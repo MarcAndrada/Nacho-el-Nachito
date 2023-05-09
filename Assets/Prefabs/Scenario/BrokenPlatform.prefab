@@ -52,6 +52,7 @@ MonoBehaviour:
   timeDelayRespawn: 2
   fallingLoop: {fileID: 8300000, guid: 0d78bb5e860e7a94c946ebf8aa23ee1c, type: 3}
   fallSound: {fileID: 8300000, guid: 403379e8a5b64fe41a66d06f22fa5414, type: 3}
+  rotationValue: 0.4
 --- !u!212 &8373213025897795036
 SpriteRenderer:
   m_ObjectHideFlags: 0
