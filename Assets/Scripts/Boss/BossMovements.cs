@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class BossMovements : MonoBehaviour
 {
-
-    [SerializeField] private Transform playerPos;
+    [Header("Movement"), SerializeField]
+    private Transform playerPos;
     [SerializeField] private float speed;
 
     Rigidbody2D rb;
 
-    [SerializeField] private float bossPosY; 
+    [Header("Position"), SerializeField]
+    private float bossPosY; 
 
     // Start is called before the first frame update
     void Start()
