@@ -85,9 +85,8 @@ public class PlayerRespawn : MonoBehaviour
         }
 
         else if(collision.CompareTag("OVNI"))
-        { 
-            sprite.enabled = false;
-            pc.playerState = PlayerController.PlayerStates.DEAD;
+        {
+            Die(); 
         }
     }
 }
