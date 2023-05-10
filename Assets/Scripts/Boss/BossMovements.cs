@@ -11,21 +11,31 @@ public class BossMovements : MonoBehaviour
     Rigidbody2D rb;
 
     [Header("Position"), SerializeField]
-    private float bossPosY; 
+    private float bossPosY;
+
+    [SerializeField]
+    private GameObject CinematicManager;
+
+    private CinematicManager _cm;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Vector2 target = new Vector2(playerPos.position.x, bossPosY);
+        
+        _cm = CinematicManager.GetComponent<CinematicManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 target = new Vector2(playerPos.position.x, bossPosY); 
-        Vector2 newPos = Vector2.MoveTowards(rb.position, target, speed* Time.fixedDeltaTime);
+        if(!_cm.isCinematicMode)
+        {
+            Vector2 target = new Vector2(playerPos.position.x, bossPosY);
+            Vector2 newPos = Vector2.MoveTowards(rb.position, target, speed * Time.deltaTime);
 
-        rb.position = newPos;   
+            rb.position = newPos;
+        }  
     }
 }
