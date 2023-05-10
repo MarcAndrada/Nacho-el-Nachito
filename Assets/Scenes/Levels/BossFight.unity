@@ -38572,7 +38572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec6dead53af7954f935acb455625912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Player: {fileID: 0}
+  m_Player: {fileID: 2129829411}
   bossPos: {fileID: 1850581812}
   speedUp: 4
   maxSpeed: 7

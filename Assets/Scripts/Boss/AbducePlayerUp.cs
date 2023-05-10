@@ -21,7 +21,7 @@ public class AbducePlayerUp : MonoBehaviour
         rb = playerController.GetComponent<Rigidbody2D>();
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         if (abducingPlayer)
         {
@@ -31,10 +31,12 @@ public class AbducePlayerUp : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.CompareTag("Player")) 
         {
+            abducingPlayer = false;
             switch (playerController.playerState)
             {
                 case PlayerController.PlayerStates.NONE:
@@ -50,7 +52,6 @@ public class AbducePlayerUp : MonoBehaviour
                     break;
 
                 default:
-                    abducingPlayer = false;
                     break;
             }
             
