@@ -24,7 +24,7 @@ public class BossMovements : MonoBehaviour
     void Update()
     {
         Vector2 target = new Vector2(playerPos.position.x, bossPosY); 
-        Vector2 newPos = Vector2.MoveTowards(rb.position, target, speed* Time.fixedDeltaTime);
+        Vector2 newPos = Vector2.MoveTowards(rb.position, target, speed* Time.deltaTime);
 
         rb.position = newPos;   
     }
