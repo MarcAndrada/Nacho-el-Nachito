@@ -36,22 +36,44 @@ public class AbducePlayerUp : MonoBehaviour
 
         if (collision.CompareTag("Player")) 
         {
-            abducingPlayer = false;
             switch (playerController.playerState)
             {
                 case PlayerController.PlayerStates.NONE:
                 case PlayerController.PlayerStates.MOVING:
-                    starterSpeed = 0;
+                    starterSpeed = 1.5f;
                     abducingPlayer = true;
                     break;
                 case PlayerController.PlayerStates.AIR:
                 case PlayerController.PlayerStates.WALL_SLIDE:
                 case PlayerController.PlayerStates.DASH:
                     starterSpeed = rb.velocity.y;
+                    starterSpeed = Mathf.Clamp(starterSpeed, -1, maxSpeed);
                     abducingPlayer = true;
                     break;
-
                 default:
+                    starterSpeed = 1.5f;
+                    break;
+            }
+            
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Player")) 
+        {
+            switch (playerController.playerState)
+            {
+                case PlayerController.PlayerStates.NONE:
+                case PlayerController.PlayerStates.MOVING:
+                case PlayerController.PlayerStates.AIR:
+                case PlayerController.PlayerStates.WALL_SLIDE:
+                case PlayerController.PlayerStates.DASH:
+
+                    abducingPlayer = true;
+                    break;
+                default:
+                    abducingPlayer = false;
                     break;
             }
             
