@@ -12,7 +12,7 @@ public class AbducePlayerUp : MonoBehaviour
     [SerializeField] private float maxSpeed;
     private Rigidbody2D rb;
     private PlayerController playerController;
-    private bool abducingPlayer = false;
+    public bool abducingPlayer {get; private set;}
     private float starterSpeed;
 
     private void Awake()

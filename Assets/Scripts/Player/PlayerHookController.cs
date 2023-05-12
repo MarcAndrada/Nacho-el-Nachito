@@ -17,6 +17,10 @@ public class PlayerHookController : MonoBehaviour
     [SerializeField]
     private Transform hookStarterPos;
     [SerializeField]
+    private GameObject rangeObj;
+    [SerializeField]
+    public float hookRange;
+    [SerializeField]
     private float checkRadius;
     [SerializeField]
     private float speed;
@@ -324,6 +328,8 @@ public class PlayerHookController : MonoBehaviour
         if (playerController._canHook)
         {
             _hookTarget.SetActive(true);
+            rangeObj.SetActive(true);
+            rangeObj.transform.localScale = new Vector2(hookRange, hookRange);
         }
         else
         {

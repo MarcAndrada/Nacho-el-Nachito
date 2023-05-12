@@ -32,8 +32,8 @@ public class PlayerController : MonoBehaviour
 
     private Animator anim;
 
-    [SerializeField] public bool _canDash;
-    [SerializeField] public bool _canHook;
+    [SerializeField] public bool _canDash { get; private set; }
+    [SerializeField] public bool _canHook { get; private set; }
 
     // Start is called before the first frame update
     void Awake()

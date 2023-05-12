@@ -10,7 +10,8 @@ public class LeverManager : MonoBehaviour
     private Rigidbody2D rb2d;
 
     public bool activated = false;
-    private float speed = 10;
+    [SerializeField]
+    private float openSpeed = 10;
     
     [SerializeField]
     private float maxPosY;
@@ -24,10 +25,14 @@ public class LeverManager : MonoBehaviour
     [SerializeField] 
     private Sprite sprite_off;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb2d = door.GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
         startPosY = door.position.y;
     }
 
@@ -36,11 +41,11 @@ public class LeverManager : MonoBehaviour
     {
         if(activated && door.transform.position.y <= maxPosY + startPosY)
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, speed);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, openSpeed);
         }
         else if(!activated && door.transform.position.y > startPosY)
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, -speed);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, -openSpeed);
         }
         else
         {
