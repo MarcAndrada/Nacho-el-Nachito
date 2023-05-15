@@ -36,7 +36,7 @@ public class PlayerHookController : MonoBehaviour
     private GameObject hookPointSelected;
 
 
-    private PlayerController playerController;
+    public PlayerController playerController { get; private set; }
     private Rigidbody2D rb2d;
     private CapsuleCollider2D capsuleCollider;
 
@@ -314,13 +314,15 @@ public class PlayerHookController : MonoBehaviour
 
         return hit;
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         if (PlayerAimController._instance)
         {
             Gizmos.DrawWireSphere(PlayerAimController._instance.transform.position, checkRadius);
         }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, hookRange / 2);
     }
 
     public void CheckActivated()

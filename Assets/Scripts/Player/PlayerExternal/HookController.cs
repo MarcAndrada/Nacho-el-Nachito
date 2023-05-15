@@ -34,8 +34,9 @@ public class HookController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SetLinePositions();
+        CheckDistance();
         MoveHookToPos();
+        SetLinePositions();
     }
 
 
@@ -71,6 +72,13 @@ public class HookController : MonoBehaviour
             CheckIfStopMoving();
         }
     }
+    private void CheckDistance()
+    {
+        if (Vector2.Distance(transform.position, playerHookController.transform.position) > playerHookController.hookRange / 2)
+        {
+            playerHookController.StopHook();
+        }
+    }
 
     private void CheckIfStopMoving() 
     {
@@ -81,21 +89,22 @@ public class HookController : MonoBehaviour
             if (!stickAtPos)
             {
                 DisableHook();
+                //Spawnear particulas de gancho fallado
+
             }
             else
             {
                 hooked = true;
                 AudioManager._instance.Play2dOneShotSound(hookHit, 0.85f, 1.25f);
+                //Spawnear particulas de gancho dado
             }
         }
     }
 
     public void DisableHook() 
     {
-        //StartCoroutine(playerHookController.WaitToHook());
         playerHookController.canHook = true;
-        //Spawnear particulas
-
+        Debug.Log(Vector2.Distance(transform.position, playerHookController.transform.position));
         gameObject.SetActive(false);
     }
 
