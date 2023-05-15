@@ -110,6 +110,11 @@ public class CinematicManager : MonoBehaviour
 
     private string text;
 
+    [Header("Sound"), SerializeField]
+    private AudioClip typeSound;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -362,6 +367,9 @@ public class CinematicManager : MonoBehaviour
             }
 
             dialogTextC.text += c;
+            if (textSpeed != 0)
+                AudioManager._instance.Play2dOneShotSound(typeSound, 0.3f, 0.5f, 1.5f);
+
             yield return new WaitForSeconds(textSpeed);
         }
     }
@@ -377,7 +385,7 @@ public class CinematicManager : MonoBehaviour
 
     public void InteractText()
     {
-        if (dialogTextC)
+        if (dialogTextC && dialogsData[dialogIndex].text != null)
         {
             if (dialogTextC.text == dialogsData[dialogIndex].text)
             {

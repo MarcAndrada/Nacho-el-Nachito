@@ -244,6 +244,7 @@ public class PlayerController : MonoBehaviour
             case PlayerStates.CINEMATIC:
                 break;
             case PlayerStates.DASH:
+                _playerDashController._canDash = true;
                 break;
             case PlayerStates.DEAD:
                 playerRespawn.Die();

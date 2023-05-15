@@ -198,8 +198,9 @@ public class PlayerHookController : MonoBehaviour
         
         if (_stickPoint)
         {
-            playerController.ChangeState(PlayerController.PlayerStates.HOOK) ;
+            playerController.ChangeState(PlayerController.PlayerStates.HOOK);
             posToReach = _target;
+
         }
 
         hookObj.SetActive(true);
@@ -238,7 +239,6 @@ public class PlayerHookController : MonoBehaviour
         rb2d.velocity = new Vector2(xSpeed, ySpeed);
         playerController.ChangeState(PlayerController.PlayerStates.AIR);
         hookController.DisableHook();
-        playerController._playerDashController._canDash = true;
     }
 
     public void CheckPlayerNotStucked() 
@@ -327,15 +327,8 @@ public class PlayerHookController : MonoBehaviour
 
     public void CheckActivated()
     {
-        if (playerController._canHook)
-        {
-            _hookTarget.SetActive(true);
-            rangeObj.SetActive(true);
-            rangeObj.transform.localScale = new Vector2(hookRange, hookRange);
-        }
-        else
-        {
-            _hookTarget.SetActive(false);
-        }
+        _hookTarget.SetActive(playerController._canHook);
+        rangeObj.SetActive(playerController._canHook);
+        rangeObj.transform.localScale = new Vector2(hookRange, hookRange);
     }
 }

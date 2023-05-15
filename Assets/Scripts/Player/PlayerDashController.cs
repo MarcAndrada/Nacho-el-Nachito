@@ -55,7 +55,7 @@ public class PlayerDashController : MonoBehaviour
         _dashDirection = _dashDir;
         _playerController.ChangeState(PlayerController.PlayerStates.DASH);
 
-        AudioManager._instance.PlayOneRandomShotSound(dashSounds, 0.55f, 1.45f, 0.6f);
+        AudioManager._instance.PlayOneRandomShotSound(dashSounds, 0.55f, 1.45f);
         //Quaternion.Euler(0, 0, 90 * _playerController._movementController._lastDir)
 
         if (_dashDir == Vector2.zero)

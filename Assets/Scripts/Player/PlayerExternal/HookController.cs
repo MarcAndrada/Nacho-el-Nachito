@@ -95,7 +95,7 @@ public class HookController : MonoBehaviour
             else
             {
                 hooked = true;
-                AudioManager._instance.Play2dOneShotSound(hookHit, 0.85f, 1.25f);
+                AudioManager._instance.Play2dOneShotSound(hookHit);
                 //Spawnear particulas de gancho dado
             }
         }

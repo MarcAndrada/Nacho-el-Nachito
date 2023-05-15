@@ -6,7 +6,7 @@ public class PlayerRespawn : MonoBehaviour
 {
     [SerializeField] private float timeDead;
     private float startValue;
-    
+
     private SpriteRenderer sprite;
 
     [SerializeField]
@@ -17,6 +17,13 @@ public class PlayerRespawn : MonoBehaviour
 
     [Header("Particles"), SerializeField]
     private GameObject deathParticles;
+
+    [Header("Sound"), SerializeField]
+    private AudioClip deadSound;
+    [SerializeField]
+    private AudioClip respawnSound;
+    [SerializeField]
+    private AudioClip checkPoint;
     // Start is called before the first frame update
     void Awake()
     {
@@ -68,11 +75,18 @@ public class PlayerRespawn : MonoBehaviour
         rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
         pc.DeadAnimation();
         deathParticles.SetActive(true);
+        AudioManager._instance.Play2dOneShotSound(deadSound, 0.2f, 0.7f, 1.3f);
+        Invoke("PlayRespawnSound", startValue - respawnSound.length);
     }
 
+    private void PlayRespawnSound() 
+    {
+        AudioManager._instance.Play2dOneShotSound(respawnSound, 0.1f, 0.7f, 1.3f);
+    }
     public void SetRespawnPos(Transform _newPos)
     {
         posit = _newPos;
+        AudioManager._instance.Play2dOneShotSound(checkPoint, 0.3f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

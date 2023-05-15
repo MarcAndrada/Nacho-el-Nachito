@@ -380,7 +380,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         jumpInputPerformed = true;
         canCoyote = false;
-        AudioManager._instance.Play2dOneShotSound(jump, 0.65f, 1.35f, 0.2f);
+        AudioManager._instance.Play2dOneShotSound(jump, 0.4f, 0.65f, 1.35f);
         Instantiate(jumpParticles, transform.position - new Vector3(0,footstepFeetOffset.y), jumpParticles.transform.rotation);
     }
 

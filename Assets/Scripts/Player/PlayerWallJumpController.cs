@@ -186,8 +186,8 @@ public class PlayerWallJumpController : MonoBehaviour
         if (loopAS)
             AudioManager._instance.StopLoopSound(loopAS);
         loopAS = null;
-        AudioManager._instance.Play2dOneShotSound(walljumpSound, 0.65f, 1.35f, 1.2f);
-        AudioManager._instance.Play2dOneShotSound(jumpSound, 0.65f, 1.35f, 0.2f);
+        AudioManager._instance.Play2dOneShotSound(walljumpSound, 1.2f, 0.65f, 1.35f);
+        AudioManager._instance.Play2dOneShotSound(jumpSound, 0.8f, 0.65f, 1.35f);
         wallSlideParticles.SetActive(false);
         Instantiate(wallJumpParticles, transform.position + new Vector3(wallJumpPartOffset.x * walledDir, -wallJumpPartOffset.y), Quaternion.identity);
         walledDir = 0;

@@ -24,6 +24,9 @@ public class LeverManager : MonoBehaviour
     private Sprite sprite_on;
     [SerializeField] 
     private Sprite sprite_off;
+
+    [Header("Sound"), SerializeField]
+    private AudioClip leverSound;
     // Start is called before the first frame update
     void Awake()
     {
@@ -64,6 +67,7 @@ public class LeverManager : MonoBehaviour
             spriteRenderer.sprite = sprite_off;
         }
         activated = !activated;
+        AudioManager._instance.Play2dOneShotSound(leverSound);
     }
 
 
