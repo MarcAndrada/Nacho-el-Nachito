@@ -139,7 +139,7 @@ public class CinematicManager : MonoBehaviour
         {
             playingCinematic = true;
 
-            PC.playerState = PlayerController.PlayerStates.CINEMATIC;
+            PC.ChangeState(PlayerController.PlayerStates.CINEMATIC);
 
             rb2d.velocity = new Vector2(0, 0);
 
@@ -219,7 +219,7 @@ public class CinematicManager : MonoBehaviour
                     gameCameraC.ExitCinematicMode();
                     isCinematicMode = false;
                     playingCinematic = false;
-                    PC.playerState = PlayerController.PlayerStates.NONE;
+                    PC.ChangeState(PlayerController.PlayerStates.NONE);
                 }
                 else if (command.id == CinematicCommandId.wait)
                 {

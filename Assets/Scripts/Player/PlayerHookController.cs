@@ -198,7 +198,7 @@ public class PlayerHookController : MonoBehaviour
         
         if (_stickPoint)
         {
-            playerController.playerState = PlayerController.PlayerStates.HOOK;
+            playerController.ChangeState(PlayerController.PlayerStates.HOOK) ;
             posToReach = _target;
         }
 
@@ -236,7 +236,7 @@ public class PlayerHookController : MonoBehaviour
         float xSpeed = Mathf.Clamp(rb2d.velocity.x, -maxSpeedAtRelease, maxSpeedAtRelease);
         float ySpeed = Mathf.Clamp(rb2d.velocity.y, -maxSpeedAtRelease, maxSpeedAtRelease);
         rb2d.velocity = new Vector2(xSpeed, ySpeed);
-        playerController.playerState = PlayerController.PlayerStates.AIR;
+        playerController.ChangeState(PlayerController.PlayerStates.AIR);
         hookController.DisableHook();
         playerController._playerDashController._canDash = true;
     }

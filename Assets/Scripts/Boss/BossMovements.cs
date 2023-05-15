@@ -25,9 +25,10 @@ public class BossMovements : MonoBehaviour
     private float abduceSpeed;
 
     [Header("Throw"), SerializeField]
-    private GameObject throwPrefab;
+    private GameObject bombPrefab;
     [SerializeField]
-    private float throwCD;
+    private float bombCD;
+    private float bombTimeWaited;
 
     [Header("Components"), SerializeField]
     private CinematicManager _cm;
@@ -57,6 +58,8 @@ public class BossMovements : MonoBehaviour
                     ChasePlayer(abduceSpeed, false);
                     break;
                 case BossStates.THROWING:
+                    ChasePlayer(lightningSpeed, true);
+                    WaitToThrowBomb();
                     break;
                 case BossStates.DEAD:
                     break;
@@ -104,6 +107,7 @@ public class BossMovements : MonoBehaviour
             case BossStates.THROWING:
                 abduceObj.SetActive(false);
                 lightningObj.SetActive(false);
+                bombTimeWaited = 0;
                 break;
             case BossStates.DEAD:
                 abduceObj.SetActive(false);
@@ -114,6 +118,18 @@ public class BossMovements : MonoBehaviour
         }
     }
      
+    private void WaitToThrowBomb()
+    {
+        bombTimeWaited += Time.deltaTime;
+        if (bombTimeWaited >= bombCD)
+        {
+            bombTimeWaited = 0;
+            //Crear Bala
+            BossBombController currentBomb = Instantiate(bombPrefab, transform.position, Quaternion.identity).GetComponent<BossBombController>();
+            currentBomb.endPos = playerPos.position;
+        }
+    }
+
     public void ResetBoss()
     {
 

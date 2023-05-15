@@ -101,7 +101,7 @@ public class PlayerWallJumpController : MonoBehaviour
     {
         if (IsWalled())
         {
-            _playerController.playerState = PlayerController.PlayerStates.WALL_SLIDE;
+            _playerController.ChangeState(PlayerController.PlayerStates.WALL_SLIDE);
             _playerController._playerDashController._canDash = true;
             loopAS = AudioManager._instance.Play2dLoop(wallSlide);
             wallSlideParticles.SetActive(true);
@@ -150,7 +150,7 @@ public class PlayerWallJumpController : MonoBehaviour
     public void StopSlide() 
     {
         isWallSliding = false;
-        _playerController.playerState = PlayerController.PlayerStates.AIR;
+        _playerController.ChangeState(PlayerController.PlayerStates.AIR);
 
         if (loopAS)
             AudioManager._instance.StopLoopSound(loopAS);
@@ -177,7 +177,7 @@ public class PlayerWallJumpController : MonoBehaviour
     public void WallJump()
     {
 
-        _playerController.playerState = PlayerController.PlayerStates.AIR;
+        _playerController.ChangeState(PlayerController.PlayerStates.AIR);
         isWallSliding = false;
         Vector2 jumpDir = new Vector2(-walledDir * wallJumpingPower.x, wallJumpingPower.y);
         rb2d.velocity = jumpDir;

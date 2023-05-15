@@ -39,7 +39,7 @@ public class PlayerRespawn : MonoBehaviour
             transform.position = posit.position;
             timeDead = startValue;
             rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
-            pc.playerState = PlayerController.PlayerStates.NONE;
+            pc.ChangeState(PlayerController.PlayerStates.NONE);
         }
     }
 
@@ -67,7 +67,6 @@ public class PlayerRespawn : MonoBehaviour
 
         rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
         pc.DeadAnimation();
-        pc.playerState = PlayerController.PlayerStates.DEAD;
         deathParticles.SetActive(true);
     }
 
@@ -80,12 +79,11 @@ public class PlayerRespawn : MonoBehaviour
     {
         if (collision.CompareTag("Obstaculo"))
         {
-            Die();
+            pc.ChangeState(PlayerController.PlayerStates.DEAD);
         }
-
         else if(collision.CompareTag("OVNI"))
         {
-            Die(); 
+            pc.ChangeState(PlayerController.PlayerStates.DEAD);
         }
     }
 }

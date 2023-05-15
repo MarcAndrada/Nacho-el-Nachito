@@ -53,7 +53,7 @@ public class PlayerDashController : MonoBehaviour
     public void StartDash(Vector2 _dashDir) 
     {
         _dashDirection = _dashDir;
-        _playerController.playerState = PlayerController.PlayerStates.DASH;
+        _playerController.ChangeState(PlayerController.PlayerStates.DASH);
 
         AudioManager._instance.PlayOneRandomShotSound(dashSounds, 0.55f, 1.45f, 0.6f);
         //Quaternion.Euler(0, 0, 90 * _playerController._movementController._lastDir)
@@ -157,7 +157,7 @@ public class PlayerDashController : MonoBehaviour
     {
         float _ySpeed = Mathf.Clamp(vdirection.y * _dashSpeed, -5, 5);
         rb2d.velocity = new Vector2(rb2d.velocity.x, _ySpeed);
-        _playerController.playerState = PlayerController.PlayerStates.NONE;
+        _playerController.ChangeState(PlayerController.PlayerStates.NONE);
         _dashTimePassed = 0;
     }
     

@@ -131,18 +131,18 @@ public class PlayerController : MonoBehaviour
             //Si esta en el suelo
             if (playerInput._playerMovement != 0)
             {
-                playerState = PlayerStates.MOVING;
+                ChangeState(PlayerStates.MOVING);
             }
             else
             {
-                playerState = PlayerStates.NONE;
+                ChangeState(PlayerStates.NONE);
             }
             
         }
         else
         {
             //Si esta en el aire
-            playerState = PlayerStates.AIR;
+            ChangeState(PlayerStates.AIR);
         }
     }
 
@@ -226,4 +226,32 @@ public class PlayerController : MonoBehaviour
             _canDash = true;
         }
     }
+
+    public void ChangeState(PlayerStates _nextState)
+    {
+        switch (_nextState)
+        {
+            case PlayerStates.NONE:
+                break;
+            case PlayerStates.MOVING:
+                break;
+            case PlayerStates.AIR:
+                break;
+            case PlayerStates.HOOK:
+                break;
+            case PlayerStates.WALL_SLIDE:
+                break;
+            case PlayerStates.CINEMATIC:
+                break;
+            case PlayerStates.DASH:
+                break;
+            case PlayerStates.DEAD:
+                playerRespawn.Die();
+                break;
+            default:
+                break;
+        }
+        playerState = _nextState;
+    }
+
 }
