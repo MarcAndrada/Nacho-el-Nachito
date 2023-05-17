@@ -38289,7 +38289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163771, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.13
+      value: 5.4
       objectReference: {fileID: 0}
     - target: {fileID: 3811425936376163771, guid: 0d3b7b734511f5849a1367f6aeec142e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -38998,6 +38998,7 @@ MonoBehaviour:
   maxPosY: 3
   sprite_on: {fileID: 1994254320, guid: 1c0ae706f67e15d4cb80f9a0dbd826b1, type: 3}
   sprite_off: {fileID: 215604066, guid: 1c0ae706f67e15d4cb80f9a0dbd826b1, type: 3}
+  leverSound: {fileID: 0}
 --- !u!61 &4697162224567367274
 BoxCollider2D:
   m_ObjectHideFlags: 0

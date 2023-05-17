@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private Animator anim;
 
+    public Rigidbody2D rb2d { get; private set; } 
     [SerializeField] public bool _canDash { get; private set; }
     [SerializeField] public bool _canHook { get; private set; }
 
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         dashController = GetComponent<PlayerDashController>();
         playerDownController = GetComponent<PlayerDownController>();
         interactionController = GetComponent<PlayerInteractionController>();
+        rb2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame

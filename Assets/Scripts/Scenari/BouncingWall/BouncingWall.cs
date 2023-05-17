@@ -9,6 +9,7 @@ public class BouncingWall : MonoBehaviour
     [SerializeField]
     private float bounceForce;
     private PlayerController _playerController;
+    private Animator animator;
 
     [Header("Sound"), SerializeField]
     private AudioClip bounceSound;
@@ -16,6 +17,7 @@ public class BouncingWall : MonoBehaviour
     private void Awake()
     {
         _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -27,6 +29,7 @@ public class BouncingWall : MonoBehaviour
             _playerController.GetComponent<Rigidbody2D>().velocity = direction;
             _playerController._movementController.externalForces = direction;
             AudioManager._instance.Play2dOneShotSound(bounceSound);
+            animator.SetTrigger("Bounce");
         }   
     }
 }
