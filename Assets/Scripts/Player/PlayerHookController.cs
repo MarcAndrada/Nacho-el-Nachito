@@ -17,6 +17,10 @@ public class PlayerHookController : MonoBehaviour
     [SerializeField]
     private Transform hookStarterPos;
     [SerializeField]
+    private GameObject rangeObj;
+    [SerializeField]
+    public float hookRange;
+    [SerializeField]
     private float checkRadius;
     [SerializeField]
     private float speed;
@@ -32,7 +36,7 @@ public class PlayerHookController : MonoBehaviour
     private GameObject hookPointSelected;
 
 
-    private PlayerController playerController;
+    public PlayerController playerController { get; private set; }
     private Rigidbody2D rb2d;
     private CapsuleCollider2D capsuleCollider;
 
@@ -194,8 +198,9 @@ public class PlayerHookController : MonoBehaviour
         
         if (_stickPoint)
         {
-            playerController.playerState = PlayerController.PlayerStates.HOOK;
+            playerController.ChangeState(PlayerController.PlayerStates.HOOK);
             posToReach = _target;
+
         }
 
         hookObj.SetActive(true);
@@ -232,9 +237,8 @@ public class PlayerHookController : MonoBehaviour
         float xSpeed = Mathf.Clamp(rb2d.velocity.x, -maxSpeedAtRelease, maxSpeedAtRelease);
         float ySpeed = Mathf.Clamp(rb2d.velocity.y, -maxSpeedAtRelease, maxSpeedAtRelease);
         rb2d.velocity = new Vector2(xSpeed, ySpeed);
-        playerController.playerState = PlayerController.PlayerStates.AIR;
+        playerController.ChangeState(PlayerController.PlayerStates.AIR);
         hookController.DisableHook();
-        playerController._playerDashController._canDash = true;
     }
 
     public void CheckPlayerNotStucked() 
@@ -310,24 +314,21 @@ public class PlayerHookController : MonoBehaviour
 
         return hit;
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         if (PlayerAimController._instance)
         {
             Gizmos.DrawWireSphere(PlayerAimController._instance.transform.position, checkRadius);
         }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, hookRange / 2);
     }
 
     public void CheckActivated()
     {
-        if (playerController._canHook)
-        {
-            _hookTarget.SetActive(true);
-        }
-        else
-        {
-            _hookTarget.SetActive(false);
-        }
+        _hookTarget.SetActive(playerController._canHook);
+        rangeObj.SetActive(playerController._canHook);
+        rangeObj.transform.localScale = new Vector2(hookRange, hookRange);
     }
 }

@@ -152,12 +152,18 @@ public class PlayerInput : MonoBehaviour
 
     private void InteractTextAction(InputAction.CallbackContext obj)
     {
-        cinematicManager.InteractText();
+        if (cinematicManager)
+        {
+            cinematicManager.InteractText();
+        }
     }
 
     private void InteractPauseAction(InputAction.CallbackContext obj)
     {
-        pauseGameController.PauseInteraction();
+        if (pauseGameController)
+        {
+            pauseGameController.PauseInteraction();
+        }
     }
     
     #endregion

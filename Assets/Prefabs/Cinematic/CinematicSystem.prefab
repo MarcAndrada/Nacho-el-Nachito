@@ -1442,6 +1442,7 @@ MonoBehaviour:
   - character: 0
     text: Yo Nacho, pero me puedes llamar Nachito.
   textSpeed: 0.05
+  typeSound: {fileID: 8300000, guid: 809f59866e1afca4c8f96682c7731acf, type: 3}
 --- !u!1 &8937057472705740184
 GameObject:
   m_ObjectHideFlags: 0

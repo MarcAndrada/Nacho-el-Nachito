@@ -27,29 +27,16 @@ public class BrokenPlatform : MonoBehaviour
     private void Awake()
     {
         coll = GetComponent<Collider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     private void Start()
     {
-        starterRot = transform.rotation;
+        starterRot = spriteRenderer.transform.rotation;
     }
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            ContactPoint2D[] contacts = new ContactPoint2D[1];
-            other.GetContacts(contacts);
-            if (contacts[0].normal == Vector2.down)
-            {
-                touched = true;
-                if (!fallAS)
-                    fallAS = AudioManager._instance.Play2dLoop(fallingLoop);
-            }
-        }
-    }
+
     private void FixedUpdate()
     {
-       if (touched)
+        if (touched)
         {
             Shake();
             timePassed += Time.fixedDeltaTime;
@@ -62,10 +49,10 @@ public class BrokenPlatform : MonoBehaviour
                 AudioManager._instance.StopLoopSound(fallAS);
                 fallAS = null;
                 AudioManager._instance.Play2dOneShotSound(fallSound);
-                transform.rotation = starterRot;
+                spriteRenderer.transform.rotation = starterRot;
             }
         }
-       else
+        else
         {
             if (!coll.enabled)
             {
@@ -83,6 +70,24 @@ public class BrokenPlatform : MonoBehaviour
 
     private void Shake()
     {
-        transform.rotation = Quaternion.Euler(starterRot.x, starterRot.y, starterRot.z + Random.Range(-rotationValue, rotationValue));
+        spriteRenderer.transform.rotation = Quaternion.Euler(starterRot.x, starterRot.y, starterRot.z + Random.Range(-rotationValue, rotationValue));
     }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            ContactPoint2D[] contacts = new ContactPoint2D[1];
+            other.GetContacts(contacts);
+            if (contacts[0].normal == Vector2.down)
+            {
+                touched = true;
+                if (!fallAS)
+                    fallAS = AudioManager._instance.Play2dLoop(fallingLoop, 0.6f, 0.75f, 1.25f);
+            }
+        }
+    }
+    
+
+   
 }

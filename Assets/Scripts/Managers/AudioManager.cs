@@ -82,12 +82,12 @@ public class AudioManager : MonoBehaviour
         actions3dAS[actions3dAS.Count - 1].rolloffMode = AudioRolloffMode.Linear;
     }
 
-    public void Play2dOneShotSound(AudioClip _clip, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 1)
+    public void Play2dOneShotSound(AudioClip _clip, float _volume = 1, float _minPitch = 0.75f, float _maxPitch = 1.25f)
     {
         AudioSource _as = GetUnused2dAS();
         PlayOneShotSound(_as, _clip, _minPitch, _maxPitch, _volume);
     }
-    public void Play3dOneShotSound(AudioClip _clip, float _radius, Vector2 _pos, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 1)
+    public void Play3dOneShotSound(AudioClip _clip, float _radius, Vector2 _pos, float _minPitch = 0.75f, float _maxPitch = 1.25f, float _volume = 1)
     {
         AudioSource _as = GetUnused3dAS();
         _as.minDistance = _radius;
@@ -95,7 +95,7 @@ public class AudioManager : MonoBehaviour
         _as.gameObject.transform.position = new Vector3(_pos.x, _pos.y, -10);
         PlayOneShotSound(_as, _clip, _minPitch, _maxPitch, _volume);
     }
-    private void PlayOneShotSound(AudioSource _as, AudioClip _clip, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 1)
+    private void PlayOneShotSound(AudioSource _as, AudioClip _clip, float _minPitch = 0.75f, float _maxPitch = 1.25f, float _volume = 1)
     {
         if (_as != null)
         {
@@ -108,12 +108,12 @@ public class AudioManager : MonoBehaviour
     }
 
     
-    public void PlayOneRandomShotSound(AudioClip[] _clips, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 1) 
+    public void PlayOneRandomShotSound(AudioClip[] _clips, float _minPitch = 0.75f, float _maxPitch = 1.25f, float _volume = 1) 
     {
         Play2dOneShotSound(_clips[Random.Range(0, _clips.Length)], _minPitch, _maxPitch, _volume);
     }
 
-    public AudioSource Play2dLoop(AudioClip _clip, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 0.4f) 
+    public AudioSource Play2dLoop(AudioClip _clip, float _minPitch = 0.75f, float _maxPitch = 1.25f, float _volume = 0.7f) 
     {
         AudioSource _as = GetUnused2dAS();
         
@@ -121,7 +121,7 @@ public class AudioManager : MonoBehaviour
 
         return _as;
     }
-    public AudioSource Play3dLoop(AudioClip _clip, float _radius, Vector2 _pos, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 0.4f) 
+    public AudioSource Play3dLoop(AudioClip _clip, float _radius, Vector2 _pos, float _minPitch = 0.75f, float _maxPitch = 1.25f, float _volume = 0.4f) 
     {
         AudioSource _as = GetUnused3dAS();
         _as.minDistance = _radius;
@@ -130,7 +130,7 @@ public class AudioManager : MonoBehaviour
         PlayLoopSound(_as, _clip, _minPitch, _maxPitch, _volume);
         return _as;
     }
-    private void PlayLoopSound(AudioSource _as, AudioClip _clip, float _minPitch = 0.85f, float _maxPitch = 1.25f, float _volume = 0.4f)
+    private void PlayLoopSound(AudioSource _as, AudioClip _clip, float _minPitch = 0.75f, float _maxPitch = 1.25f, float _volume = 0.4f)
     {
 
         _as.loop = true;
