@@ -21,14 +21,27 @@ public class HookController : MonoBehaviour
     private Rigidbody2D rb2d;
     private PlayerHookController playerHookController;
 
+    [Header("Particles"), SerializeField]
+    private ParticleSystem cheeseParticles;
+    [SerializeField]
+    private GameObject cheeseHitParticles;
+
     [Header("Sound"), SerializeField]
     private AudioClip hookHit;
+    [SerializeField]
+    private AudioClip hookMissSound;
 
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         rb2d = GetComponent<Rigidbody2D>();
         playerHookController = starterPos.GetComponentInParent<PlayerHookController>();
+
+    }
+
+    private void Start()
+    {
+        cheeseParticles.Stop();
     }
 
     // Update is called once per frame
@@ -53,7 +66,7 @@ public class HookController : MonoBehaviour
         posToReach = _posToReach;
         throwDir = _posToReach - starterPos.position;
         throwDir = throwDir.normalized;
-
+        cheeseParticles.Play();
         ResetHookPos();
 
     }
@@ -70,11 +83,12 @@ public class HookController : MonoBehaviour
             throwDir = (posToReach - (Vector2)transform.position).normalized;
             rb2d.velocity = throwDir * hookSpeed;
             CheckIfStopMoving();
+            cheeseParticles.transform.position = transform.position;
         }
     }
     private void CheckDistance()
     {
-        if (Vector2.Distance(transform.position, playerHookController.transform.position) > playerHookController.hookRange / 2)
+        if (Vector2.Distance(transform.position, playerHookController.transform.position) > playerHookController.hookRange / 2 && !hooked)
         {
             playerHookController.StopHook();
         }
@@ -90,6 +104,8 @@ public class HookController : MonoBehaviour
             {
                 DisableHook();
                 //Spawnear particulas de gancho fallado
+                Instantiate(cheeseHitParticles, transform.position, Quaternion.identity);
+                AudioManager._instance.Play2dOneShotSound(hookMissSound, 0.4f);
 
             }
             else
@@ -97,6 +113,8 @@ public class HookController : MonoBehaviour
                 hooked = true;
                 AudioManager._instance.Play2dOneShotSound(hookHit);
                 //Spawnear particulas de gancho dado
+                Instantiate(cheeseHitParticles, transform.position, Quaternion.identity);
+                playerHookController.playerController._playerDashController._canDash = true;
             }
         }
     }
@@ -104,7 +122,7 @@ public class HookController : MonoBehaviour
     public void DisableHook() 
     {
         playerHookController.canHook = true;
-        Debug.Log(Vector2.Distance(transform.position, playerHookController.transform.position));
+        cheeseParticles.Stop();
         gameObject.SetActive(false);
     }
 

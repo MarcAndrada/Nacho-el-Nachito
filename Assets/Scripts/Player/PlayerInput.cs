@@ -105,16 +105,30 @@ public class PlayerInput : MonoBehaviour
 
     private void GamepadHookAction(InputAction.CallbackContext obj)
     {
-        if (playerController._canHook)
+        switch (playerController.playerState)
         {
-            PlayerAimController._instance.gamepadDir = InputManager._instance.ingameAimAction.action.ReadValue<Vector2>();
-            playerController._hookController.HookInputPressed();
+            case PlayerController.PlayerStates.NONE:
+            case PlayerController.PlayerStates.MOVING:
+            case PlayerController.PlayerStates.AIR:
+            case PlayerController.PlayerStates.WALL_SLIDE:
+                if (playerController._canHook)
+                {
+                    PlayerAimController._instance.gamepadDir = InputManager._instance.ingameAimAction.action.ReadValue<Vector2>();
+                    playerController._hookController.HookInputPressed();
+                }
+                break;
+            default:
+                break;
         }
+        
     }
 
     private void MouseHookAction(InputAction.CallbackContext obj)
     { 
-        if (playerController._canHook) playerController._hookController.HookInputPressed();
+        if (playerController._canHook)
+        {
+            playerController._hookController.HookInputPressed();
+        }
     }
 
    

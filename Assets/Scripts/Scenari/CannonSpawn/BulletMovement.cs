@@ -30,12 +30,10 @@ public class BulletMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Colisiona con algo");
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor") ||
             collision.gameObject.layer == LayerMask.NameToLayer("Water") ||
             collision.gameObject.layer == LayerMask.NameToLayer("HookObstacle"))
         {
-            Debug.Log("MUERE 💀");
             sound3dController.PlaySound();
             Destroy(gameObject);
         }

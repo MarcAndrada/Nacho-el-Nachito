@@ -111,8 +111,10 @@ public class PlayerHookController : MonoBehaviour
         else
         {
             //Si no simplemente lanzarlo para que choque contra la pared sin bloquear el movimiento ni nada
+            Vector2 dir = (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE) ? (PlayerAimController._instance.transform.position - hookStarterPos.position).normalized : PlayerAimController._instance.gamepadDir;
+
             //Para ello comprobamos cual es la pared que estamos apuntando con la mira
-            RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, (PlayerAimController._instance.transform.position - hookStarterPos.position).normalized, Mathf.Infinity);
+            RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, dir, Mathf.Infinity);
             ThrowHook(hit2.point, false);
         }
     }
@@ -156,19 +158,25 @@ public class PlayerHookController : MonoBehaviour
     public void CheckHookGamepadDir()
     {
         //Aqui comprovar segun la direccion del joystick cual es el que esta mas cerca del otro
-        float hookPointDot = 0.3f;
+        float hookPointDot = 0.4f;
         float hookPointDistance = 50;
-        float dotOffset = 0.2f;
+        float dotOffset = 0.15f;
         float distanceOffset = 10;
         GameObject lookingObject = null;
         foreach (GameObject item in HookGamepadManager._instance.allHooks)
         {
             float provisionalDot = Vector2.Dot(PlayerAimController._instance.gamepadDir.normalized, (item.transform.position - transform.position).normalized);
             float provisionalDist = Vector2.Distance(item.transform.position, transform.position);
-            if (provisionalDot >= hookPointDot - dotOffset)
+            if (provisionalDot >= hookPointDot - dotOffset && provisionalDist <= hookRange / 2)
             {
-                if (provisionalDot - hookPointDot > -dotOffset && provisionalDist - hookPointDistance < distanceOffset )
+                if (provisionalDot - hookPointDot > 0 && provisionalDist - hookPointDistance < distanceOffset)
                 {
+                    RaycastHit2D hit = RaycastCheckFloor(hookStarterPos.position, (item.transform.position - transform.position).normalized, provisionalDist);
+
+                    if (lookingObject != null && hit.collider != null)
+                    {
+                        continue;
+                    }
                     hookPointDot = provisionalDot;
                     lookingObject = item;
                     hookPointDistance = provisionalDist;

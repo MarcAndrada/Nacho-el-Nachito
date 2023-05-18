@@ -20,6 +20,7 @@ public class PlayerInteractionController : MonoBehaviour
         {
             _collideLever = true;
             _lever = other.gameObject.GetComponent<LeverManager>();
+            _lever.ShowLeverButton();
         }
     }
 
@@ -28,6 +29,7 @@ public class PlayerInteractionController : MonoBehaviour
         if (other.CompareTag("Mechanism"))
         {
             _collideLever = false;
+            _lever.HideLeverButton();
             _lever = null;
         }
     }
