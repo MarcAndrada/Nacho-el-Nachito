@@ -19,7 +19,7 @@ public class LeverManager : MonoBehaviour
     private float startPosY;
 
     private SpriteRenderer spriteRenderer;
-
+    
     [SerializeField]
     private Sprite sprite_on;
     [SerializeField] 
@@ -27,6 +27,13 @@ public class LeverManager : MonoBehaviour
 
     [Header("Sound"), SerializeField]
     private AudioClip leverSound;
+
+    [Header("Button"), SerializeField]
+    private SpriteRenderer controlSR;
+    [SerializeField]
+    private Sprite keyboardSprite;
+    [SerializeField]
+    private Sprite controllerSprite;
     // Start is called before the first frame update
     void Awake()
     {
@@ -37,6 +44,7 @@ public class LeverManager : MonoBehaviour
     private void Start()
     {
         startPosY = door.position.y;
+        controlSR.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -70,5 +78,14 @@ public class LeverManager : MonoBehaviour
         AudioManager._instance.Play2dOneShotSound(leverSound);
     }
 
+    public void ShowLeverButton()
+    {
+        controlSR.gameObject.SetActive(true);
+        controlSR.sprite = (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.GAMEPAD) ? controllerSprite : keyboardSprite;
+    }
 
+    public void HideLeverButton() 
+    {
+        controlSR.gameObject.SetActive(false);
+    }
 }
