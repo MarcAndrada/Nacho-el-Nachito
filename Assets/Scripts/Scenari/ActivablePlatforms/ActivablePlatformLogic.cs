@@ -23,9 +23,11 @@ public class ActivablePlatformLogic : MonoBehaviour
     private AudioSource timerAS;
     
     [Header("Sprites"), SerializeField]
-    private Sprite spire_on;
+    private Sprite spritePressed;
     [SerializeField] 
-    private Sprite spire_off;
+    private Sprite spriteUnpressed;
+    [SerializeField]
+    private Sprite spriteHold;
 
     private void Awake()
     {
@@ -46,7 +48,7 @@ public class ActivablePlatformLogic : MonoBehaviour
                     
                 }
                 startEngine = false;
-                _spriteRenderer.sprite = spire_off;
+                _spriteRenderer.sprite = spriteUnpressed;
                 AudioManager._instance.StopLoopSound(timerAS);
                 timerAS = null;
                 AudioManager._instance.Play2dOneShotSound(buttonUnpressed);
@@ -62,6 +64,7 @@ public class ActivablePlatformLogic : MonoBehaviour
             {
                 platforms[i].gameObject.SetActive(true);
             }
+            _spriteRenderer.sprite = spriteHold;
             startEngine = false;
             engineTimePassed = 0;
             AudioManager._instance.Play2dOneShotSound(buttonPressed);
@@ -71,7 +74,7 @@ public class ActivablePlatformLogic : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            _spriteRenderer.sprite = spire_on;
+            _spriteRenderer.sprite = spritePressed;
             startEngine = true;
             AudioManager._instance.Play2dOneShotSound(buttonUnpressed);
             if(!timerAS)

@@ -182,7 +182,7 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 11
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
@@ -227,4 +227,7 @@ MonoBehaviour:
   hookSpeed: 60
   minDistanceToPoint: 0.4
   hooked: 0
+  cheeseParticles: {fileID: 0}
+  cheeseHitParticles: {fileID: 8190942970426133481, guid: c73e5a85b63686a468d8f9bf8efe284c, type: 3}
   hookHit: {fileID: 8300000, guid: c2838f40599c7e3479fb09cbbf6b2a6d, type: 3}
+  hookMissSound: {fileID: 8300000, guid: a869505a2f68bef46b400566217f6f3f, type: 3}

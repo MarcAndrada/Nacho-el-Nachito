@@ -78,21 +78,19 @@ public class PlayerMovementController : MonoBehaviour
     public Vector2 externalForces;
 
     private PlayerController playerController;
-    private Rigidbody2D rb2d;
     private CapsuleCollider2D capsuleCollider;
     private SpriteRenderer spriteRenderer;
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
-        rb2d = GetComponent<Rigidbody2D>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void ApplyForces() 
     {
-        
-        rb2d.velocity = movementForces;
+
+        playerController.rb2d.velocity = movementForces;
     }
 
     #region Floor Movement Functions
@@ -380,7 +378,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         jumpInputPerformed = true;
         canCoyote = false;
-        AudioManager._instance.Play2dOneShotSound(jump, 0.65f, 1.35f, 0.2f);
+        AudioManager._instance.Play2dOneShotSound(jump, 0.4f, 0.65f, 1.35f);
         Instantiate(jumpParticles, transform.position - new Vector3(0,footstepFeetOffset.y), jumpParticles.transform.rotation);
     }
 
@@ -397,7 +395,7 @@ public class PlayerMovementController : MonoBehaviour
         }
         else
         {
-            movementForces.y = rb2d.velocity.y;
+            movementForces.y = playerController.rb2d.velocity.y;
         }
     }
     public void StopJump()
@@ -407,9 +405,9 @@ public class PlayerMovementController : MonoBehaviour
         canJump = false;
         jumpInputPerformed = false;
         canCoyote = false;
-        if (rb2d.velocity.y > 0)
+        if (playerController.rb2d.velocity.y > 0)
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y / 3);
+            playerController.rb2d.velocity = new Vector2(playerController.rb2d.velocity.x, playerController.rb2d.velocity.y / 3);
         }
 
     }
@@ -450,11 +448,12 @@ public class PlayerMovementController : MonoBehaviour
         {
             externalForces = Vector2.Lerp(externalForces, Vector2.zero, Time.deltaTime * 1.5f);
         }
+
         // detect if we are touching layer floorLayer
         Vector3 posRay = transform.position + new Vector3(capsuleCollider.size.x / 2 * playerController._playerInput._playerMovement, capsuleCollider.size.y / 2);
         Vector2 rayDir = Vector2.right * Mathf.Clamp(externalForces.x, -1, 1);
         RaycastHit2D hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
-        if (hit)
+        if (hit && !hit.collider.CompareTag("OneWayPlatform"))
         {
             externalForces = Vector2.zero;
         }
@@ -462,7 +461,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             posRay.y -= capsuleCollider.size.y / 2;
             hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
-            if (hit)
+            if (hit && !hit.collider.CompareTag("OneWayPlatform"))
             {
                 externalForces = Vector2.zero;
             }
@@ -470,7 +469,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 posRay.y -= capsuleCollider.size.y / 2;
                 hit = DoRaycast(posRay, rayDir, checkFloorRange, floorLayer);
-                if (hit)
+                if (hit && !hit.collider.CompareTag("OneWayPlatform"))
                 {
                     externalForces = Vector2.zero;
                 }
@@ -516,7 +515,7 @@ public class PlayerMovementController : MonoBehaviour
             if (!hit)
             {
                 //En caso de que la parte inferior de la capsula toque una pared y un poco mas arriba no choque con nada lo subiremos un poco para que no se atasque
-                rb2d.position += new Vector2(0, slopeOffset);
+                playerController.rb2d.position += new Vector2(0, slopeOffset);
             }
         }
 

@@ -12,6 +12,8 @@ public class CannonSpawn : MonoBehaviour
 
     [SerializeField]
     private float _timePassed;
+    [SerializeField]
+    private float offset;
 
     Sound3dController sound3dController;
     private void Awake()
@@ -25,7 +27,7 @@ public class CannonSpawn : MonoBehaviour
         _timePassed -= Time.deltaTime;
         if (_timePassed <= 0)
         {
-            Instantiate(_bullet, transform.position, transform.rotation).GetComponent<BulletMovement>().dir = transform.right;
+            Instantiate(_bullet, transform.position + transform.right * offset, transform.rotation).GetComponent<BulletMovement>().dir = transform.right;
             _timePassed = _timeBetweenBullets;
             sound3dController.PlaySound();
         }

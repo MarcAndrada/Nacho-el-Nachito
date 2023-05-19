@@ -12,8 +12,12 @@ public class UpdateCheckPoint : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            _animator.SetBool("isActivated", true);
-            collision.GetComponent<PlayerRespawn>().SetRespawnPos(transform); 
+            if (!_animator.GetBool("isActivated"))
+            {
+                _animator.SetBool("isActivated", true);
+                collision.GetComponent<PlayerRespawn>().SetRespawnPos(transform);
+            }
+            
         }
     }
 } 
