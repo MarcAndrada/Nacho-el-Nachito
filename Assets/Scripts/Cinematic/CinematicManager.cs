@@ -10,7 +10,6 @@ using UnityEngine.TextCore.Text;
 public class CinematicManager : MonoBehaviour
 {
     public Transform gameCamera;
-    public Transform mainCamera;
     public Transform[] cameraPositions;
     public Transform[] characterPositions;
     public GameObject[] Characters;
@@ -35,12 +34,10 @@ public class CinematicManager : MonoBehaviour
         showDialog,
         setCameraPosition,
         setCameraSize,
-        cameraShake,
         setObjectActive,
         setObjectPosition,
         setPlayerFacing,
         setPlayerVelocity,
-        adjustCameraPosition
     };
 
     [System.Serializable]
@@ -113,7 +110,8 @@ public class CinematicManager : MonoBehaviour
     [Header("Sound"), SerializeField]
     private AudioClip typeSound;
 
-
+    [SerializeField]
+    Transform Dialog;
 
     // Start is called before the first frame update
     void Start()
@@ -214,13 +212,13 @@ public class CinematicManager : MonoBehaviour
 
                 if (command.id == CinematicCommandId.enterCinematicMode)
                 {
-                    gameCameraC.gameObject.SetActive(true);
+                    Dialog.gameObject.SetActive(true);
                     gameCameraC.EnterCinematicMode();
                     isCinematicMode = true;
                 }
                 else if (command.id == CinematicCommandId.exitCinematicMode)
                 {
-                    gameCameraC.gameObject.SetActive(false);
+                    Dialog.gameObject.SetActive(false);
                     gameCameraC.ExitCinematicMode();
                     isCinematicMode = false;
                     playingCinematic = false;
@@ -256,16 +254,6 @@ public class CinematicManager : MonoBehaviour
 
                     gameCameraC.SetSize(size);
                 }
-                else if (command.id == CinematicCommandId.cameraShake)
-                {
-                    float duracion = Single.Parse(command.param1);
-                    float amplitud = Single.Parse(command.param2);
-
-                    for (int i = 0; i < duracion; i++)
-                    {
-                        gameCameraC.cameraShake(duracion, amplitud);
-                    }
-                }
                 else if (command.id == CinematicCommandId.setObjectActive)
                 {
                     int objectIndex = Int32.Parse(command.param1);
@@ -296,14 +284,6 @@ public class CinematicManager : MonoBehaviour
                 else if (command.id == CinematicCommandId.setPlayerVelocity)
                 {
                     int speed = Int32.Parse(command.param1);
-
-                    //P1.speed = speed;
-                }
-                else if (command.id == CinematicCommandId.adjustCameraPosition)
-                {
-                    gameCamera.position = mainCamera.position;
-                    gameCamera.rotation = mainCamera.rotation;
-                    gameCamera.localScale = mainCamera.localScale;
                 }
                 else
                 {
