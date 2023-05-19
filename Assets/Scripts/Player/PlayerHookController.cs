@@ -17,6 +17,10 @@ public class PlayerHookController : MonoBehaviour
     [SerializeField]
     private Transform hookStarterPos;
     [SerializeField]
+    private GameObject rangeObj;
+    [SerializeField]
+    public float hookRange;
+    [SerializeField]
     private float checkRadius;
     [SerializeField]
     private float speed;
@@ -32,7 +36,7 @@ public class PlayerHookController : MonoBehaviour
     private GameObject hookPointSelected;
 
 
-    private PlayerController playerController;
+    public PlayerController playerController { get; private set; }
     private Rigidbody2D rb2d;
     private CapsuleCollider2D capsuleCollider;
 
@@ -107,8 +111,10 @@ public class PlayerHookController : MonoBehaviour
         else
         {
             //Si no simplemente lanzarlo para que choque contra la pared sin bloquear el movimiento ni nada
+            Vector2 dir = (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE) ? (PlayerAimController._instance.transform.position - hookStarterPos.position).normalized : PlayerAimController._instance.gamepadDir;
+
             //Para ello comprobamos cual es la pared que estamos apuntando con la mira
-            RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, (PlayerAimController._instance.transform.position - hookStarterPos.position).normalized, Mathf.Infinity);
+            RaycastHit2D hit2 = RaycastCheckFloor(hookStarterPos.position, dir, Mathf.Infinity);
             ThrowHook(hit2.point, false);
         }
     }
@@ -152,19 +158,25 @@ public class PlayerHookController : MonoBehaviour
     public void CheckHookGamepadDir()
     {
         //Aqui comprovar segun la direccion del joystick cual es el que esta mas cerca del otro
-        float hookPointDot = 0.3f;
+        float hookPointDot = 0.4f;
         float hookPointDistance = 50;
-        float dotOffset = 0.2f;
+        float dotOffset = 0.15f;
         float distanceOffset = 10;
         GameObject lookingObject = null;
         foreach (GameObject item in HookGamepadManager._instance.allHooks)
         {
             float provisionalDot = Vector2.Dot(PlayerAimController._instance.gamepadDir.normalized, (item.transform.position - transform.position).normalized);
             float provisionalDist = Vector2.Distance(item.transform.position, transform.position);
-            if (provisionalDot >= hookPointDot - dotOffset)
+            if (provisionalDot >= hookPointDot - dotOffset && provisionalDist <= hookRange / 2)
             {
-                if (provisionalDot - hookPointDot > -dotOffset && provisionalDist - hookPointDistance < distanceOffset )
+                if (provisionalDot - hookPointDot > 0 && provisionalDist - hookPointDistance < distanceOffset)
                 {
+                    RaycastHit2D hit = RaycastCheckFloor(hookStarterPos.position, (item.transform.position - transform.position).normalized, provisionalDist);
+
+                    if (lookingObject != null && hit.collider != null)
+                    {
+                        continue;
+                    }
                     hookPointDot = provisionalDot;
                     lookingObject = item;
                     hookPointDistance = provisionalDist;
@@ -194,8 +206,9 @@ public class PlayerHookController : MonoBehaviour
         
         if (_stickPoint)
         {
-            playerController.playerState = PlayerController.PlayerStates.HOOK;
+            playerController.ChangeState(PlayerController.PlayerStates.HOOK);
             posToReach = _target;
+
         }
 
         hookObj.SetActive(true);
@@ -232,9 +245,8 @@ public class PlayerHookController : MonoBehaviour
         float xSpeed = Mathf.Clamp(rb2d.velocity.x, -maxSpeedAtRelease, maxSpeedAtRelease);
         float ySpeed = Mathf.Clamp(rb2d.velocity.y, -maxSpeedAtRelease, maxSpeedAtRelease);
         rb2d.velocity = new Vector2(xSpeed, ySpeed);
-        playerController.playerState = PlayerController.PlayerStates.AIR;
+        playerController.ChangeState(PlayerController.PlayerStates.AIR);
         hookController.DisableHook();
-        playerController._playerDashController._canDash = true;
     }
 
     public void CheckPlayerNotStucked() 
@@ -310,24 +322,21 @@ public class PlayerHookController : MonoBehaviour
 
         return hit;
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         if (PlayerAimController._instance)
         {
             Gizmos.DrawWireSphere(PlayerAimController._instance.transform.position, checkRadius);
         }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, hookRange / 2);
     }
 
     public void CheckActivated()
     {
-        if (playerController._canHook)
-        {
-            _hookTarget.SetActive(true);
-        }
-        else
-        {
-            _hookTarget.SetActive(false);
-        }
+        _hookTarget.SetActive(playerController._canHook);
+        rangeObj.SetActive(playerController._canHook);
+        rangeObj.transform.localScale = new Vector2(hookRange, hookRange);
     }
 }

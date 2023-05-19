@@ -32,6 +32,14 @@ public class newCameraController : MonoBehaviour
             transform.position = Vector2.Lerp(starterPos, targetPos, moveProcess);
             transform.position = new Vector3(transform.position.x, transform.position.y, -10);   
             Vector2 camProcess = Vector2.Lerp(starterSize, targetSize, moveProcess);
+            if ((int)camProcess.x % 2 != 0 )
+            {
+                camProcess.x++;
+            }
+            if ((int)camProcess.y % 2 != 0 )
+            {
+                camProcess.y++;
+            }
             pixelCam.refResolutionX = (int)camProcess.x;
             pixelCam.refResolutionY = (int)camProcess.y;
             if (moveProcess >= 1)

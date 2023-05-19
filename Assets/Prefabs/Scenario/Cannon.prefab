@@ -103,6 +103,7 @@ MonoBehaviour:
   _timeBetweenBullets: 2
   _bullet: {fileID: 5575625888041688526, guid: eddd1e76b71477f4294fd5675062a996, type: 3}
   _timePassed: 0
+  offset: 0.6
 --- !u!114 &2945516205522465124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,9 +119,9 @@ MonoBehaviour:
   isLoop: 0
   playAtStart: 0
   clip: {fileID: 8300000, guid: 656a06deb6a00ec4cb84017cbed62a3c, type: 3}
-  radius: 2
-  minMaxPitch: {x: 0.75, y: 1.25}
-  volume: 0.2
+  radius: 3.5
+  minMaxPitch: {x: 0.6, y: 1.4}
+  volume: 0.6
 --- !u!95 &6651201530166612801
 Animator:
   serializedVersion: 5

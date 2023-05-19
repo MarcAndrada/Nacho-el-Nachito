@@ -11,32 +11,28 @@ public class ManagerScene : MonoBehaviour
 
     [SerializeField] private string NextLevel;
 
-    private bool startTimer = true;
     private bool levelFinished = false;
-    private float timer = 0;
+    private float timer = 1.1f;
 
     private void Start()
     {
         startingTransition.SetActive(true);
+        AudioManager._instance.Play2dOneShotSound(Resources.Load("FadeOutTransition") as AudioClip);
     }
 
     private void Update()
     {
-        if(startTimer)
+        if(levelFinished)
         {
             timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                SceneManager.LoadScene(NextLevel);
+            }
         }
 
-        if (timer <= 0 && !levelFinished)
-        {
-            startTimer = false;
-            timer = 1.1f;
-        }
 
-        if (timer <= 0 && levelFinished)
-        {
-            SceneManager.LoadScene(NextLevel);
-        }
+       
     }
 
     private void DisableStartingTransition()
@@ -50,7 +46,8 @@ public class ManagerScene : MonoBehaviour
         {
             endTransition.SetActive(true);
             levelFinished = true;
-            startTimer = true;
+            AudioManager._instance.Play2dOneShotSound(Resources.Load("FadeInTransition") as AudioClip);
+
         }
     }
 }

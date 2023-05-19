@@ -16,7 +16,7 @@ public class BossKillsNachito : MonoBehaviour
         Debug.Log("kill");
         if (collision.CompareTag("Player"))
         {
-            pc.playerState = PlayerController.PlayerStates.DEAD;
+            pc.ChangeState(PlayerController.PlayerStates.DEAD);
         }
     }
 }
