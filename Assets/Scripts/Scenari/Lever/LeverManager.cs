@@ -10,7 +10,8 @@ public class LeverManager : MonoBehaviour
     private Rigidbody2D rb2d;
 
     public bool activated = false;
-    private float speed = 10;
+    [SerializeField]
+    private float openSpeed = 10;
     
     [SerializeField]
     private float maxPosY;
@@ -18,17 +19,32 @@ public class LeverManager : MonoBehaviour
     private float startPosY;
 
     private SpriteRenderer spriteRenderer;
-
+    
     [SerializeField]
     private Sprite sprite_on;
     [SerializeField] 
     private Sprite sprite_off;
+
+    [Header("Sound"), SerializeField]
+    private AudioClip leverSound;
+
+    [Header("Button"), SerializeField]
+    private SpriteRenderer controlSR;
+    [SerializeField]
+    private Sprite keyboardSprite;
+    [SerializeField]
+    private Sprite controllerSprite;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb2d = door.GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
         startPosY = door.position.y;
+        controlSR.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -36,11 +52,11 @@ public class LeverManager : MonoBehaviour
     {
         if(activated && door.transform.position.y <= maxPosY + startPosY)
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, speed);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, openSpeed);
         }
         else if(!activated && door.transform.position.y > startPosY)
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, -speed);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, -openSpeed);
         }
         else
         {
@@ -59,7 +75,17 @@ public class LeverManager : MonoBehaviour
             spriteRenderer.sprite = sprite_off;
         }
         activated = !activated;
+        AudioManager._instance.Play2dOneShotSound(leverSound);
     }
 
+    public void ShowLeverButton()
+    {
+        controlSR.gameObject.SetActive(true);
+        controlSR.sprite = (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.GAMEPAD) ? controllerSprite : keyboardSprite;
+    }
 
+    public void HideLeverButton() 
+    {
+        controlSR.gameObject.SetActive(false);
+    }
 }

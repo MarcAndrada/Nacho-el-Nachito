@@ -223,7 +223,7 @@
                     "id": "62a0eae0-ec72-454e-9ba1-bb2c6b5a4079",
                     "path": "2DVector(mode=2)",
                     "interactions": "",
-                    "processors": "NormalizeVector2",
+                    "processors": "",
                     "groups": "",
                     "action": "AimHook",
                     "isComposite": true,

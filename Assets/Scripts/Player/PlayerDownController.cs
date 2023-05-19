@@ -35,7 +35,6 @@ public class PlayerDownController : MonoBehaviour
     {
         if (_collideOneWay && goingDown)
         {
-            Debug.Log("Collide with plarform");
             _oneWayPlatform.Activate();
         }
     }

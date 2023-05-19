@@ -110,6 +110,11 @@ public class CinematicManager : MonoBehaviour
 
     private string text;
 
+    [Header("Sound"), SerializeField]
+    private AudioClip typeSound;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -139,7 +144,7 @@ public class CinematicManager : MonoBehaviour
         {
             playingCinematic = true;
 
-            PC.playerState = PlayerController.PlayerStates.CINEMATIC;
+            PC.ChangeState(PlayerController.PlayerStates.CINEMATIC);
 
             rb2d.velocity = new Vector2(0, 0);
 
@@ -219,7 +224,7 @@ public class CinematicManager : MonoBehaviour
                     gameCameraC.ExitCinematicMode();
                     isCinematicMode = false;
                     playingCinematic = false;
-                    PC.playerState = PlayerController.PlayerStates.NONE;
+                    PC.ChangeState(PlayerController.PlayerStates.NONE);
                 }
                 else if (command.id == CinematicCommandId.wait)
                 {
@@ -362,6 +367,9 @@ public class CinematicManager : MonoBehaviour
             }
 
             dialogTextC.text += c;
+            if (textSpeed != 0)
+                AudioManager._instance.Play2dOneShotSound(typeSound, 0.3f, 0.5f, 1.5f);
+
             yield return new WaitForSeconds(textSpeed);
         }
     }
@@ -377,36 +385,40 @@ public class CinematicManager : MonoBehaviour
 
     public void InteractText()
     {
-        if (dialogTextC.text == dialogsData[dialogIndex].text)
+        if (dialogTextC && dialogsData[dialogIndex].text != null)
         {
-            NextLine();
-
-            showingDialog = false;
-
-            for (int i = 0; i < dialogCommon.Length; i++)
+            if (dialogTextC.text == dialogsData[dialogIndex].text)
             {
-                dialogCommon[i].gameObject.SetActive(false);
-            }
-            for (int i = 0; i < dialogCharacters.Length; i++)
-            {
-                dialogCharacters[i].gameObject.SetActive(false);
-            }
+                NextLine();
 
-            commandIndex++;
+                showingDialog = false;
 
-            if (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE)
-            {
-                instructionsText[0].gameObject.SetActive(false);
+                for (int i = 0; i < dialogCommon.Length; i++)
+                {
+                    dialogCommon[i].gameObject.SetActive(false);
+                }
+                for (int i = 0; i < dialogCharacters.Length; i++)
+                {
+                    dialogCharacters[i].gameObject.SetActive(false);
+                }
+
+                commandIndex++;
+
+                if (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.MOUSE)
+                {
+                    instructionsText[0].gameObject.SetActive(false);
+                }
+                else
+                {
+                    instructionsText[1].gameObject.SetActive(false);
+                }
             }
             else
             {
-                instructionsText[1].gameObject.SetActive(false);
+                StopAllCoroutines();
+                dialogTextC.text = text;
             }
         }
-        else
-        {
-            StopAllCoroutines();
-            dialogTextC.text = text;
-        }
+        
     }
 }
