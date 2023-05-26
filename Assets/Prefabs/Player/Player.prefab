@@ -10073,11 +10073,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeDead: 3
-  posit: {fileID: 0}
   deathParticles: {fileID: 3281259258413465363}
   deadSound: {fileID: 8300000, guid: e8d0585b48cfc9843acd8605d0cbd6c6, type: 3}
   respawnSound: {fileID: 8300000, guid: fd391d102980a9c48ba493f3afe65201, type: 3}
   checkPoint: {fileID: 8300000, guid: 9a112b74b2fb75d4b942205c87dfa0ce, type: 3}
+  hookTarget: {fileID: 2306577691442787101}
 --- !u!114 &8293219300181173161
 MonoBehaviour:
   m_ObjectHideFlags: 0
