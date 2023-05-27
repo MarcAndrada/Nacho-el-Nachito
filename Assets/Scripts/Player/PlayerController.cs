@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviour
                 dashController.Dash();
                 dashController.DashTimer();
                 dashController.DashCheckWall();
+                wallJumpController.CheckIfWallSliding();
                 break;
             case PlayerStates.CINEMATIC:
                 // NADA
@@ -242,6 +243,7 @@ public class PlayerController : MonoBehaviour
             case PlayerStates.HOOK:
                 break;
             case PlayerStates.WALL_SLIDE:
+                movementController.externalForces = Vector2.zero;
                 break;
             case PlayerStates.CINEMATIC:
                 break;

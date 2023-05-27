@@ -32,53 +32,78 @@ public class ActivablePlatformLogic : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        DisablePlatforms();
     }
 
     // Update is called once per frame
     void Update()
+    {
+        WaitToDiasble();
+    }
+
+    private void ActivatePlatforms() 
+    {
+        for (int i = 0; i < platforms.Length; i++)
+        {
+            platforms[i].gameObject.SetActive(true);
+        }
+        _spriteRenderer.sprite = spriteHold;
+        startEngine = false;
+        engineTimePassed = 0;
+        AudioManager._instance.Play2dOneShotSound(buttonPressed);
+    }
+    private void StartCountDown()
+    {
+        _spriteRenderer.sprite = spritePressed;
+        startEngine = true;
+        AudioManager._instance.Play2dOneShotSound(buttonUnpressed);
+        if (!timerAS)
+            timerAS = AudioManager._instance.Play2dLoop(buttonTimer);
+    }
+
+    private void WaitToDiasble()
     {
         if (startEngine)
         {
             engineTimePassed += Time.deltaTime;
             if (engineTimer <= engineTimePassed)
             {
-                for (int i = 0; i < platforms.Length; i++)
-                {
-                    platforms[i].gameObject.SetActive(false);
-                    
-                }
-                startEngine = false;
-                _spriteRenderer.sprite = spriteUnpressed;
-                AudioManager._instance.StopLoopSound(timerAS);
-                timerAS = null;
-                AudioManager._instance.Play2dOneShotSound(buttonUnpressed);
+               DisablePlatforms();
             }
         }
     }
+    private void DisablePlatforms()
+    {
+        for (int i = 0; i < platforms.Length; i++)
+        {
+            platforms[i].gameObject.SetActive(false);
+
+        }
+        startEngine = false;
+        _spriteRenderer.sprite = spriteUnpressed;
+        if (timerAS)
+        {
+            AudioManager._instance.StopLoopSound(timerAS);
+            AudioManager._instance.Play2dOneShotSound(buttonUnpressed);
+        }
+
+        timerAS = null;
+    }
+
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            for (int i = 0; i < platforms.Length; i++)
-            {
-                platforms[i].gameObject.SetActive(true);
-            }
-            _spriteRenderer.sprite = spriteHold;
-            startEngine = false;
-            engineTimePassed = 0;
-            AudioManager._instance.Play2dOneShotSound(buttonPressed);
+            ActivatePlatforms();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            _spriteRenderer.sprite = spritePressed;
-            startEngine = true;
-            AudioManager._instance.Play2dOneShotSound(buttonUnpressed);
-            if(!timerAS)
-                timerAS = AudioManager._instance.Play2dLoop(buttonTimer);
+            StartCountDown();
         }
     }
 
