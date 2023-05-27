@@ -61,7 +61,7 @@ public class BossMovements : MonoBehaviour
                     ChasePlayer(lightningSpeed, true);
                     break;
                 case BossStates.ABDUCING:
-                    ChasePlayer(abduceSpeed, false);
+                    ChasePlayer(abduceSpeed, true);
                     break;
                 case BossStates.THROWING:
                     ChasePlayer(lightningSpeed, true);
