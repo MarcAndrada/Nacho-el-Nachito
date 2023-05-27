@@ -226,10 +226,10 @@ PlatformEffector2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1471598518}
   m_Enabled: 1
-  m_UseColliderMask: 1
+  m_UseColliderMask: 0
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 32776
   m_RotationalOffset: 0
   m_UseOneWay: 0
   m_UseOneWayGrouping: 0
@@ -366,7 +366,7 @@ MonoBehaviour:
   door: {fileID: 1471598519}
   activated: 0
   openSpeed: 10
-  maxPosY: 3
+  maxDistance: 0
   sprite_on: {fileID: 215604066, guid: 1c0ae706f67e15d4cb80f9a0dbd826b1, type: 3}
   sprite_off: {fileID: 1994254320, guid: 1c0ae706f67e15d4cb80f9a0dbd826b1, type: 3}
   leverSound: {fileID: 8300000, guid: 040633f8d47cec745ab9126f64623d8d, type: 3}
