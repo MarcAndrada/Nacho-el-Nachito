@@ -11426,10 +11426,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1494009804553365941, guid: c69162044de013a4d858dbe73317e307, type: 3}
-      propertyPath: dropdownQuality
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1494009804553365942, guid: c69162044de013a4d858dbe73317e307, type: 3}
       propertyPath: ScreenToggle
       value: 

@@ -9,7 +9,7 @@ using UnityEngine.TextCore.Text;
 
 public class CinematicManager : MonoBehaviour
 {
-    public Transform gameCamera;
+    private Transform gameCamera;
     public Transform[] cameraPositions;
     public Transform[] characterPositions;
     public GameObject[] Characters;
@@ -132,7 +132,8 @@ public class CinematicManager : MonoBehaviour
 
         dialogTextC = dialogText.GetComponent<TextMeshProUGUI>();
 
-        gameCameraC = gameCamera.GetComponent<GameCamera>();
+        gameCameraC = FindObjectOfType<GameCamera>();
+        gameCamera = gameCameraC.transform;
     }
 
     // Update is called once per frame

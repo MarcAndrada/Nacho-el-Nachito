@@ -9946,7 +9946,7 @@ MonoBehaviour:
   checkFloorRange: 0.2
   floorLayer:
     serializedVersion: 2
-    m_Bits: 49216
+    m_Bits: 16448
   canCoyote: 0
   coyoteTime: 0.1
   airMoveSpeed: 6.5
@@ -10073,7 +10073,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeDead: 3
-  posit: {fileID: 0}
   deathParticles: {fileID: 3281259258413465363}
   deadSound: {fileID: 8300000, guid: e8d0585b48cfc9843acd8605d0cbd6c6, type: 3}
   respawnSound: {fileID: 8300000, guid: fd391d102980a9c48ba493f3afe65201, type: 3}

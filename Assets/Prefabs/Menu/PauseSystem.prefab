@@ -6714,7 +6714,7 @@ Transform:
   - {fileID: 1083804651}
   - {fileID: 1941766059}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1741383606367020867
 GameObject:
@@ -10994,7 +10994,8 @@ PrefabInstance:
       propertyPath: masterSlider
       value: 
       objectReference: {fileID: 7542330104036183740}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1494009804553365941, guid: c69162044de013a4d858dbe73317e307, type: 3}
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c69162044de013a4d858dbe73317e307, type: 3}
 --- !u!114 &7469297482016983250 stripped

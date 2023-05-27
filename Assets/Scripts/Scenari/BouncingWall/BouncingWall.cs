@@ -27,6 +27,20 @@ public class BouncingWall : MonoBehaviour
             Vector2 direction = (Vector2)transform.right * bounceForce + Vector2.up * bounceForce / 2;
             _playerController.GetComponent<Rigidbody2D>().velocity = direction;
             _playerController._movementController.externalForces = direction;
+            _playerController._playerDashController._canDash = true;
+            switch (_playerController.playerState)
+            {
+                case PlayerController.PlayerStates.NONE:
+                case PlayerController.PlayerStates.MOVING:
+                case PlayerController.PlayerStates.AIR:
+                case PlayerController.PlayerStates.WALL_SLIDE:
+                case PlayerController.PlayerStates.DASH:
+                    _playerController.ChangeState(PlayerController.PlayerStates.AIR);
+                    break;
+
+                default:
+                    break;
+            }
             AudioManager._instance.Play2dOneShotSound(bounceSound);
             animator.SetTrigger("Bounce");
         }   
