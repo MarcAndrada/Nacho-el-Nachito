@@ -13,6 +13,10 @@ public class BossMovements : MonoBehaviour
     private float constantYPos;
     [SerializeField]
     private float bossYOffset;
+    [HideInInspector]
+    public Vector3 starterPos;
+
+
 
     [Header("Lightning"), SerializeField]
     private GameObject lightningObj;
@@ -34,14 +38,16 @@ public class BossMovements : MonoBehaviour
     private CinematicManager _cm;
     private Rigidbody2D rb;
     private AbducePlayerUp abduceCont;
-
+    private PlayerController playerController;
 
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         abduceCont = abduceObj.GetComponentInChildren<AbducePlayerUp>();
+        playerController = playerPos.GetComponent<PlayerController>();
         ChangeBossState(bossState);
+        starterPos = transform.position;
     }
 
     // Update is called once per frame
@@ -55,7 +61,7 @@ public class BossMovements : MonoBehaviour
                     ChasePlayer(lightningSpeed, true);
                     break;
                 case BossStates.ABDUCING:
-                    ChasePlayer(abduceSpeed, false);
+                    ChasePlayer(abduceSpeed, true);
                     break;
                 case BossStates.THROWING:
                     ChasePlayer(lightningSpeed, true);
@@ -67,7 +73,18 @@ public class BossMovements : MonoBehaviour
                     break;
             }
 
-        }  
+        }
+
+        
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (playerController.playerState == PlayerController.PlayerStates.DEAD)
+        {
+            ResetBoss();
+        }
     }
 
     private void ChasePlayer(float _chaseSpeed, bool _constantY)
@@ -132,6 +149,6 @@ public class BossMovements : MonoBehaviour
 
     public void ResetBoss()
     {
-
+        transform.position = starterPos;
     }
 }
