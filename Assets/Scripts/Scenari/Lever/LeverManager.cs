@@ -10,13 +10,14 @@ public class LeverManager : MonoBehaviour
     private Rigidbody2D rb2d;
 
     public bool activated = false;
+    private bool moving = false;
     [SerializeField]
     private float openSpeed = 10;
     
     [SerializeField]
-    private float maxPosY;
+    private float maxDistance;
 
-    private float startPosY;
+    private Vector2 startPos;
 
     private SpriteRenderer spriteRenderer;
     
@@ -43,27 +44,42 @@ public class LeverManager : MonoBehaviour
 
     private void Start()
     {
-        startPosY = door.position.y;
+        startPos = door.position;
         controlSR.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(activated && door.transform.position.y <= maxPosY + startPosY)
+        if (moving)
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, openSpeed);
+
+            if (activated)
+            {
+                rb2d.velocity = door.up * openSpeed;
+                if (Vector2.Distance(startPos, door.position) >= maxDistance)
+                {
+                    rb2d.velocity = new Vector2(0, 0);
+                    moving = false;
+                    door.position = startPos + (Vector2)door.up * maxDistance;
+                    rb2d.bodyType = RigidbodyType2D.Static;
+                }
+            }
+            else
+            {
+                rb2d.velocity = -door.transform.up * openSpeed;
+                if (Vector2.Distance(startPos, door.transform.position) <= 0.1f)
+                {
+                    door.position = startPos;
+                    rb2d.velocity = new Vector2(0, 0);
+                    moving = false;
+                    rb2d.bodyType = RigidbodyType2D.Static;
+                }
+            }
         }
-        else if(!activated && door.transform.position.y > startPosY)
-        {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, -openSpeed);
-        }
-        else
-        {
-            rb2d.velocity = new Vector2(0, 0);
-        }
+
     }
-    
+
     public void ActivateLever()
     {
         if (!activated)
@@ -76,6 +92,8 @@ public class LeverManager : MonoBehaviour
         }
         activated = !activated;
         AudioManager._instance.Play2dOneShotSound(leverSound);
+        moving = true;
+        rb2d.bodyType = RigidbodyType2D.Dynamic;
     }
 
     public void ShowLeverButton()
