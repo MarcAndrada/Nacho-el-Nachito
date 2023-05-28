@@ -20,7 +20,6 @@ public class PlayerDashController : MonoBehaviour
     // DASH VARIABLES
 
     public bool _canDash;
-    private bool timeStopped;
     
     private Vector2 vdirection;
     [HideInInspector] public  Vector2 _dashDirection;
@@ -45,10 +44,6 @@ public class PlayerDashController : MonoBehaviour
         coll = GetComponent<CapsuleCollider2D>();
     }
 
-    private void Start()
-    {
-        timeStopped = false;
-    }
 
     public void StartDash(Vector2 _dashDir) 
     {
@@ -96,16 +91,13 @@ public class PlayerDashController : MonoBehaviour
 
     public void DashTimer()
     {
-        if (!timeStopped)
+        _playerController._movementController.SetAirAcceleration(vdirection.x);
+        _dashTimePassed += Time.deltaTime;
+        if (_dashTimePassed >= _dashTime)
         {
-            _playerController._movementController.SetAirAcceleration(vdirection.x);
-            _dashTimePassed += Time.deltaTime;
-            if (_dashTimePassed >= _dashTime)
-            {
-                StopDash();
-            }
+            StopDash();
         }
-        
+
     }
 
     public void DashCheckWall()
@@ -115,17 +107,10 @@ public class PlayerDashController : MonoBehaviour
 
         //esta condicion es para que cuando este en el suelo no se encuentre con una plataforma
         //un poco movida y mueva al player cuando no deberia hacerlo
-        if (!_playerController._movementController._isGrounded)
-        {
-            posOffset.y += capsuleOffset;
-        }
-        else
-        {
-            posOffset.y -= capsuleOffset;
-        }
 
-        RaycastHit2D hitUpRaycastHit2D = Physics2D.Raycast(transform.position + posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
-        RaycastHit2D hitDownRaycastHit2D = Physics2D.Raycast(transform.position - posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
+
+        RaycastHit2D hitUpRaycastHit2D = Physics2D.Raycast(transform.position + posOffset -  new Vector3(0,capsuleOffset), transform.right * _dashDirection.x, 0.55f, floorLayer);
+        RaycastHit2D hitDownRaycastHit2D = Physics2D.Raycast(transform.position - posOffset + new Vector3(0, capsuleOffset), transform.right * _dashDirection.x, 0.55f, floorLayer);
         if (_dashDirectional)
         {
             bool hitUp = hitUpRaycastHit2D.collider != null && !hitUpRaycastHit2D.collider.CompareTag("OneWayPlatform");
@@ -136,17 +121,11 @@ public class PlayerDashController : MonoBehaviour
             }
             else if (hitUp)
             {
-                timeStopped = true;
                 rb2d.velocity -= new Vector2(0, speedDashController);
             }
             else if (hitDown)
             {
-                timeStopped = true;
                 rb2d.velocity += new Vector2(0, speedDashController);
-            }
-            else
-            {
-                timeStopped = false;
             }
         }
         

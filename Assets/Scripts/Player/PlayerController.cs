@@ -112,6 +112,7 @@ public class PlayerController : MonoBehaviour
             case PlayerStates.DASH:
                 dashController.Dash();
                 dashController.DashTimer();
+                _movementController.CheckGrounded();
                 dashController.DashCheckWall();
                 wallJumpController.CheckIfWallSliding();
                 break;
