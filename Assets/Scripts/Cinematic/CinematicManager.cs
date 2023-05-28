@@ -132,8 +132,8 @@ public class CinematicManager : MonoBehaviour
 
         dialogTextC = dialogText.GetComponent<TextMeshProUGUI>();
 
-        gameCameraC = FindObjectOfType<GameCamera>();
-        gameCamera = gameCameraC.transform;
+        //gameCameraC = FindObjectOfType<GameCamera>();
+        //gameCamera = gameCameraC.transform;
     }
 
     // Update is called once per frame
@@ -214,13 +214,11 @@ public class CinematicManager : MonoBehaviour
                 if (command.id == CinematicCommandId.enterCinematicMode)
                 {
                     Dialog.gameObject.SetActive(true);
-                    gameCameraC.EnterCinematicMode();
                     isCinematicMode = true;
                 }
                 else if (command.id == CinematicCommandId.exitCinematicMode)
                 {
                     Dialog.gameObject.SetActive(false);
-                    gameCameraC.ExitCinematicMode();
                     isCinematicMode = false;
                     playingCinematic = false;
                     PC.ChangeState(PlayerController.PlayerStates.NONE);
