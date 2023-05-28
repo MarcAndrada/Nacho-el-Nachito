@@ -9,8 +9,7 @@ using UnityEngine.TextCore.Text;
 
 public class CinematicManager : MonoBehaviour
 {
-    public Transform gameCamera;
-    public Transform mainCamera;
+    private Transform gameCamera;
     public Transform[] cameraPositions;
     public Transform[] characterPositions;
     public GameObject[] Characters;
@@ -35,12 +34,10 @@ public class CinematicManager : MonoBehaviour
         showDialog,
         setCameraPosition,
         setCameraSize,
-        cameraShake,
         setObjectActive,
         setObjectPosition,
         setPlayerFacing,
         setPlayerVelocity,
-        adjustCameraPosition
     };
 
     [System.Serializable]
@@ -113,7 +110,8 @@ public class CinematicManager : MonoBehaviour
     [Header("Sound"), SerializeField]
     private AudioClip typeSound;
 
-
+    [SerializeField]
+    Transform Dialog;
 
     // Start is called before the first frame update
     void Start()
@@ -134,7 +132,8 @@ public class CinematicManager : MonoBehaviour
 
         dialogTextC = dialogText.GetComponent<TextMeshProUGUI>();
 
-        gameCameraC = gameCamera.GetComponent<GameCamera>();
+        //gameCameraC = FindObjectOfType<GameCamera>();
+        //gameCamera = gameCameraC.transform;
     }
 
     // Update is called once per frame
@@ -214,14 +213,12 @@ public class CinematicManager : MonoBehaviour
 
                 if (command.id == CinematicCommandId.enterCinematicMode)
                 {
-                    gameCameraC.gameObject.SetActive(true);
-                    gameCameraC.EnterCinematicMode();
+                    Dialog.gameObject.SetActive(true);
                     isCinematicMode = true;
                 }
                 else if (command.id == CinematicCommandId.exitCinematicMode)
                 {
-                    gameCameraC.gameObject.SetActive(false);
-                    gameCameraC.ExitCinematicMode();
+                    Dialog.gameObject.SetActive(false);
                     isCinematicMode = false;
                     playingCinematic = false;
                     PC.ChangeState(PlayerController.PlayerStates.NONE);
@@ -247,24 +244,14 @@ public class CinematicManager : MonoBehaviour
                 {
                     int index = Int32.Parse(command.param1);
 
-                    gameCamera.position = cameraPositions[index].position;
-                    gameCamera.rotation = cameraPositions[index].rotation;
+                    //gameCamera.position = cameraPositions[index].position;
+                    //gameCamera.rotation = cameraPositions[index].rotation;
                 }
                 else if (command.id == CinematicCommandId.setCameraSize)
                 {
                     float size = Single.Parse(command.param1);
 
                     gameCameraC.SetSize(size);
-                }
-                else if (command.id == CinematicCommandId.cameraShake)
-                {
-                    float duracion = Single.Parse(command.param1);
-                    float amplitud = Single.Parse(command.param2);
-
-                    for (int i = 0; i < duracion; i++)
-                    {
-                        gameCameraC.cameraShake(duracion, amplitud);
-                    }
                 }
                 else if (command.id == CinematicCommandId.setObjectActive)
                 {
@@ -296,14 +283,6 @@ public class CinematicManager : MonoBehaviour
                 else if (command.id == CinematicCommandId.setPlayerVelocity)
                 {
                     int speed = Int32.Parse(command.param1);
-
-                    //P1.speed = speed;
-                }
-                else if (command.id == CinematicCommandId.adjustCameraPosition)
-                {
-                    gameCamera.position = mainCamera.position;
-                    gameCamera.rotation = mainCamera.rotation;
-                    gameCamera.localScale = mainCamera.localScale;
                 }
                 else
                 {
@@ -367,7 +346,7 @@ public class CinematicManager : MonoBehaviour
             }
 
             dialogTextC.text += c;
-            if (textSpeed != 0)
+            if (textSpeed != 0 && isCinematicMode)
                 AudioManager._instance.Play2dOneShotSound(typeSound, 0.3f, 0.5f, 1.5f);
 
             yield return new WaitForSeconds(textSpeed);

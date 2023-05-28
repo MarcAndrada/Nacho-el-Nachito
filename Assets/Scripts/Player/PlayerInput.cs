@@ -81,19 +81,22 @@ public class PlayerInput : MonoBehaviour
 
     private void JumpAction(InputAction.CallbackContext obj)
     {
-        switch (playerController.playerState)
+        if (!cinematicManager.isCinematicMode)
         {
-            case PlayerController.PlayerStates.WALL_SLIDE:
-                playerController._wallJumpController.WallJump();
-                break;
+            switch (playerController.playerState)
+            {
+                case PlayerController.PlayerStates.WALL_SLIDE:
+                    playerController._wallJumpController.WallJump();
+                    break;
 
-            case PlayerController.PlayerStates.NONE:
-            case PlayerController.PlayerStates.MOVING:
-                playerController._movementController.JumpInputPressed();
-                break;
-            case PlayerController.PlayerStates.AIR:
-                playerController._wallJumpController.CheckWallJumpInAir();
-                break;
+                case PlayerController.PlayerStates.NONE:
+                case PlayerController.PlayerStates.MOVING:
+                    playerController._movementController.JumpInputPressed();
+                    break;
+                case PlayerController.PlayerStates.AIR:
+                    playerController._wallJumpController.CheckWallJumpInAir();
+                    break;
+            }
         }
     }
 
@@ -166,7 +169,7 @@ public class PlayerInput : MonoBehaviour
 
     private void InteractTextAction(InputAction.CallbackContext obj)
     {
-        if (cinematicManager)
+        if (cinematicManager && cinematicManager.isCinematicMode)
         {
             cinematicManager.InteractText();
         }

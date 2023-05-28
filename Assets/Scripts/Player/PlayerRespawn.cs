@@ -20,6 +20,10 @@ public class PlayerRespawn : MonoBehaviour
     private AudioClip respawnSound;
     [SerializeField]
     private AudioClip checkPoint;
+    
+    [Header("Hook Element")]
+    [SerializeField]
+    private GameObject hookTarget;
     // Start is called before the first frame update
     void Awake()
     {
@@ -42,6 +46,7 @@ public class PlayerRespawn : MonoBehaviour
             timeDead = startValue;
             pc.rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
             pc.ChangeState(PlayerController.PlayerStates.NONE);
+            hookTarget.SetActive(true);
         }
     }
 
@@ -69,6 +74,7 @@ public class PlayerRespawn : MonoBehaviour
 
         pc.rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
         pc.DeadAnimation();
+        hookTarget.SetActive(false);
         deathParticles.SetActive(true);
         AudioManager._instance.Play2dOneShotSound(deadSound, 0.2f, 0.7f, 1.3f);
         Invoke("PlayRespawnSound", startValue - respawnSound.length);
