@@ -15,6 +15,10 @@ public class AbducePlayerUp : MonoBehaviour
     public bool abducingPlayer {get; private set;}
     private float starterSpeed;
 
+    private Rigidbody2D generatorRb;
+
+    private bool abducingGenerator;
+    private float generatorUpSpeed;
     private void Awake()
     {
         playerController = FindObjectOfType<PlayerController>();
@@ -23,11 +27,27 @@ public class AbducePlayerUp : MonoBehaviour
 
     private void Update()
     {
+        AbducePlayer();
+        AbduceGenerator();
+    }
+
+    private void AbducePlayer() 
+    {
         if (abducingPlayer)
         {
             starterSpeed += Time.deltaTime * speedUp;
             rb.velocity = new Vector2(rb.velocity.x, starterSpeed);
             starterSpeed = Mathf.Clamp(starterSpeed, float.NegativeInfinity, maxSpeed);
+        }
+    }
+
+    private void AbduceGenerator()
+    {
+        if (abducingGenerator)
+        {
+            generatorUpSpeed += Time.deltaTime * speedUp * 2.5f;
+            generatorRb.velocity = new Vector2((transform.position.x - generatorRb.transform.position.x) * 5, generatorUpSpeed);
+            generatorUpSpeed = Mathf.Clamp(generatorUpSpeed, float.NegativeInfinity, maxSpeed);
         }
     }
 
@@ -56,6 +76,17 @@ public class AbducePlayerUp : MonoBehaviour
             }
             
         }
+
+        if (collision.CompareTag("ElectricGenerator"))
+        {
+            GeneratorController genCont = collision.GetComponent<GeneratorController>();
+            if (genCont.broke)
+            {
+                generatorRb = collision.GetComponent<Rigidbody2D>();
+                abducingGenerator = true;
+                generatorUpSpeed = 1.5f;
+            }
+        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -78,6 +109,14 @@ public class AbducePlayerUp : MonoBehaviour
             }
             
         }
+        if (collision.CompareTag("ElectricGenerator"))
+        {
+            GeneratorController genCont = collision.GetComponent<GeneratorController>();
+            if (genCont.broke)
+            {
+                abducingGenerator = true;
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -85,6 +124,11 @@ public class AbducePlayerUp : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             abducingPlayer = false;
+        }
+
+        if (collision.CompareTag("ElectricGenerator"))
+        {
+            abducingGenerator = false;
         }
     }
 }

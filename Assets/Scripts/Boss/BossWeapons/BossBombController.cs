@@ -66,5 +66,10 @@ public class BossBombController : MonoBehaviour
 
 
         }
+        if (collision.CompareTag("ElectricGenerator"))
+        {
+            collision.GetComponent<GeneratorController>().BreakGenerator();
+            Explosion();
+        }
     }
 }

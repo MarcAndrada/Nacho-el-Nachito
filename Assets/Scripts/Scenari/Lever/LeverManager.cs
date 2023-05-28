@@ -10,6 +10,7 @@ public class LeverManager : MonoBehaviour
     private Rigidbody2D rb2d;
 
     public bool activated = false;
+    [SerializeField]
     private bool moving = false;
     [SerializeField]
     private float openSpeed = 10;
