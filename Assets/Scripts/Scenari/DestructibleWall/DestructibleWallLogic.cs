@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DestructibleWallLogic : MonoBehaviour
 {
-    private PlayerController _playerController;
+    private PlayerController _playerController;    
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

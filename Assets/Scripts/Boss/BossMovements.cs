@@ -1,32 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossMovements : MonoBehaviour
 {
-    public enum BossStates { LIGHTNING, ABDUCING, THROWING, DEAD};
+    public enum BossStates {NONE, LIGHTNING, ABDUCING, THROWING, DEAD};
     public BossStates bossState;
 
     [Header("Movement"), SerializeField]
     private Transform playerPos;
     [SerializeField]
-    private float constantYPos;
-    [SerializeField]
-    private float bossYOffset;
+    private float deathYPos;
+    private int bossHP = 3;
+
     [HideInInspector]
     public Vector3 starterPos;
-
+    [HideInInspector]
+    public bool constantY;
+    [HideInInspector]
+    public float yPos;
+    [HideInInspector]
+    public float xSpeed;
+    [HideInInspector]
+    public float ySpeed;
 
 
     [Header("Lightning"), SerializeField]
     private GameObject lightningObj;
-    [SerializeField]
-    private float lightningSpeed;
-
     [Header("Abduce"), SerializeField]
     private GameObject abduceObj;
-    [SerializeField]
-    private float abduceSpeed;
 
     [Header("Throw"), SerializeField]
     private GameObject bombPrefab;
@@ -34,19 +37,26 @@ public class BossMovements : MonoBehaviour
     private float bombCD;
     private float bombTimeWaited;
 
+    private BossStates lastState;
+    
     [Header("Components"), SerializeField]
     private CinematicManager _cm;
     private Rigidbody2D rb;
     private AbducePlayerUp abduceCont;
     private PlayerController playerController;
+    [HideInInspector]
+    public BossZoneController currentZone;
+    private Animator animator;
 
+    [Space, Header("UI"), SerializeField]
+    private GameObject[] bossHearts;
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         abduceCont = abduceObj.GetComponentInChildren<AbducePlayerUp>();
         playerController = playerPos.GetComponent<PlayerController>();
-        ChangeBossState(bossState);
+        animator = GetComponent<Animator>();
         starterPos = transform.position;
     }
 
@@ -58,25 +68,27 @@ public class BossMovements : MonoBehaviour
             switch (bossState)
             {
                 case BossStates.LIGHTNING:
-                    ChasePlayer(lightningSpeed, true);
+                    ChasePlayer();
                     break;
                 case BossStates.ABDUCING:
-                    ChasePlayer(abduceSpeed, true);
+                    ChasePlayer();
                     break;
                 case BossStates.THROWING:
-                    ChasePlayer(lightningSpeed, true);
+                    ChasePlayer();
                     WaitToThrowBomb();
                     break;
                 case BossStates.DEAD:
+                    GoDiePos();
                     break;
                 default:
                     break;
             }
-
         }
 
-        
-
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            GetDamage();
+        }
     }
 
     private void FixedUpdate()
@@ -87,12 +99,12 @@ public class BossMovements : MonoBehaviour
         }
     }
 
-    private void ChasePlayer(float _chaseSpeed, bool _constantY)
+    private void ChasePlayer()
     {
         Vector2 target;
-        if (!_constantY)
+        if (!constantY)
         {
-            target = new Vector2(playerPos.position.x, playerPos.position.y + bossYOffset);
+            target = new Vector2(playerPos.position.x, playerPos.position.y + yPos);
             if (abduceCont.abducingPlayer)
             {
                 target.y = transform.position.y;
@@ -100,9 +112,11 @@ public class BossMovements : MonoBehaviour
         }
         else
         {
-            target = new Vector2(playerPos.position.x, constantYPos);
+            target = new Vector2(playerPos.position.x, yPos);
         }
-        Vector2 newPos = Vector2.MoveTowards(rb.position, target, _chaseSpeed * Time.deltaTime);
+        Vector2 newPos;
+        newPos.x = Vector2.MoveTowards(rb.position, target, xSpeed * Time.deltaTime).x;
+        newPos.y = Vector2.MoveTowards(rb.position, target, ySpeed * Time.deltaTime).y;
 
         rb.position = newPos;
     }
@@ -112,6 +126,10 @@ public class BossMovements : MonoBehaviour
         bossState = _bossState;
         switch (_bossState)
         {
+            case BossStates.NONE:
+                abduceObj.SetActive(false);
+                lightningObj.SetActive(false);
+                break;
             case BossStates.LIGHTNING:
                 abduceObj.SetActive(false);
                 lightningObj.SetActive(true);
@@ -120,21 +138,39 @@ public class BossMovements : MonoBehaviour
             case BossStates.ABDUCING:
                 abduceObj.SetActive(true);
                 lightningObj.SetActive(false);
+                Invoke("ChangeToThrowBomb", 6);
                 break;
             case BossStates.THROWING:
                 abduceObj.SetActive(false);
                 lightningObj.SetActive(false);
                 bombTimeWaited = 0;
+                Invoke("ChangeToAbduce", 8);
                 break;
             case BossStates.DEAD:
                 abduceObj.SetActive(false);
                 lightningObj.SetActive(false);
+
                 break;
             default:
                 break;
         }
     }
-     
+    private void ChangeToThrowBomb()
+    {
+        if (bossState == BossStates.ABDUCING)
+            ChangeBossState(BossStates.THROWING);
+    } 
+    private void ChangeToAbduce()
+    {
+        if (bossState == BossStates.THROWING)
+            ChangeBossState(BossStates.ABDUCING);
+    }
+    private void ChangeLastState()
+    {
+        if (bossState == BossStates.NONE)
+            ChangeBossState(lastState);
+    }
+
     private void WaitToThrowBomb()
     {
         bombTimeWaited += Time.deltaTime;
@@ -150,5 +186,50 @@ public class BossMovements : MonoBehaviour
     public void ResetBoss()
     {
         transform.position = starterPos;
+    }
+
+    public void GetDamage()
+    {
+        lastState = bossState;
+        ChangeBossState(BossStates.NONE);
+        bossHP--;
+        UpdateBossLife();
+        if (bossHP <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            currentZone.OpenExitDoor();
+            animator.SetTrigger("Damaged");
+            Invoke("ChangeLastState", 2.5f);
+        }
+    }
+
+    private void UpdateBossLife() 
+    {
+        bossHearts[bossHP].SetActive(false);
+    }
+    
+    private void Die()
+    {
+        ChangeBossState(BossStates.DEAD);
+        animator.SetTrigger("Dead");
+        Invoke("GoMainMenu", 7.5f);
+    }
+    private void GoDiePos()
+    {
+        Vector2 target;
+
+        target = new Vector2(transform.position.x, deathYPos);
+        Vector2 newPos;
+        newPos.x = Vector2.MoveTowards(rb.position, target, xSpeed * Time.deltaTime).x;
+        newPos.y = Vector2.MoveTowards(rb.position, target, ySpeed * 1.5f * Time.deltaTime).y;
+
+        rb.position = newPos;
+    }
+    private void GoMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

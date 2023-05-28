@@ -179,7 +179,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1471598518}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -191,7 +191,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!61 &1471598522
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -365,6 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door: {fileID: 1471598519}
   activated: 0
+  moving: 0
   openSpeed: 10
   maxDistance: 5
   sprite_on: {fileID: 381825455, guid: 125b11d9045e0a840986eadf12fd43c8, type: 3}
