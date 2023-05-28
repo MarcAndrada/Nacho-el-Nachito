@@ -32,10 +32,15 @@ public class PlayerController : MonoBehaviour
 
     private Animator anim;
 
+    public Rigidbody2D rb2d { get; private set; } 
+    [SerializeField] public bool _canDash { get; private set; }
+    [SerializeField] public bool _canHook { get; private set; }
 
     // Start is called before the first frame update
     void Awake()
     {
+        _canHook = false;
+        _canDash = false;
         AllGetComponents();
     }
 
@@ -50,6 +55,7 @@ public class PlayerController : MonoBehaviour
         dashController = GetComponent<PlayerDashController>();
         playerDownController = GetComponent<PlayerDownController>();
         interactionController = GetComponent<PlayerInteractionController>();
+        rb2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -59,6 +65,8 @@ public class PlayerController : MonoBehaviour
         AnimateCharacter();
         PlayerAimController._instance.UpdateAimMethod();
         Cheats();
+        SetPowerUps();
+        hookController.CheckActivated();
     }
 
     private void StatesFunctions() 
@@ -92,7 +100,6 @@ public class PlayerController : MonoBehaviour
                 hookController.MoveHookedPlayer();
                 hookController.CheckPlayerNotStucked();
                 hookController.CheckHookPointNearToCursor();
-
                 break;
             case PlayerStates.WALL_SLIDE:
                 //Bajar la Y
@@ -105,7 +112,9 @@ public class PlayerController : MonoBehaviour
             case PlayerStates.DASH:
                 dashController.Dash();
                 dashController.DashTimer();
+                _movementController.CheckGrounded();
                 dashController.DashCheckWall();
+                wallJumpController.CheckIfWallSliding();
                 break;
             case PlayerStates.CINEMATIC:
                 // NADA
@@ -126,18 +135,18 @@ public class PlayerController : MonoBehaviour
             //Si esta en el suelo
             if (playerInput._playerMovement != 0)
             {
-                playerState = PlayerStates.MOVING;
+                ChangeState(PlayerStates.MOVING);
             }
             else
             {
-                playerState = PlayerStates.NONE;
+                ChangeState(PlayerStates.NONE);
             }
             
         }
         else
         {
             //Si esta en el aire
-            playerState = PlayerStates.AIR;
+            ChangeState(PlayerStates.AIR);
         }
     }
 
@@ -197,6 +206,57 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene("Level 4.1");
         }
-
     }
+
+    private void SetPowerUps()
+    {
+        if (SceneManager.GetActiveScene().name == "Level 1.1" || 
+            SceneManager.GetActiveScene().name == "Level 1.2")
+        {
+            _canHook = false;
+            _canDash = false;
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 2.1" || 
+                 SceneManager.GetActiveScene().name == "Level 2.2" ||
+                 SceneManager.GetActiveScene().name == "Level 3.1" || 
+                 SceneManager.GetActiveScene().name == "Level 3.2")
+        {
+            _canHook = false;
+            _canDash = true;
+        }
+        else
+        {
+            _canHook = true;
+            _canDash = true;
+        }
+    }
+
+    public void ChangeState(PlayerStates _nextState)
+    {
+        switch (_nextState)
+        {
+            case PlayerStates.NONE:
+                break;
+            case PlayerStates.MOVING:
+                break;
+            case PlayerStates.AIR:
+                break;
+            case PlayerStates.HOOK:
+                break;
+            case PlayerStates.WALL_SLIDE:
+                movementController.externalForces = Vector2.zero;
+                break;
+            case PlayerStates.CINEMATIC:
+                break;
+            case PlayerStates.DASH:
+                break;
+            case PlayerStates.DEAD:
+                playerRespawn.Die();
+                break;
+            default:
+                break;
+        }
+        playerState = _nextState;
+    }
+
 }

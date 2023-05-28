@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1c0ae706f67e15d4cb80f9a0dbd826b1
+guid: 125b11d9045e0a840986eadf12fd43c8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -133,8 +133,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: afd8c7d5d4f7a9c49a1525072ee29b46
-      internalID: 1994254320
+      spriteID: 093827c3c33ba7f4d82bd4af97f76f81
+      internalID: 1746020548
       vertices: []
       indices: 
       edges: []
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f06fb92e81e1d3d40ba2ff321061f9ea
-      internalID: 215604066
+      spriteID: a32a40bc8a39c2e40b379d2651df42c1
+      internalID: 381825455
       vertices: []
       indices: 
       edges: []
@@ -171,8 +171,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Palancas_0: 1994254320
-      Palancas_1: 215604066
+      Palancas_0: 1746020548
+      Palancas_1: 381825455
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

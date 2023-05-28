@@ -12,6 +12,8 @@ TagManager:
   - OVNI
   - Mechanism
   - OneWayPlatform
+  - FxTemporaire
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -26,9 +28,9 @@ TagManager:
   - DestructibleWall
   - HookObstacle
   - Cinematic
-  - 
-  - 
-  - 
+  - Obstaculo
+  - FloorBulletProbe
+  - Generator
   - 
   - 
   - 

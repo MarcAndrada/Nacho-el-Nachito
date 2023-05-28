@@ -9,45 +9,76 @@ public class LeverManager : MonoBehaviour
 
     private Rigidbody2D rb2d;
 
-    private bool activated = false;
-    private float speed = 10;
+    public bool activated = false;
+    [SerializeField]
+    private bool moving = false;
+    [SerializeField]
+    private float openSpeed = 10;
     
     [SerializeField]
-    private float maxPosY;
+    private float maxDistance;
 
-    private float startPosY;
+    private Vector2 startPos;
 
     private SpriteRenderer spriteRenderer;
-
+    
     [SerializeField]
     private Sprite sprite_on;
     [SerializeField] 
     private Sprite sprite_off;
+
+    [Header("Sound"), SerializeField]
+    private AudioClip leverSound;
+
+    [Header("Button"), SerializeField]
+    private SpriteRenderer controlSR;
+    [SerializeField]
+    private Sprite keyboardSprite;
+    [SerializeField]
+    private Sprite controllerSprite;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb2d = door.GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        startPosY = door.position.y;
+    }
+
+    private void Start()
+    {
+        startPos = door.position;
+        controlSR.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(activated && door.transform.position.y <= maxPosY + startPosY)
+        if (moving)
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, speed);
+
+            if (activated)
+            {
+                rb2d.velocity = door.up * openSpeed;
+                if (Vector2.Distance(startPos, door.position) >= maxDistance)
+                {
+                    moving = false;
+                    door.position = startPos + (Vector2)door.up * maxDistance;
+                    rb2d.bodyType = RigidbodyType2D.Static;
+                }
+            }
+            else
+            {
+                rb2d.velocity = -door.up * openSpeed;
+                if (Vector2.Distance(startPos, door.transform.position) <= 0.1f)
+                {
+                    door.position = startPos;
+                    moving = false;
+                    rb2d.bodyType = RigidbodyType2D.Static;
+                }
+            }
         }
-        else if(!activated && door.transform.position.y > startPosY)
-        {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, -speed);
-        }
-        else
-        {
-            rb2d.velocity = new Vector2(0, 0);
-        }
+
     }
-    
+
     public void ActivateLever()
     {
         if (!activated)
@@ -59,7 +90,19 @@ public class LeverManager : MonoBehaviour
             spriteRenderer.sprite = sprite_off;
         }
         activated = !activated;
+        AudioManager._instance.Play2dOneShotSound(leverSound);
+        moving = true;
+        rb2d.bodyType = RigidbodyType2D.Dynamic;
     }
 
+    public void ShowLeverButton()
+    {
+        controlSR.gameObject.SetActive(true);
+        controlSR.sprite = (PlayerAimController._instance.controllerType == PlayerAimController.ControllerType.GAMEPAD) ? controllerSprite : keyboardSprite;
+    }
 
+    public void HideLeverButton() 
+    {
+        controlSR.gameObject.SetActive(false);
+    }
 }

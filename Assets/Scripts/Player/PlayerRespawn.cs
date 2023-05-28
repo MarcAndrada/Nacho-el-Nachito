@@ -6,25 +6,34 @@ public class PlayerRespawn : MonoBehaviour
 {
     [SerializeField] private float timeDead;
     private float startValue;
-    
-    private SpriteRenderer sprite;
 
-    [SerializeField]
-    private Transform posit;
+    private Vector2 respawnPos;
 
     private PlayerController pc;
-    private Rigidbody2D rb2d;
+
+    [Header("Particles"), SerializeField]
+    private GameObject deathParticles;
+
+    [Header("Sound"), SerializeField]
+    private AudioClip deadSound;
+    [SerializeField]
+    private AudioClip respawnSound;
+    [SerializeField]
+    private AudioClip checkPoint;
+    
+    [Header("Hook Element")]
+    [SerializeField]
+    private GameObject hookTarget;
     // Start is called before the first frame update
     void Awake()
     {
-        sprite = GetComponent<SpriteRenderer>();
         pc = GetComponent<PlayerController>();
-        rb2d = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
     {
         startValue = timeDead;
+        respawnPos = transform.position;
     }
 
     public void Respawn()
@@ -33,10 +42,11 @@ public class PlayerRespawn : MonoBehaviour
 
         if (timeDead <= 0)
         {
-            transform.position = posit.position;
+            transform.position = respawnPos;
             timeDead = startValue;
-            rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
-            pc.playerState = PlayerController.PlayerStates.NONE;
+            pc.rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+            pc.ChangeState(PlayerController.PlayerStates.NONE);
+            hookTarget.SetActive(true);
         }
     }
 
@@ -49,39 +59,46 @@ public class PlayerRespawn : MonoBehaviour
         {
             case PlayerController.PlayerStates.MOVING:
             case PlayerController.PlayerStates.AIR:
-                rb2d.velocity = Vector2.zero;
+                pc.rb2d.velocity = Vector2.zero;
                 break;
             case PlayerController.PlayerStates.HOOK:
                 pc._hookController.StopHook();
-                rb2d.velocity = Vector2.zero;
+                pc._hookController._hookController.ResetHookPos();
+                pc._hookController._hookController.DisableHook();
+                pc.rb2d.velocity = Vector2.zero;
                 break;
             case PlayerController.PlayerStates.WALL_SLIDE:
                 pc._wallJumpController.StopSlide();
                 break;
         }
 
-        rb2d.constraints = RigidbodyConstraints2D.FreezePosition;
+        pc.rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
         pc.DeadAnimation();
-        pc.playerState = PlayerController.PlayerStates.DEAD;
-
+        hookTarget.SetActive(false);
+        deathParticles.SetActive(true);
+        AudioManager._instance.Play2dOneShotSound(deadSound, 0.2f, 0.7f, 1.3f);
+        Invoke("PlayRespawnSound", startValue - respawnSound.length);
     }
 
+    private void PlayRespawnSound() 
+    {
+        AudioManager._instance.Play2dOneShotSound(respawnSound, 0.1f, 0.7f, 1.3f);
+    }
     public void SetRespawnPos(Transform _newPos)
     {
-        posit = _newPos;
+        respawnPos = _newPos.position;
+        AudioManager._instance.Play2dOneShotSound(checkPoint, 0.3f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Obstaculo"))
         {
-            Die();
+            pc.ChangeState(PlayerController.PlayerStates.DEAD);
         }
-
         else if(collision.CompareTag("OVNI"))
-        { 
-            sprite.enabled = false;
-            pc.playerState = PlayerController.PlayerStates.DEAD;
+        {
+            pc.ChangeState(PlayerController.PlayerStates.DEAD);
         }
     }
 }

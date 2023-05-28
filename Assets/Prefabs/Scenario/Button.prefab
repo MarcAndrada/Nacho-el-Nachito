@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 194582724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.02, y: 11.34, z: 0}
-  m_LocalScale: {x: 2, y: 0.2, z: 1}
+  m_LocalScale: {x: 1, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6789401740986550243}
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.22352941, g: 0.3137255, b: 0.7647059, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 57719682d3a7cd04bbaa1dcd03e0e944, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,8 +101,8 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    border: {x: 0, y: 0.8333333, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.92}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.18855715}
   m_EdgeRadius: 0
 --- !u!251 &194582727
 PlatformEffector2D:
@@ -262,5 +262,6 @@ MonoBehaviour:
   buttonPressed: {fileID: 8300000, guid: 3b9fd33cdbe3cdc4ca071e4f00e8fd94, type: 3}
   buttonUnpressed: {fileID: 8300000, guid: 93a338c1e5ecbf84493c03eb9a332424, type: 3}
   buttonTimer: {fileID: 8300000, guid: 16503c0031fd1fb409f8d0472f3d29d9, type: 3}
-  spire_on: {fileID: 1891995919, guid: 0714e18b60e2f4542903794f613983b7, type: 3}
-  spire_off: {fileID: -58779957, guid: 0714e18b60e2f4542903794f613983b7, type: 3}
+  spritePressed: {fileID: 1891995919, guid: 0714e18b60e2f4542903794f613983b7, type: 3}
+  spriteUnpressed: {fileID: -58779957, guid: 0714e18b60e2f4542903794f613983b7, type: 3}
+  spriteHold: {fileID: 1891995919, guid: 0714e18b60e2f4542903794f613983b7, type: 3}

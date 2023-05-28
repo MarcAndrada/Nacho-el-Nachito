@@ -20,7 +20,6 @@ public class PlayerDashController : MonoBehaviour
     // DASH VARIABLES
 
     public bool _canDash;
-    private bool timeStopped;
     
     private Vector2 vdirection;
     [HideInInspector] public  Vector2 _dashDirection;
@@ -34,6 +33,8 @@ public class PlayerDashController : MonoBehaviour
 
     [Header("Souds"), SerializeField]
     private AudioClip[] dashSounds;
+    [SerializeField]
+    private GameObject dashParticles;
 
     private bool _dashDirectional;
     void Awake()
@@ -43,21 +44,33 @@ public class PlayerDashController : MonoBehaviour
         coll = GetComponent<CapsuleCollider2D>();
     }
 
-    private void Start()
-    {
-        timeStopped = false;
-    }
 
     public void StartDash(Vector2 _dashDir) 
     {
-        _playerController._playerDashController._dashDirection = _dashDir;
-        _playerController.playerState = PlayerController.PlayerStates.DASH;
+        _dashDirection = _dashDir;
+        _playerController.ChangeState(PlayerController.PlayerStates.DASH);
 
-        AudioManager._instance.PlayOneRandomShotSound(dashSounds, 0.55f, 1.45f, 0.6f);
+        AudioManager._instance.PlayOneRandomShotSound(dashSounds, 0.55f, 1.45f);
+        //Quaternion.Euler(0, 0, 90 * _playerController._movementController._lastDir)
+
+        if (_dashDir == Vector2.zero)
+        {
+            _dashDir.x = _playerController._movementController._lastDir;
+        }
+        Vector2 startPos = transform.position;
+        if (Physics2D.Raycast(transform.position, _dashDir, 1.5f, floorLayer))
+        {
+            startPos -= _dashDir * 1.5f;
+        }
+
+
+        GameObject _particulita = Instantiate(dashParticles, startPos, Quaternion.identity);        
+        _particulita.transform.rotation = Quaternion.LookRotation(new Vector3(_dashDir.x, _dashDir.y));
     }
 
     public void Dash()
     {
+        _playerController._movementController.externalForces = Vector2.zero;
         if (_dashDirection != Vector2.zero)
         {
             vdirection = _dashDirection * _dashSpeed;
@@ -78,16 +91,13 @@ public class PlayerDashController : MonoBehaviour
 
     public void DashTimer()
     {
-        if (!timeStopped)
+        _playerController._movementController.SetAirAcceleration(vdirection.x);
+        _dashTimePassed += Time.deltaTime;
+        if (_dashTimePassed >= _dashTime)
         {
-            _playerController._movementController.SetAirAcceleration(vdirection.x);
-            _dashTimePassed += Time.deltaTime;
-            if (_dashTimePassed >= _dashTime)
-            {
-                StopDash();
-            }
+            StopDash();
         }
-        
+
     }
 
     public void DashCheckWall()
@@ -97,37 +107,25 @@ public class PlayerDashController : MonoBehaviour
 
         //esta condicion es para que cuando este en el suelo no se encuentre con una plataforma
         //un poco movida y mueva al player cuando no deberia hacerlo
-        if (!_playerController._movementController._isGrounded)
-        {
-            posOffset.y += capsuleOffset;
-        }
-        else
-        {
-            posOffset.y -= capsuleOffset;
-        }
 
-        bool hitUp = Physics2D.Raycast(transform.position + posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
-        bool hitDown = Physics2D.Raycast(transform.position - posOffset, transform.right * _dashDirection.x, 0.55f, floorLayer);
+
+        RaycastHit2D hitUpRaycastHit2D = Physics2D.Raycast(transform.position + posOffset -  new Vector3(0,capsuleOffset), transform.right * _dashDirection.x, 0.55f, floorLayer);
+        RaycastHit2D hitDownRaycastHit2D = Physics2D.Raycast(transform.position - posOffset + new Vector3(0, capsuleOffset), transform.right * _dashDirection.x, 0.55f, floorLayer);
         if (_dashDirectional)
         {
+            bool hitUp = hitUpRaycastHit2D.collider != null && !hitUpRaycastHit2D.collider.CompareTag("OneWayPlatform");
+            bool hitDown = hitDownRaycastHit2D.collider != null && !hitDownRaycastHit2D.collider.CompareTag("OneWayPlatform");
             if (hitUp && hitDown)
             {
                 StopDash();
             }
             else if (hitUp)
             {
-                timeStopped = true;
                 rb2d.velocity -= new Vector2(0, speedDashController);
             }
             else if (hitDown)
             {
-                timeStopped = true;
                 rb2d.velocity += new Vector2(0, speedDashController);
-                Debug.Log("ME CAGO EN DIOS");
-            }
-            else
-            {
-                timeStopped = false;
             }
         }
         
@@ -138,7 +136,7 @@ public class PlayerDashController : MonoBehaviour
     {
         float _ySpeed = Mathf.Clamp(vdirection.y * _dashSpeed, -5, 5);
         rb2d.velocity = new Vector2(rb2d.velocity.x, _ySpeed);
-        _playerController.playerState = PlayerController.PlayerStates.NONE;
+        _playerController.ChangeState(PlayerController.PlayerStates.NONE);
         _dashTimePassed = 0;
     }
     

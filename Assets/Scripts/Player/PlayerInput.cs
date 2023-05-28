@@ -81,6 +81,15 @@ public class PlayerInput : MonoBehaviour
 
     private void JumpAction(InputAction.CallbackContext obj)
     {
+        if (cinematicManager != null)
+        {
+            if (cinematicManager.isCinematicMode)
+            {
+                return;
+            }
+        }
+        
+
         switch (playerController.playerState)
         {
             case PlayerController.PlayerStates.WALL_SLIDE:
@@ -105,19 +114,36 @@ public class PlayerInput : MonoBehaviour
 
     private void GamepadHookAction(InputAction.CallbackContext obj)
     {
-        PlayerAimController._instance.gamepadDir = InputManager._instance.ingameAimAction.action.ReadValue<Vector2>();
-        playerController._hookController.HookInputPressed();
+        switch (playerController.playerState)
+        {
+            case PlayerController.PlayerStates.NONE:
+            case PlayerController.PlayerStates.MOVING:
+            case PlayerController.PlayerStates.AIR:
+            case PlayerController.PlayerStates.WALL_SLIDE:
+                if (playerController._canHook)
+                {
+                    PlayerAimController._instance.gamepadDir = InputManager._instance.ingameAimAction.action.ReadValue<Vector2>();
+                    playerController._hookController.HookInputPressed();
+                }
+                break;
+            default:
+                break;
+        }
+        
     }
 
     private void MouseHookAction(InputAction.CallbackContext obj)
-    {
-        playerController._hookController.HookInputPressed();
+    { 
+        if (playerController._canHook)
+        {
+            playerController._hookController.HookInputPressed();
+        }
     }
 
    
     private void DashAction(InputAction.CallbackContext obj)
     {
-        if (playerController._playerDashController._canDash)
+        if (playerController._playerDashController._canDash && playerController._canDash)
         {
             switch (playerController.playerState)
             {
@@ -149,12 +175,18 @@ public class PlayerInput : MonoBehaviour
 
     private void InteractTextAction(InputAction.CallbackContext obj)
     {
-        cinematicManager.InteractText();
+        if (cinematicManager && cinematicManager.isCinematicMode)
+        {
+            cinematicManager.InteractText();
+        }
     }
 
     private void InteractPauseAction(InputAction.CallbackContext obj)
     {
-        pauseGameController.PauseInteraction();
+        if (pauseGameController)
+        {
+            pauseGameController.PauseInteraction();
+        }
     }
     
     #endregion

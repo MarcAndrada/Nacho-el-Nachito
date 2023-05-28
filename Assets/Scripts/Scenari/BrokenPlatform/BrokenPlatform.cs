@@ -11,38 +11,34 @@ public class BrokenPlatform : MonoBehaviour
     private float timePassed = 0f;
     bool touched = false;
     Collider2D coll;
-    SpriteRenderer spriteRenderer;
+    SpriteRenderer spriteRenderer; 
+    private Quaternion starterRot;
+    [SerializeField]
+    private float rotationValue;
 
     [Header("Sound"), SerializeField]
     private AudioClip fallingLoop;
     [SerializeField]
     private AudioClip fallSound;
-    private AudioSource fallAS; 
+    private AudioSource fallAS;
 
+   
 
     private void Awake()
     {
         coll = GetComponent<Collider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
-    void OnCollisionEnter2D(Collision2D other)
+    private void Start()
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            ContactPoint2D[] contacts = new ContactPoint2D[1];
-            other.GetContacts(contacts);
-            if (contacts[0].normal == Vector2.down)
-            {
-                touched = true;
-                if (!fallAS)
-                    fallAS = AudioManager._instance.Play2dLoop(fallingLoop);
-            }
-        }
+        starterRot = spriteRenderer.transform.rotation;
     }
+
     private void FixedUpdate()
     {
-       if (touched)
+        if (touched)
         {
+            Shake();
             timePassed += Time.fixedDeltaTime;
             if (timePassed >= timeDelay)
             {
@@ -53,9 +49,10 @@ public class BrokenPlatform : MonoBehaviour
                 AudioManager._instance.StopLoopSound(fallAS);
                 fallAS = null;
                 AudioManager._instance.Play2dOneShotSound(fallSound);
+                spriteRenderer.transform.rotation = starterRot;
             }
         }
-       else
+        else
         {
             if (!coll.enabled)
             {
@@ -70,4 +67,27 @@ public class BrokenPlatform : MonoBehaviour
         }
 
     }
+
+    private void Shake()
+    {
+        spriteRenderer.transform.rotation = Quaternion.Euler(starterRot.x, starterRot.y, starterRot.z + Random.Range(-rotationValue, rotationValue));
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            ContactPoint2D[] contacts = new ContactPoint2D[1];
+            other.GetContacts(contacts);
+            if (contacts[0].normal == Vector2.down)
+            {
+                touched = true;
+                if (!fallAS)
+                    fallAS = AudioManager._instance.Play2dLoop(fallingLoop, 0.6f, 0.75f, 1.25f);
+            }
+        }
+    }
+    
+
+   
 }

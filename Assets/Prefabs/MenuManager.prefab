@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1494009804553365940}
   - component: {fileID: 1494009804553365931}
   - component: {fileID: 1494009804553365942}
-  - component: {fileID: 1494009804553365941}
   - component: {fileID: 1494009804553365943}
+  - component: {fileID: 1570449908}
   m_Layer: 0
   m_Name: MenuManager
   m_TagString: Untagged
@@ -62,20 +62,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScreenToggle: {fileID: 0}
   resolutionsDropDown: {fileID: 0}
---- !u!114 &1494009804553365941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1494009804553365930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb8e549933808a64ea5985a1e435f477, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropdownQuality: {fileID: 0}
-  quality: 0
 --- !u!114 &1494009804553365943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,5 +75,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: ab1e5abd9e243cb4aa1c715aed20f09c, type: 2}
+  masterSlider: {fileID: 0}
   musicSlider: {fileID: 0}
   SFXSlider: {fileID: 0}
+--- !u!114 &1570449908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494009804553365930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c79287876313447993a16e89e19872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuFirstSelected: {fileID: 0}
+  optionsMenuFirstSelected: {fileID: 0}
+  soundMenuFirstSelected: {fileID: 0}
+  graphicsMenuFirstSelected: {fileID: 0}
+  controlsMenuFirstSelected: {fileID: 0}

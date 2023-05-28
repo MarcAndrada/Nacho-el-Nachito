@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class BulletMovement : MonoBehaviour
 {
@@ -29,13 +31,12 @@ public class BulletMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor") ||
-            collision.gameObject.layer == LayerMask.NameToLayer("Water")) 
+            collision.gameObject.layer == LayerMask.NameToLayer("Water") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("HookObstacle"))
         {
             sound3dController.PlaySound();
             Destroy(gameObject);
         }
-
-
     }
 
 }
