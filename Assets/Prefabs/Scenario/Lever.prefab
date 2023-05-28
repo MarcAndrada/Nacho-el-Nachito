@@ -271,7 +271,7 @@ Transform:
   - {fileID: 1471598519}
   - {fileID: 1139832289}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2602711086324963210
 SpriteRenderer:
@@ -314,7 +314,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1994254320, guid: 1c0ae706f67e15d4cb80f9a0dbd826b1, type: 3}
+  m_Sprite: {fileID: 1746020548, guid: 125b11d9045e0a840986eadf12fd43c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -368,8 +368,8 @@ MonoBehaviour:
   moving: 0
   openSpeed: 10
   maxDistance: 5
-  sprite_on: {fileID: 215604066, guid: 1c0ae706f67e15d4cb80f9a0dbd826b1, type: 3}
-  sprite_off: {fileID: 1994254320, guid: 1c0ae706f67e15d4cb80f9a0dbd826b1, type: 3}
+  sprite_on: {fileID: 381825455, guid: 125b11d9045e0a840986eadf12fd43c8, type: 3}
+  sprite_off: {fileID: 1746020548, guid: 125b11d9045e0a840986eadf12fd43c8, type: 3}
   leverSound: {fileID: 8300000, guid: 040633f8d47cec745ab9126f64623d8d, type: 3}
   controlSR: {fileID: 1139832290}
   keyboardSprite: {fileID: 21300000, guid: df9e2eaad8f46ca489f3cba5d0f1db10, type: 3}
