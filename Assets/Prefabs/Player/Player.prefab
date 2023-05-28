@@ -9946,7 +9946,7 @@ MonoBehaviour:
   checkFloorRange: 0.2
   floorLayer:
     serializedVersion: 2
-    m_Bits: 49216
+    m_Bits: 114752
   canCoyote: 0
   coyoteTime: 0.15
   airMoveSpeed: 6.5
@@ -9999,7 +9999,7 @@ MonoBehaviour:
     m_Bits: 1152
   floorLayer:
     serializedVersion: 2
-    m_Bits: 34896
+    m_Bits: 100432
   _hookTarget: {fileID: 3854213116712417628}
   hookThrow: {fileID: 8300000, guid: f3c7f52b1f1c05f43a64981175dee5fd, type: 3}
 --- !u!114 &6222469504518347744
@@ -10021,7 +10021,7 @@ MonoBehaviour:
     m_Bits: 256
   floorLayer:
     serializedVersion: 2
-    m_Bits: 49216
+    m_Bits: 114752
   wallCheckRange: 0.1
   timeUnstickWall: 0.2
   airWallJumpRange: 0.15
@@ -10046,7 +10046,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorLayer:
     serializedVersion: 2
-    m_Bits: 49472
+    m_Bits: 115008
   _canDash: 0
   _dashDirection: {x: 0, y: 0}
   _isDirectional: 0

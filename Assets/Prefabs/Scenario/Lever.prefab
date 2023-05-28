@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1471598521}
   - component: {fileID: 1471598522}
   - component: {fileID: 1471598523}
-  m_Layer: 6
+  m_Layer: 16
   m_Name: Puerta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ MonoBehaviour:
   door: {fileID: 1471598519}
   activated: 0
   openSpeed: 10
-  maxDistance: 0
+  maxDistance: 5
   sprite_on: {fileID: 215604066, guid: 1c0ae706f67e15d4cb80f9a0dbd826b1, type: 3}
   sprite_off: {fileID: 1994254320, guid: 1c0ae706f67e15d4cb80f9a0dbd826b1, type: 3}
   leverSound: {fileID: 8300000, guid: 040633f8d47cec745ab9126f64623d8d, type: 3}
