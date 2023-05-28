@@ -59,7 +59,6 @@ public class LeverManager : MonoBehaviour
                 rb2d.velocity = door.up * openSpeed;
                 if (Vector2.Distance(startPos, door.position) >= maxDistance)
                 {
-                    rb2d.velocity = new Vector2(0, 0);
                     moving = false;
                     door.position = startPos + (Vector2)door.up * maxDistance;
                     rb2d.bodyType = RigidbodyType2D.Static;
@@ -67,11 +66,10 @@ public class LeverManager : MonoBehaviour
             }
             else
             {
-                rb2d.velocity = -door.transform.up * openSpeed;
+                rb2d.velocity = -door.up * openSpeed;
                 if (Vector2.Distance(startPos, door.transform.position) <= 0.1f)
                 {
                     door.position = startPos;
-                    rb2d.velocity = new Vector2(0, 0);
                     moving = false;
                     rb2d.bodyType = RigidbodyType2D.Static;
                 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7140240199706246725}
   - component: {fileID: 7140240199706246726}
   - component: {fileID: 7140240199706246727}
+  - component: {fileID: 7268933991209288011}
   m_Layer: 15
   m_Name: Caja Electrica
   m_TagString: Untagged
@@ -133,3 +134,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &7268933991209288011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140240199706246778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aace154798528904bb2f64d10c1f4885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
