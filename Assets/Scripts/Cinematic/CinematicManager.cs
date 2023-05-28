@@ -244,8 +244,8 @@ public class CinematicManager : MonoBehaviour
                 {
                     int index = Int32.Parse(command.param1);
 
-                    gameCamera.position = cameraPositions[index].position;
-                    gameCamera.rotation = cameraPositions[index].rotation;
+                    //gameCamera.position = cameraPositions[index].position;
+                    //gameCamera.rotation = cameraPositions[index].rotation;
                 }
                 else if (command.id == CinematicCommandId.setCameraSize)
                 {
@@ -346,7 +346,7 @@ public class CinematicManager : MonoBehaviour
             }
 
             dialogTextC.text += c;
-            if (textSpeed != 0)
+            if (textSpeed != 0 && isCinematicMode)
                 AudioManager._instance.Play2dOneShotSound(typeSound, 0.3f, 0.5f, 1.5f);
 
             yield return new WaitForSeconds(textSpeed);
