@@ -81,22 +81,28 @@ public class PlayerInput : MonoBehaviour
 
     private void JumpAction(InputAction.CallbackContext obj)
     {
-        if (!cinematicManager.isCinematicMode)
+        if (cinematicManager != null)
         {
-            switch (playerController.playerState)
+            if (cinematicManager.isCinematicMode)
             {
-                case PlayerController.PlayerStates.WALL_SLIDE:
-                    playerController._wallJumpController.WallJump();
-                    break;
-
-                case PlayerController.PlayerStates.NONE:
-                case PlayerController.PlayerStates.MOVING:
-                    playerController._movementController.JumpInputPressed();
-                    break;
-                case PlayerController.PlayerStates.AIR:
-                    playerController._wallJumpController.CheckWallJumpInAir();
-                    break;
+                return;
             }
+        }
+        
+
+        switch (playerController.playerState)
+        {
+            case PlayerController.PlayerStates.WALL_SLIDE:
+                playerController._wallJumpController.WallJump();
+                break;
+
+            case PlayerController.PlayerStates.NONE:
+            case PlayerController.PlayerStates.MOVING:
+                playerController._movementController.JumpInputPressed();
+                break;
+            case PlayerController.PlayerStates.AIR:
+                playerController._wallJumpController.CheckWallJumpInAir();
+                break;
         }
     }
 
