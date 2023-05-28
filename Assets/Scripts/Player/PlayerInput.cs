@@ -169,7 +169,7 @@ public class PlayerInput : MonoBehaviour
 
     private void InteractTextAction(InputAction.CallbackContext obj)
     {
-        if (cinematicManager)
+        if (cinematicManager && cinematicManager.isCinematicMode)
         {
             cinematicManager.InteractText();
         }
