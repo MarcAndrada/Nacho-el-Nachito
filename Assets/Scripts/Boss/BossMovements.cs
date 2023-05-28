@@ -10,7 +10,8 @@ public class BossMovements : MonoBehaviour
 
     [Header("Movement"), SerializeField]
     private Transform playerPos;
-
+    [SerializeField]
+    private float deathYPos;
     private int bossHP = 3;
 
     [HideInInspector]
@@ -77,6 +78,7 @@ public class BossMovements : MonoBehaviour
                     WaitToThrowBomb();
                     break;
                 case BossStates.DEAD:
+                    GoDiePos();
                     break;
                 default:
                     break;
@@ -215,7 +217,17 @@ public class BossMovements : MonoBehaviour
         animator.SetTrigger("Dead");
         Invoke("GoMainMenu", 7.5f);
     }
+    private void GoDiePos()
+    {
+        Vector2 target;
 
+        target = new Vector2(transform.position.x, deathYPos);
+        Vector2 newPos;
+        newPos.x = Vector2.MoveTowards(rb.position, target, xSpeed * Time.deltaTime).x;
+        newPos.y = Vector2.MoveTowards(rb.position, target, ySpeed * 1.5f * Time.deltaTime).y;
+
+        rb.position = newPos;
+    }
     private void GoMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
