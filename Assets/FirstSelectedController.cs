@@ -20,6 +20,9 @@ public class FirstSelectedController : MonoBehaviour
     [SerializeField]
     private GameObject controlsMenuFirstSelected;
 
+    [SerializeField]
+    private GameObject creditsMenuFirstSelected;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,5 +57,10 @@ public class FirstSelectedController : MonoBehaviour
     public void GoBackToOptionsMenu()
     {
         EventSystem.current.SetSelectedGameObject(optionsMenuFirstSelected);
+    }
+
+    public void GoToCreditsMenu()
+    {
+        EventSystem.current.SetSelectedGameObject(creditsMenuFirstSelected);
     }
 }
